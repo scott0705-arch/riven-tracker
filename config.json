@@ -1,16 +1,92 @@
 {
   "weapons": [
     {
-      "name": "Torid",
-      "url_name": "torid"
-    },
-    {
       "name": "Magistar",
       "url_name": "magistar"
     },
     {
       "name": "Verglas",
       "url_name": "verglas"
+    },
+    {
+      "name": "Torid",
+      "url_name": "torid"
+    },
+    {
+      "name": "Ocucor",
+      "url_name": "ocucor"
+    },
+    {
+      "name": "Bo",
+      "url_name": "bo"
+    },
+    {
+      "name": "Dual Toxocyst",
+      "url_name": "dual_toxocyst"
+    },
+    {
+      "name": "Boar",
+      "url_name": "boar"
+    },
+    {
+      "name": "Destreza",
+      "url_name": "destreza"
+    },
+    {
+      "name": "Sobek",
+      "url_name": "sobek"
+    },
+    {
+      "name": "Obex",
+      "url_name": "obex"
+    },
+    {
+      "name": "Furis",
+      "url_name": "furis"
+    },
+    {
+      "name": "Nami Solo",
+      "url_name": "nami_solo"
+    },
+    {
+      "name": "Stug",
+      "url_name": "stug"
+    },
+    {
+      "name": "Latron",
+      "url_name": "latron"
+    },
+    {
+      "name": "War",
+      "url_name": "war"
+    },
+    {
+      "name": "Akarius",
+      "url_name": "akarius"
+    },
+    {
+      "name": "Laetum",
+      "url_name": "laetum"
+    },
+    {
+      "name": "Ogris",
+      "url_name": "ogris"
+    },
+    {
+      "name": "Ballistica",
+      "url_name": "ballistica"
+    },
+    {
+      "name": "Dual Ichor",
+      "url_name": "dual_ichor"
+    },
+    {
+      "name": "Nukor",
+      "url_name": "nukor"
+    },
+    {
+      "name": "Acceltra",
+      "url_name": "acceltra"
     }
   ],
   "platform": "pc",

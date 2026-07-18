@@ -25,12 +25,12 @@ jobs:
 
       - name: Collect prices
         run: python collect.py
-# schedule re-registration nudge (hate you github)
+
       - name: Commit updated history
         run: |
           git config user.name  "riven-tracker-bot"
           git config user.email "riven-tracker-bot@users.noreply.github.com"
-          git add price_history.json riven_items_cache.json
+          git add -A
           if git diff --cached --quiet; then
             echo "nothing changed; skipping commit"
             exit 0

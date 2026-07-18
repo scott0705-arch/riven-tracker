@@ -10,7 +10,8 @@ recommendations from each user's own profit settings.
 GitHub repo (this folder)
 ├── collect.py + tracker_core.py     the collector (runs hourly via Actions)
 ├── config.json                      SHARED: tracked weapons, platform, max rerolls
-├── price_history.json               SHARED: all snapshots (committed hourly by the bot)
+├── recent.json                      SHARED: last 48h of snapshots (clients poll this)
+├── archive.json                     SHARED: 30-day per-weapon history (fetched rarely)
 └── client.py                        the desktop app  ->  build_client.bat -> RivenTracker.exe
 ```
 

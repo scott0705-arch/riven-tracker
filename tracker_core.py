@@ -27,6 +27,9 @@ REQUEST_GAP_SECONDS = 0.5          # stay well under warframe.market's ~3 req/s 
 HTTP_RETRIES = 3
 ITEMS_CACHE_MAX_AGE_DAYS = 7
 
+RECENT_HOURS = 48                  # recent.json window (what clients poll)
+RETENTION_DAYS = 30                # archive.json window (full history depth)
+
 ANALYSIS_DEFAULTS = {
     "lookback": 168,               # recent samples used by the analysis (168 = 1 week)
     "sell_percentile": 0.5,        # where in the recent range you expect to sell
@@ -101,22 +104,24 @@ def append_history_file(path, snapshot):
     atomic_write_json(path, {"snapshots": snaps})
     return snaps
 
-RETENTION_DAYS = 30
 
 def prune_history_file(path, days=RETENTION_DAYS):
     """Drop snapshots older than `days`. Returns the kept list."""
     from datetime import timedelta
     snaps = load_history_file(path)
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+
     def keep(s):
         dt = parse_ts(s["timestamp"])
         if dt.tzinfo is None:                     # old local-time entries
             dt = dt.replace(tzinfo=timezone.utc)  # treat as UTC; close enough
         return dt >= cutoff
+
     kept = [s for s in snaps if keep(s)]
     if len(kept) != len(snaps):
         atomic_write_json(path, {"snapshots": kept})
     return kept
+
 
 def all_weapon_names(weapons, history):
     """Config weapons first (in order), then any extra names found in history
@@ -129,6 +134,118 @@ def all_weapon_names(weapons, history):
                 names.append(n)
                 seen.add(n)
     return names
+
+
+# ---------------------------------------------------------------------------
+# recent + archive storage (the split that keeps client polling cheap)
+#   recent.json  : {"snapshots":[{"timestamp": iso, "prices": {name: p}}]}
+#                  last RECENT_HOURS only - small, polled by clients
+#   archive.json : {"weapons": {slug: {"name": str,
+#                                      "points": [[epoch_s, p|null], ...]}}}
+#                  RETENTION_DAYS deep, compact - fetched rarely by clients
+# ---------------------------------------------------------------------------
+def ts_to_epoch(ts):
+    dt = parse_ts(ts)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)       # legacy naive entries ~ UTC
+    return int(dt.timestamp())
+
+
+def prune_recent_file(path, hours=RECENT_HOURS):
+    from datetime import timedelta
+    snaps = load_history_file(path)
+    cutoff = int((datetime.now(timezone.utc)
+                  - timedelta(hours=hours)).timestamp())
+    kept = [s for s in snaps if ts_to_epoch(s["timestamp"]) >= cutoff]
+    if len(kept) != len(snaps):
+        atomic_write_json(path, {"snapshots": kept})
+    return kept
+
+
+def load_archive(path):
+    data = load_json(path, {}) or {}
+    return data.get("weapons", {})
+
+
+def update_archive_file(path, weapons, snapshot, days=RETENTION_DAYS):
+    """Append one snapshot's prices into the per-weapon archive and prune.
+    `weapons` maps the snapshot's display names to slugs."""
+    from datetime import timedelta
+    arch = load_archive(path)
+    epoch = ts_to_epoch(snapshot["timestamp"])
+    cutoff = int((datetime.now(timezone.utc)
+                  - timedelta(days=days)).timestamp())
+    slug_of = {w["name"]: w["url_name"] for w in weapons}
+    for name, price in snapshot["prices"].items():
+        slug = slug_of.get(name, slugify(name))
+        entry = arch.setdefault(slug, {"name": name, "points": []})
+        entry["name"] = name
+        if not any(p[0] == epoch for p in entry["points"]):
+            entry["points"].append([epoch, price])
+    for slug, entry in arch.items():
+        entry["points"] = sorted(
+            (p for p in entry["points"] if p[0] >= cutoff),
+            key=lambda p: p[0])
+    atomic_write_json(path, {"weapons": arch})
+    return arch
+
+
+def build_series_map(weapons, archive, recent_snaps):
+    """Merge archive + recent into {display_name: [(epoch, price|None)...]}.
+    Recent points newer than a weapon's archive tail are appended, so the
+    series is complete even when the archive was fetched a while ago."""
+    slug_of = {w["name"]: w["url_name"] for w in weapons}
+    names = [w["name"] for w in weapons]
+    for slug, entry in archive.items():
+        if entry.get("name") and entry["name"] not in names:
+            names.append(entry["name"])
+            slug_of[entry["name"]] = slug
+    for s in recent_snaps:
+        for n in s["prices"]:
+            if n not in names:
+                names.append(n)
+                slug_of[n] = slugify(n)
+    out = {}
+    for name in names:
+        pts = [tuple(p) for p in
+               archive.get(slug_of[name], {}).get("points", [])]
+        tail = pts[-1][0] if pts else -1
+        for s in recent_snaps:
+            if name in s["prices"]:
+                e = ts_to_epoch(s["timestamp"])
+                if e > tail:
+                    pts.append((e, s["prices"][name]))
+        out[name] = sorted(pts, key=lambda p: p[0])
+    return out
+
+
+def compute_analysis_series(series_map, analysis):
+    """Per-weapon stats from merged series. Rows match ANALYSIS_HEADERS."""
+    a = {**ANALYSIS_DEFAULTS, **(analysis or {})}
+    lookback = int(a["lookback"])
+    pctl = float(a["sell_percentile"])
+    profit_target = float(a["desired_profit"])
+    margin = float(a["safety_margin"])
+    rows = []
+    for name, pts in series_map.items():
+        series = [p[1] for p in pts]
+        numeric = [v for v in series if isinstance(v, (int, float))]
+        window = [v for v in series[-lookback:]
+                  if isinstance(v, (int, float))]
+        latest = series[-1] if series else None
+        latest_disp = latest if isinstance(latest, (int, float)) \
+            else ("no listing" if series else "")
+        if window:
+            sell = percentile_inc(window, pctl) * (1 - margin)
+            good_buy = max(0, round(sell - profit_target))
+            rows.append((name, latest_disp, len(numeric), min(window),
+                         percentile_inc(window, 0.5),
+                         round(sum(window) / len(window), 1),
+                         round(sell), good_buy, round(sell) - good_buy))
+        else:
+            rows.append((name, latest_disp, len(numeric),
+                         "", "", "", "", "", ""))
+    return rows
 
 
 # ---------------------------------------------------------------------------
@@ -334,8 +451,9 @@ SETTINGS_ROWS = [
 ]
 
 
-def export_workbook(path, weapons, history, analysis):
-    """Rebuild the entire workbook from history. Returns True on success,
+def export_workbook(path, weapons, recent_snaps, series_map, analysis):
+    """Rebuild the workbook: Data sheet = recent snapshots (last 48h),
+    Analysis sheet = full merged series. Returns True on success,
     False if the file is locked (open in Excel)."""
     from openpyxl import Workbook
     from openpyxl.styles import Font, PatternFill
@@ -358,10 +476,10 @@ def export_workbook(path, weapons, history, analysis):
     ws.column_dimensions["A"].width = 28
     ws.freeze_panes = "B2"
 
-    names = all_weapon_names(weapons, history)
+    names = list(series_map.keys()) or [w["name"] for w in weapons]
     for i, name in enumerate(names):
         ws.cell(row=i + 2, column=1, value=name).font = st["base"]
-    for c, snap in enumerate(history, start=2):
+    for c, snap in enumerate(recent_snaps, start=2):
         dt = parse_ts(snap["timestamp"])
         if dt.tzinfo is not None:
             dt = dt.astimezone().replace(tzinfo=None)   # Excel wants naive local
@@ -385,7 +503,8 @@ def export_workbook(path, weapons, history, analysis):
     aws.column_dimensions["A"].width = 28
     for col in "BCDEFGHI":
         aws.column_dimensions[col].width = 15
-    for r, row in enumerate(compute_analysis(weapons, history, analysis), start=2):
+    for r, row in enumerate(compute_analysis_series(series_map, analysis),
+                            start=2):
         for c, v in enumerate(row, start=1):
             aws.cell(row=r, column=c, value=v).font = st["base"]
 

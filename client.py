@@ -39,7 +39,7 @@ APP_TITLE = "Warframe Riven Tracker"
 
 # Auto-refresh cadence. 90s = 40 polls/hour, safely under GitHub's
 # 60-requests/hour unauthenticated API limit even before ETag savings.
-AUTO_REFRESH_SECONDS = 90
+AUTO_REFRESH_SECONDS = 120         # recent.json only; data lands ~5-minutely
 CONFIG_EVERY_N_POLLS = 10          # weapon list rarely changes; check it less
 
 # The collector runs every ~5 minutes -> ~288 samples per day. Used to turn
@@ -63,7 +63,8 @@ def app_dir():
 
 
 SETTINGS_FILE = os.path.join(app_dir(), "client_settings.json")
-CACHE_HISTORY = os.path.join(app_dir(), "cached_history.json")
+CACHE_RECENT = os.path.join(app_dir(), "cached_recent.json")
+CACHE_ARCHIVE = os.path.join(app_dir(), "cached_archive.json")
 CACHE_CONFIG = os.path.join(app_dir(), "cached_config.json")
 
 DEFAULT_SETTINGS = {
@@ -71,6 +72,7 @@ DEFAULT_SETTINGS = {
     "branch": DEFAULT_BRANCH,
     "analysis": dict(CLIENT_ANALYSIS_DEFAULTS),
     "excel_file": "riven_prices.xlsx",
+    "selected_weapons": [],            # url_names; empty = all weapons
 }
 
 
@@ -171,9 +173,14 @@ class RemoteData:
     def __init__(self, settings):
         self.settings = settings
         self.server_cfg = core.load_json(CACHE_CONFIG, {}) or {}
-        self.history = core.load_history_file(CACHE_HISTORY)
+        self.recent = core.load_history_file(CACHE_RECENT)
+        self.archive = core.load_archive(CACHE_ARCHIVE)
         self.etags = {}                    # filename -> etag
         self.rate_limited_until = 0        # epoch; skip polls before this
+
+    def series_map(self):
+        return core.build_series_map(self.server_cfg.get("weapons", []),
+                                     self.archive, self.recent)
 
     def _repo_branch(self):
         repo = self.settings["repo"].strip()
@@ -191,8 +198,11 @@ class RemoteData:
             self.etags[filename] = new_etag
         return data                        # None means "unchanged"
 
-    def refresh(self, include_config=True, conditional=True):
-        """Fetch remote files. Returns True if anything changed."""
+    def refresh(self, include_config=True, include_archive=False,
+                conditional=True):
+        """Fetch remote files. Polls fetch recent.json only; launch and
+        manual refreshes also pull config + the 30-day archive.
+        Returns True if anything changed."""
         changed = False
         if include_config:
             cfg = self._get("config.json", conditional)
@@ -200,13 +210,19 @@ class RemoteData:
                 self.server_cfg = cfg
                 core.atomic_write_json(CACHE_CONFIG, cfg)
                 changed = True
-        hist = self._get("price_history.json", conditional)
-        if hist is not None:
-            snaps = sorted(hist.get("snapshots", []),
+        rec = self._get("recent.json", conditional)
+        if rec is not None:
+            snaps = sorted(rec.get("snapshots", []),
                            key=lambda s: s["timestamp"])
-            self.history = snaps
-            core.atomic_write_json(CACHE_HISTORY, {"snapshots": snaps})
+            self.recent = snaps
+            core.atomic_write_json(CACHE_RECENT, {"snapshots": snaps})
             changed = True
+        if include_archive:
+            arch = self._get("archive.json", conditional)
+            if arch is not None:
+                self.archive = arch.get("weapons", {})
+                core.atomic_write_json(CACHE_ARCHIVE, arch)
+                changed = True
         return changed
 
 
@@ -220,6 +236,21 @@ def run_gui():
 
     settings = load_settings()
     remote = RemoteData(settings)
+
+    def selected_slugs():
+        sel = settings.get("selected_weapons") or []
+        all_slugs = [w["url_name"] for w in remote.server_cfg.get("weapons", [])]
+        return [s for s in sel if s in all_slugs] or all_slugs
+
+    def selected_names():
+        slugs = set(selected_slugs())
+        return [w["name"] for w in remote.server_cfg.get("weapons", [])
+                if w["url_name"] in slugs]
+
+    def filtered_series_map():
+        names = set(selected_names())
+        return {n: pts for n, pts in remote.series_map().items()
+                if n in names}
 
     root = tk.Tk()
     root.title(APP_TITLE)
@@ -292,9 +323,9 @@ def run_gui():
 
     def refresh_analysis_view():
         ana_tv.delete(*ana_tv.get_children())
-        for row in core.compute_analysis(remote.server_cfg.get("weapons", []),
-                                         remote.history,
-                                         engine_analysis(settings["analysis"])):
+        for row in core.compute_analysis_series(
+                filtered_series_map(),
+                engine_analysis(settings["analysis"])):
             ana_tv.insert("", "end", values=row)
 
     # ======================= Samples tab ===================================
@@ -320,8 +351,8 @@ def run_gui():
     samples_wrap.columnconfigure(0, weight=1)
 
     def refresh_samples_view():
-        history = remote.history
-        names = core.all_weapon_names(remote.server_cfg.get("weapons", []), history)
+        history = remote.recent
+        names = selected_names()
         cols = ["time"] + names
         samples_tv.delete(*samples_tv.get_children())
         samples_tv["columns"] = cols
@@ -339,8 +370,8 @@ def run_gui():
             samples_tv.insert("", "end", values=vals)
         extra = f" (showing last {MAX_ROWS_SHOWN})" if len(history) > MAX_ROWS_SHOWN else ""
         samples_info.config(
-            text=f"{len(history)} sample(s){extra} - '-' = no in-game listing "
-                 f"- times shown in your local timezone")
+            text=f"{len(history)} sample(s) from the last 48h{extra} - "
+                 f"'-' = no in-game listing - times in your local timezone")
 
     # ======================= Settings tab ==================================
     frm = settings_tab
@@ -368,15 +399,40 @@ def run_gui():
     ttk.Button(src, text="Save", command=save_source).grid(row=0, column=4)
     src.columnconfigure(4, weight=1)
 
-    # --- tracked weapons (read-only; managed on GitHub) --------------------
-    wf = ttk.LabelFrame(frm, text="Tracked weapons (managed on GitHub by the "
-                                  "tracker owner)", padding=8)
+    # --- my weapons: pick which tracked weapons YOU see --------------------
+    wf = ttk.LabelFrame(frm, text="My weapons - tick what you want on your "
+                                  "dashboard (data is collected for all of "
+                                  "them regardless)", padding=8)
     wf.pack(fill="x", pady=(0, 8))
-    lb = tk.Listbox(wf, height=4)
+    lb = tk.Listbox(wf, height=6, selectmode="multiple",
+                    exportselection=False, activestyle="none")
     lb.pack(side="left", fill="both", expand=True)
     wsb = ttk.Scrollbar(wf, command=lb.yview)
     wsb.pack(side="left", fill="y")
     lb.config(yscrollcommand=wsb.set)
+
+    wbtns = ttk.Frame(wf)
+    wbtns.pack(side="left", padx=(8, 0), anchor="n")
+
+    def save_selection():
+        slugs = [w["url_name"] for w in remote.server_cfg.get("weapons", [])]
+        picked = [slugs[i] for i in lb.curselection()]
+        settings["selected_weapons"] = picked      # [] = all
+        save_settings(settings)
+        refresh_all_views()
+        n = len(picked) or len(slugs)
+        set_status(f"Watching {n} weapon(s)")
+
+    def select_all():
+        lb.select_set(0, "end")
+        save_selection()
+
+    def select_none():
+        lb.select_clear(0, "end")
+        settings["selected_weapons"] = []
+        save_settings(settings)
+        refresh_all_views()
+        set_status("Watching all weapons (none ticked = all)")
 
     def open_repo_config():
         repo = settings["repo"].strip()
@@ -386,13 +442,22 @@ def run_gui():
         else:
             messagebox.showinfo("No repo set", "Set the data source first.")
 
-    ttk.Button(wf, text="Edit list on GitHub...",
-               command=open_repo_config).pack(side="left", padx=(8, 0), anchor="n")
+    ttk.Button(wbtns, text="Apply selection",
+               command=save_selection).pack(fill="x", pady=(0, 3))
+    ttk.Button(wbtns, text="All", command=select_all).pack(fill="x", pady=(0, 3))
+    ttk.Button(wbtns, text="Clear (= all)",
+               command=select_none).pack(fill="x", pady=(0, 3))
+    ttk.Button(wbtns, text="Edit shared list on GitHub...",
+               command=open_repo_config).pack(fill="x")
 
     def refresh_weapon_list():
+        weapons = remote.server_cfg.get("weapons", [])
         lb.delete(0, "end")
-        for w in remote.server_cfg.get("weapons", []):
+        sel = set(settings.get("selected_weapons") or [])
+        for i, w in enumerate(weapons):
             lb.insert("end", w["name"])
+            if not sel or w["url_name"] in sel:
+                lb.select_set(i)
 
     # --- profit settings (LOCAL - each user has their own) -----------------
     set_frame = ttk.LabelFrame(frm, text="Profit settings (yours only - saved "
@@ -490,8 +555,8 @@ def run_gui():
     poll_count = {"n": 0}
 
     def latest_str():
-        return (core.ts_local_str(remote.history[-1]["timestamp"])
-                if remote.history else "never")
+        return (core.ts_local_str(remote.recent[-1]["timestamp"])
+                if remote.recent else "never")
 
     def do_refresh(manual):
         if busy["flag"]:
@@ -505,8 +570,9 @@ def run_gui():
             try:
                 if manual:
                     changed = remote.refresh(include_config=True,
+                                             include_archive=True,
                                              conditional=False)
-                    gui_log(f"refreshed - {len(remote.history)} sample(s), "
+                    gui_log(f"refreshed (incl. 30-day archive) - "
                             f"latest {latest_str()}")
                 else:
                     poll_count["n"] += 1
@@ -542,12 +608,12 @@ def run_gui():
         root.after(AUTO_REFRESH_SECONDS * 1000, auto_poll)
 
     def export_excel():
-        if not remote.history:
+        if not remote.recent:
             messagebox.showinfo("No data", "Refresh data first.")
             return
         path = os.path.join(app_dir(), settings["excel_file"])
         ok = core.export_workbook(path, remote.server_cfg.get("weapons", []),
-                                  remote.history,
+                                  remote.recent, filtered_series_map(),
                                   engine_analysis(settings["analysis"]))
         if ok:
             set_status(f"Workbook exported: {path}")

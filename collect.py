@@ -25,7 +25,7 @@ RECENT_FILE = os.path.join(HERE, "recent.json")
 ARCHIVE_FILE = os.path.join(HERE, "archive.json")
 ITEMS_CACHE_FILE = os.path.join(HERE, "riven_items_cache.json")
 
-GAP_SECONDS = 2.0            # polite spacing between weapon requests
+GAP_SECONDS = 2.5            # polite spacing between weapon requests
 RATE_LIMIT_COOLDOWN = 30     # pause after a 429, then retry same weapon
 MAX_COOLDOWNS = 3            # after this many, record None and move on
 

@@ -17,12 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
       - name: Collect prices
-        run: python collect.py
+        run: python3 collect.py
 
       - name: Commit updated history
         run: |

@@ -19,6 +19,7 @@ import os
 import sys
 import threading
 import urllib.request
+import time
 from datetime import datetime
 
 import tracker_core as core
@@ -68,7 +69,9 @@ def save_settings(s):
 # remote data
 # ---------------------------------------------------------------------------
 def raw_url(repo, branch, filename):
-    return f"https://raw.githubusercontent.com/{repo}/{branch}/{filename}"
+    bust = int(time.time())
+    return (f"https://raw.githubusercontent.com/{repo}/{branch}/"
+            f"{filename}?nocache={bust}")
 
 
 def http_get_json(url):

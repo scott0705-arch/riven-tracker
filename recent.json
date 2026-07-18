@@ -479,6 +479,33 @@
         "Magistar": 500,
         "Verglas": 450
       }
+    },
+    {
+      "timestamp": "2026-07-18T22:36:54+00:00",
+      "prices": {
+        "Magistar": 500,
+        "Verglas": 450,
+        "Torid": 340,
+        "Ocucor": 220,
+        "Bo": 210,
+        "Dual Toxocyst": 199,
+        "Boar": 100,
+        "Destreza": 74,
+        "Sobek": 120,
+        "Obex": 109,
+        "Furis": 110,
+        "Nami Solo": 75,
+        "Stug": 70,
+        "Latron": 100,
+        "War": 55,
+        "Akarius": 50,
+        "Laetum": 60,
+        "Ogris": 30,
+        "Ballistica": 113,
+        "Dual Ichor": 70,
+        "Nukor": 40,
+        "Acceltra": 40
+      }
     }
   ]
 }

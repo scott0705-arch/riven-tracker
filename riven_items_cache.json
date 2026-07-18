@@ -1,0 +1,1677 @@
+{
+  "fetched_at": 1784414902.1663818,
+  "items": [
+    {
+      "item_name": "Kulstar",
+      "url_name": "kulstar"
+    },
+    {
+      "item_name": "Heliocor",
+      "url_name": "heliocor"
+    },
+    {
+      "item_name": "Nagantaka",
+      "url_name": "nagantaka"
+    },
+    {
+      "item_name": "Ocucor",
+      "url_name": "ocucor"
+    },
+    {
+      "item_name": "Falcor",
+      "url_name": "falcor"
+    },
+    {
+      "item_name": "Paracesis",
+      "url_name": "paracesis"
+    },
+    {
+      "item_name": "Exergis",
+      "url_name": "exergis"
+    },
+    {
+      "item_name": "Battacor",
+      "url_name": "battacor"
+    },
+    {
+      "item_name": "Euphona Prime",
+      "url_name": "euphona_prime"
+    },
+    {
+      "item_name": "Fusilai",
+      "url_name": "fusilai"
+    },
+    {
+      "item_name": "Lato",
+      "url_name": "lato"
+    },
+    {
+      "item_name": "Magnus",
+      "url_name": "magnus"
+    },
+    {
+      "item_name": "Ack & Brunt",
+      "url_name": "ack_and_brunt"
+    },
+    {
+      "item_name": "Amphis",
+      "url_name": "amphis"
+    },
+    {
+      "item_name": "Anku",
+      "url_name": "anku"
+    },
+    {
+      "item_name": "Arca Titron",
+      "url_name": "arca_titron"
+    },
+    {
+      "item_name": "Balla",
+      "url_name": "balla"
+    },
+    {
+      "item_name": "Boltace",
+      "url_name": "boltace"
+    },
+    {
+      "item_name": "Broken War",
+      "url_name": "broken_war"
+    },
+    {
+      "item_name": "Caustacyst",
+      "url_name": "caustacyst"
+    },
+    {
+      "item_name": "Cerata",
+      "url_name": "cerata"
+    },
+    {
+      "item_name": "Hate",
+      "url_name": "hate"
+    },
+    {
+      "item_name": "Soma",
+      "url_name": "soma"
+    },
+    {
+      "item_name": "Synapse",
+      "url_name": "synapse"
+    },
+    {
+      "item_name": "Tigris",
+      "url_name": "tigris"
+    },
+    {
+      "item_name": "Tonkor",
+      "url_name": "tonkor"
+    },
+    {
+      "item_name": "Torid",
+      "url_name": "torid"
+    },
+    {
+      "item_name": "Vectis",
+      "url_name": "vectis"
+    },
+    {
+      "item_name": "Veldt",
+      "url_name": "veldt"
+    },
+    {
+      "item_name": "Vulkar",
+      "url_name": "vulkar"
+    },
+    {
+      "item_name": "Zarr",
+      "url_name": "zarr"
+    },
+    {
+      "item_name": "Zenith",
+      "url_name": "zenith"
+    },
+    {
+      "item_name": "Zhuge",
+      "url_name": "zhuge"
+    },
+    {
+      "item_name": "Acrid",
+      "url_name": "acrid"
+    },
+    {
+      "item_name": "Afuris",
+      "url_name": "afuris"
+    },
+    {
+      "item_name": "Akbolto",
+      "url_name": "akbolto"
+    },
+    {
+      "item_name": "Akbronco",
+      "url_name": "akbronco"
+    },
+    {
+      "item_name": "Akjagara",
+      "url_name": "akjagara"
+    },
+    {
+      "item_name": "Aklato",
+      "url_name": "aklato"
+    },
+    {
+      "item_name": "Arca Scisco",
+      "url_name": "arca_scisco"
+    },
+    {
+      "item_name": "Cycron",
+      "url_name": "cycron"
+    },
+    {
+      "item_name": "Detron",
+      "url_name": "detron"
+    },
+    {
+      "item_name": "Embolist",
+      "url_name": "embolist"
+    },
+    {
+      "item_name": "Dual Kamas",
+      "url_name": "dual_kamas"
+    },
+    {
+      "item_name": "Kuva Shildeg",
+      "url_name": "kuva_shildeg"
+    },
+    {
+      "item_name": "Kuva Ayanga",
+      "url_name": "kuva_ayanga"
+    },
+    {
+      "item_name": "Vermisplicer",
+      "url_name": "vermisplicer"
+    },
+    {
+      "item_name": "Sporelacer",
+      "url_name": "sporelacer"
+    },
+    {
+      "item_name": "Argonak",
+      "url_name": "argonak"
+    },
+    {
+      "item_name": "Castanas",
+      "url_name": "castanas"
+    },
+    {
+      "item_name": "Cestra",
+      "url_name": "cestra"
+    },
+    {
+      "item_name": "Dual Toxocyst",
+      "url_name": "dual_toxocyst"
+    },
+    {
+      "item_name": "Hystrix",
+      "url_name": "hystrix"
+    },
+    {
+      "item_name": "Fragor",
+      "url_name": "fragor"
+    },
+    {
+      "item_name": "Galatine",
+      "url_name": "galatine"
+    },
+    {
+      "item_name": "Gazal Machete",
+      "url_name": "gazal_machete"
+    },
+    {
+      "item_name": "Gram",
+      "url_name": "gram"
+    },
+    {
+      "item_name": "Guandao",
+      "url_name": "guandao"
+    },
+    {
+      "item_name": "Gunsen",
+      "url_name": "gunsen"
+    },
+    {
+      "item_name": "Dual Skana",
+      "url_name": "dual_skana"
+    },
+    {
+      "item_name": "Jaw Sword",
+      "url_name": "jaw_sword"
+    },
+    {
+      "item_name": "Kesheg",
+      "url_name": "kesheg"
+    },
+    {
+      "item_name": "Kestrel",
+      "url_name": "kestrel"
+    },
+    {
+      "item_name": "Kronsh",
+      "url_name": "kronsh"
+    },
+    {
+      "item_name": "Ballistica",
+      "url_name": "ballistica"
+    },
+    {
+      "item_name": "Heat Dagger",
+      "url_name": "heat_dagger"
+    },
+    {
+      "item_name": "Jat Kittag",
+      "url_name": "jat_kittag"
+    },
+    {
+      "item_name": "Sonicor",
+      "url_name": "sonicor"
+    },
+    {
+      "item_name": "Tombfinger",
+      "url_name": "tombfinger"
+    },
+    {
+      "item_name": "Gaze",
+      "url_name": "gaze"
+    },
+    {
+      "item_name": "Pupacyst",
+      "url_name": "pupacyst"
+    },
+    {
+      "item_name": "Arca Plasmor",
+      "url_name": "arca_plasmor"
+    },
+    {
+      "item_name": "Galvacord",
+      "url_name": "galvacord"
+    },
+    {
+      "item_name": "Bronco",
+      "url_name": "bronco"
+    },
+    {
+      "item_name": "Dual Cestra",
+      "url_name": "dual_cestra"
+    },
+    {
+      "item_name": "Furis",
+      "url_name": "furis"
+    },
+    {
+      "item_name": "Ankyros",
+      "url_name": "ankyros"
+    },
+    {
+      "item_name": "Atterax",
+      "url_name": "atterax"
+    },
+    {
+      "item_name": "Bo",
+      "url_name": "bo"
+    },
+    {
+      "item_name": "Cassowar",
+      "url_name": "cassowar"
+    },
+    {
+      "item_name": "Ceramic Dagger",
+      "url_name": "ceramic_dagger"
+    },
+    {
+      "item_name": "Halikar",
+      "url_name": "halikar"
+    },
+    {
+      "item_name": "Hirudo",
+      "url_name": "hirudo"
+    },
+    {
+      "item_name": "Mire",
+      "url_name": "mire"
+    },
+    {
+      "item_name": "Twin Krohkur",
+      "url_name": "twin_krohkur"
+    },
+    {
+      "item_name": "Latron",
+      "url_name": "latron"
+    },
+    {
+      "item_name": "Lenz",
+      "url_name": "lenz"
+    },
+    {
+      "item_name": "Miter",
+      "url_name": "miter"
+    },
+    {
+      "item_name": "Mutalist Cernos",
+      "url_name": "mutalist_cernos"
+    },
+    {
+      "item_name": "Mutalist Quanta",
+      "url_name": "mutalist_quanta"
+    },
+    {
+      "item_name": "Opticor",
+      "url_name": "opticor"
+    },
+    {
+      "item_name": "Panthera",
+      "url_name": "panthera"
+    },
+    {
+      "item_name": "Penta",
+      "url_name": "penta"
+    },
+    {
+      "item_name": "Phage",
+      "url_name": "phage"
+    },
+    {
+      "item_name": "Phantasma",
+      "url_name": "phantasma"
+    },
+    {
+      "item_name": "Quanta",
+      "url_name": "quanta"
+    },
+    {
+      "item_name": "Rubico",
+      "url_name": "rubico"
+    },
+    {
+      "item_name": "Simulor",
+      "url_name": "simulor"
+    },
+    {
+      "item_name": "Snipetron",
+      "url_name": "snipetron"
+    },
+    {
+      "item_name": "Sobek",
+      "url_name": "sobek"
+    },
+    {
+      "item_name": "Stradavar",
+      "url_name": "stradavar"
+    },
+    {
+      "item_name": "Strun",
+      "url_name": "strun"
+    },
+    {
+      "item_name": "Sybaris",
+      "url_name": "sybaris"
+    },
+    {
+      "item_name": "Tetra",
+      "url_name": "tetra"
+    },
+    {
+      "item_name": "Gammacor",
+      "url_name": "gammacor"
+    },
+    {
+      "item_name": "Nukor",
+      "url_name": "nukor"
+    },
+    {
+      "item_name": "Pandero",
+      "url_name": "pandero"
+    },
+    {
+      "item_name": "Pox",
+      "url_name": "pox"
+    },
+    {
+      "item_name": "Pyrana",
+      "url_name": "pyrana"
+    },
+    {
+      "item_name": "Sicarus",
+      "url_name": "sicarus"
+    },
+    {
+      "item_name": "Spira",
+      "url_name": "spira"
+    },
+    {
+      "item_name": "Dehtat",
+      "url_name": "dehtat"
+    },
+    {
+      "item_name": "Destreza",
+      "url_name": "destreza"
+    },
+    {
+      "item_name": "Dex Dakra",
+      "url_name": "dex_dakra"
+    },
+    {
+      "item_name": "Dokrahm",
+      "url_name": "dokrahm"
+    },
+    {
+      "item_name": "Dragon Nikana",
+      "url_name": "dragon_nikana"
+    },
+    {
+      "item_name": "Dual Cleavers",
+      "url_name": "dual_cleavers"
+    },
+    {
+      "item_name": "Dual Ether",
+      "url_name": "dual_ether"
+    },
+    {
+      "item_name": "Dual Heat Swords",
+      "url_name": "dual_heat_swords"
+    },
+    {
+      "item_name": "Dual Ichor",
+      "url_name": "dual_ichor"
+    },
+    {
+      "item_name": "Dual Keres",
+      "url_name": "dual_keres"
+    },
+    {
+      "item_name": "Kama",
+      "url_name": "kama"
+    },
+    {
+      "item_name": "Kogake",
+      "url_name": "kogake"
+    },
+    {
+      "item_name": "Multron",
+      "url_name": "multron"
+    },
+    {
+      "item_name": "Vulcax",
+      "url_name": "vulcax"
+    },
+    {
+      "item_name": "Masseter",
+      "url_name": "masseter"
+    },
+    {
+      "item_name": "Pathocyst",
+      "url_name": "pathocyst"
+    },
+    {
+      "item_name": "Kuva Chakkhurr",
+      "url_name": "kuva_chakkhurr"
+    },
+    {
+      "item_name": "Lecta",
+      "url_name": "lecta"
+    },
+    {
+      "item_name": "Machete",
+      "url_name": "machete"
+    },
+    {
+      "item_name": "Magistar",
+      "url_name": "magistar"
+    },
+    {
+      "item_name": "Mewan",
+      "url_name": "mewan"
+    },
+    {
+      "item_name": "Mios",
+      "url_name": "mios"
+    },
+    {
+      "item_name": "Rabvee",
+      "url_name": "rabvee"
+    },
+    {
+      "item_name": "War",
+      "url_name": "war"
+    },
+    {
+      "item_name": "Artax",
+      "url_name": "artax"
+    },
+    {
+      "item_name": "Burst Laser",
+      "url_name": "burst_laser"
+    },
+    {
+      "item_name": "Deth Machine Rifle",
+      "url_name": "deth_machine_rifle"
+    },
+    {
+      "item_name": "Laser Rifle",
+      "url_name": "laser_rifle"
+    },
+    {
+      "item_name": "Astilla",
+      "url_name": "astilla"
+    },
+    {
+      "item_name": "Baza",
+      "url_name": "baza"
+    },
+    {
+      "item_name": "Boar",
+      "url_name": "boar"
+    },
+    {
+      "item_name": "Flux Rifle",
+      "url_name": "flux_rifle"
+    },
+    {
+      "item_name": "Cronus",
+      "url_name": "cronus"
+    },
+    {
+      "item_name": "Endura",
+      "url_name": "endura"
+    },
+    {
+      "item_name": "Glaive",
+      "url_name": "glaive"
+    },
+    {
+      "item_name": "Heat Sword",
+      "url_name": "heat_sword"
+    },
+    {
+      "item_name": "Jat Kusar",
+      "url_name": "jat_kusar"
+    },
+    {
+      "item_name": "Nami Skyla",
+      "url_name": "nami_skyla"
+    },
+    {
+      "item_name": "Nami Solo",
+      "url_name": "nami_solo"
+    },
+    {
+      "item_name": "Nikana",
+      "url_name": "nikana"
+    },
+    {
+      "item_name": "Ninkondi",
+      "url_name": "ninkondi"
+    },
+    {
+      "item_name": "Obex",
+      "url_name": "obex"
+    },
+    {
+      "item_name": "Ohma",
+      "url_name": "ohma"
+    },
+    {
+      "item_name": "Okina",
+      "url_name": "okina"
+    },
+    {
+      "item_name": "Ooltha",
+      "url_name": "ooltha"
+    },
+    {
+      "item_name": "Orthos",
+      "url_name": "orthos"
+    },
+    {
+      "item_name": "Orvius",
+      "url_name": "orvius"
+    },
+    {
+      "item_name": "Pangolin Sword",
+      "url_name": "pangolin_sword"
+    },
+    {
+      "item_name": "Plague Keewar",
+      "url_name": "plague_keewar"
+    },
+    {
+      "item_name": "Plague Kripath",
+      "url_name": "plague_kripath"
+    },
+    {
+      "item_name": "Plasma Sword",
+      "url_name": "plasma_sword"
+    },
+    {
+      "item_name": "Prova",
+      "url_name": "prova"
+    },
+    {
+      "item_name": "Redeemer",
+      "url_name": "redeemer"
+    },
+    {
+      "item_name": "Skana",
+      "url_name": "skana"
+    },
+    {
+      "item_name": "Harpak",
+      "url_name": "harpak"
+    },
+    {
+      "item_name": "Hema",
+      "url_name": "hema"
+    },
+    {
+      "item_name": "Hind",
+      "url_name": "hind"
+    },
+    {
+      "item_name": "Ignis",
+      "url_name": "ignis"
+    },
+    {
+      "item_name": "Javlok",
+      "url_name": "javlok"
+    },
+    {
+      "item_name": "Karak",
+      "url_name": "karak"
+    },
+    {
+      "item_name": "Kohm",
+      "url_name": "kohm"
+    },
+    {
+      "item_name": "Lanka",
+      "url_name": "lanka"
+    },
+    {
+      "item_name": "Paris",
+      "url_name": "paris"
+    },
+    {
+      "item_name": "Quartakk",
+      "url_name": "quartakk"
+    },
+    {
+      "item_name": "Scourge",
+      "url_name": "scourge"
+    },
+    {
+      "item_name": "Spectra",
+      "url_name": "spectra"
+    },
+    {
+      "item_name": "Staticor",
+      "url_name": "staticor"
+    },
+    {
+      "item_name": "Stubba",
+      "url_name": "stubba"
+    },
+    {
+      "item_name": "Stug",
+      "url_name": "stug"
+    },
+    {
+      "item_name": "Talons",
+      "url_name": "talons"
+    },
+    {
+      "item_name": "Twin Grakatas",
+      "url_name": "twin_grakatas"
+    },
+    {
+      "item_name": "Twin Gremlins",
+      "url_name": "twin_gremlins"
+    },
+    {
+      "item_name": "Twin Kohmak",
+      "url_name": "twin_kohmak"
+    },
+    {
+      "item_name": "Twin Rogga",
+      "url_name": "twin_rogga"
+    },
+    {
+      "item_name": "Twin Vipers",
+      "url_name": "twin_vipers"
+    },
+    {
+      "item_name": "Tysis",
+      "url_name": "tysis"
+    },
+    {
+      "item_name": "Vasto",
+      "url_name": "vasto"
+    },
+    {
+      "item_name": "Viper",
+      "url_name": "viper"
+    },
+    {
+      "item_name": "Zylok",
+      "url_name": "zylok"
+    },
+    {
+      "item_name": "Dakra Prime",
+      "url_name": "dakra_prime"
+    },
+    {
+      "item_name": "Dark Dagger",
+      "url_name": "dark_dagger"
+    },
+    {
+      "item_name": "Kuva Twin Stubbas",
+      "url_name": "kuva_twin_stubbas"
+    },
+    {
+      "item_name": "Pennant",
+      "url_name": "pennant"
+    },
+    {
+      "item_name": "Kuva Bramma",
+      "url_name": "kuva_bramma"
+    },
+    {
+      "item_name": "Stropha",
+      "url_name": "stropha"
+    },
+    {
+      "item_name": "Morgha",
+      "url_name": "morgha"
+    },
+    {
+      "item_name": "Catabolyst",
+      "url_name": "catabolyst"
+    },
+    {
+      "item_name": "Hikou",
+      "url_name": "hikou"
+    },
+    {
+      "item_name": "Knell",
+      "url_name": "knell"
+    },
+    {
+      "item_name": "Kohmak",
+      "url_name": "kohmak"
+    },
+    {
+      "item_name": "Kraken",
+      "url_name": "kraken"
+    },
+    {
+      "item_name": "Kunai",
+      "url_name": "kunai"
+    },
+    {
+      "item_name": "Lex",
+      "url_name": "lex"
+    },
+    {
+      "item_name": "Marelok",
+      "url_name": "marelok"
+    },
+    {
+      "item_name": "Broken Scepter",
+      "url_name": "broken_scepter"
+    },
+    {
+      "item_name": "Dual Zoren",
+      "url_name": "dual_zoren"
+    },
+    {
+      "item_name": "Ether Daggers",
+      "url_name": "ether_daggers"
+    },
+    {
+      "item_name": "Ether Reaper",
+      "url_name": "ether_reaper"
+    },
+    {
+      "item_name": "Ether Sword",
+      "url_name": "ether_sword"
+    },
+    {
+      "item_name": "Fang",
+      "url_name": "fang"
+    },
+    {
+      "item_name": "Furax",
+      "url_name": "furax"
+    },
+    {
+      "item_name": "Karyst",
+      "url_name": "karyst"
+    },
+    {
+      "item_name": "Stinger",
+      "url_name": "stinger"
+    },
+    {
+      "item_name": "Vulklok",
+      "url_name": "vulklok"
+    },
+    {
+      "item_name": "Catchmoon",
+      "url_name": "catchmoon"
+    },
+    {
+      "item_name": "Plinx",
+      "url_name": "plinx"
+    },
+    {
+      "item_name": "Korrudo",
+      "url_name": "korrudo"
+    },
+    {
+      "item_name": "Fulmin",
+      "url_name": "fulmin"
+    },
+    {
+      "item_name": "Cobra & Crane",
+      "url_name": "cobra_and_crane"
+    },
+    {
+      "item_name": "Komorex",
+      "url_name": "komorex"
+    },
+    {
+      "item_name": "Cyanex",
+      "url_name": "cyanex"
+    },
+    {
+      "item_name": "Tatsu",
+      "url_name": "tatsu"
+    },
+    {
+      "item_name": "Cyngas",
+      "url_name": "cyngas"
+    },
+    {
+      "item_name": "Larkspur",
+      "url_name": "larkspur"
+    },
+    {
+      "item_name": "Imperator",
+      "url_name": "imperator"
+    },
+    {
+      "item_name": "Corvas",
+      "url_name": "corvas"
+    },
+    {
+      "item_name": "Phaedra",
+      "url_name": "phaedra"
+    },
+    {
+      "item_name": "Grattler",
+      "url_name": "grattler"
+    },
+    {
+      "item_name": "Dual Decurion",
+      "url_name": "dual_decurion"
+    },
+    {
+      "item_name": "Attica",
+      "url_name": "attica"
+    },
+    {
+      "item_name": "Boltor",
+      "url_name": "boltor"
+    },
+    {
+      "item_name": "Braton",
+      "url_name": "braton"
+    },
+    {
+      "item_name": "Corinth",
+      "url_name": "corinth"
+    },
+    {
+      "item_name": "Ferrox",
+      "url_name": "ferrox"
+    },
+    {
+      "item_name": "Hek",
+      "url_name": "hek"
+    },
+    {
+      "item_name": "Ogris",
+      "url_name": "ogris"
+    },
+    {
+      "item_name": "Paracyst",
+      "url_name": "paracyst"
+    },
+    {
+      "item_name": "Supra",
+      "url_name": "supra"
+    },
+    {
+      "item_name": "Tenora",
+      "url_name": "tenora"
+    },
+    {
+      "item_name": "Tiberon",
+      "url_name": "tiberon"
+    },
+    {
+      "item_name": "Aklex",
+      "url_name": "aklex"
+    },
+    {
+      "item_name": "Akmagnus",
+      "url_name": "akmagnus"
+    },
+    {
+      "item_name": "Aksomati",
+      "url_name": "aksomati"
+    },
+    {
+      "item_name": "Akstiletto",
+      "url_name": "akstiletto"
+    },
+    {
+      "item_name": "Akvasto",
+      "url_name": "akvasto"
+    },
+    {
+      "item_name": "Akzani",
+      "url_name": "akzani"
+    },
+    {
+      "item_name": "Angstrum",
+      "url_name": "angstrum"
+    },
+    {
+      "item_name": "Atomos",
+      "url_name": "atomos"
+    },
+    {
+      "item_name": "Azima",
+      "url_name": "azima"
+    },
+    {
+      "item_name": "Bolto",
+      "url_name": "bolto"
+    },
+    {
+      "item_name": "Brakk",
+      "url_name": "brakk"
+    },
+    {
+      "item_name": "Despair",
+      "url_name": "despair"
+    },
+    {
+      "item_name": "Dual Raza",
+      "url_name": "dual_raza"
+    },
+    {
+      "item_name": "Reaper Prime",
+      "url_name": "reaper_prime"
+    },
+    {
+      "item_name": "Ripkas",
+      "url_name": "ripkas"
+    },
+    {
+      "item_name": "Dark Sword",
+      "url_name": "dark_sword"
+    },
+    {
+      "item_name": "Kreska",
+      "url_name": "kreska"
+    },
+    {
+      "item_name": "Velocitus",
+      "url_name": "velocitus"
+    },
+    {
+      "item_name": "Fluctus",
+      "url_name": "fluctus"
+    },
+    {
+      "item_name": "Quatz",
+      "url_name": "quatz"
+    },
+    {
+      "item_name": "Acceltra",
+      "url_name": "acceltra"
+    },
+    {
+      "item_name": "Akarius",
+      "url_name": "akarius"
+    },
+    {
+      "item_name": "Tazicor",
+      "url_name": "tazicor"
+    },
+    {
+      "item_name": "Cryotra",
+      "url_name": "cryotra"
+    },
+    {
+      "item_name": "Shedu",
+      "url_name": "shedu"
+    },
+    {
+      "item_name": "Cortege",
+      "url_name": "cortege"
+    },
+    {
+      "item_name": "Vitrica",
+      "url_name": "vitrica"
+    },
+    {
+      "item_name": "Pulmonars",
+      "url_name": "pulmonars"
+    },
+    {
+      "item_name": "Bubonico",
+      "url_name": "bubonico"
+    },
+    {
+      "item_name": "Proboscis Cernos",
+      "url_name": "proboscis_cernos"
+    },
+    {
+      "item_name": "Sporothrix",
+      "url_name": "sporothrix"
+    },
+    {
+      "item_name": "Arum Spinosa",
+      "url_name": "arum_spinosa"
+    },
+    {
+      "item_name": "Sarpa",
+      "url_name": "sarpa"
+    },
+    {
+      "item_name": "Scindo",
+      "url_name": "scindo"
+    },
+    {
+      "item_name": "Scoliac",
+      "url_name": "scoliac"
+    },
+    {
+      "item_name": "Sepfahn",
+      "url_name": "sepfahn"
+    },
+    {
+      "item_name": "Serro",
+      "url_name": "serro"
+    },
+    {
+      "item_name": "Shaku",
+      "url_name": "shaku"
+    },
+    {
+      "item_name": "Sheev",
+      "url_name": "sheev"
+    },
+    {
+      "item_name": "Sibear",
+      "url_name": "sibear"
+    },
+    {
+      "item_name": "Sigma & Octantis",
+      "url_name": "sigma_and_octantis"
+    },
+    {
+      "item_name": "Silva & Aegis",
+      "url_name": "silva_and_aegis"
+    },
+    {
+      "item_name": "Skiajati",
+      "url_name": "skiajati"
+    },
+    {
+      "item_name": "Sydon",
+      "url_name": "sydon"
+    },
+    {
+      "item_name": "Tekko",
+      "url_name": "tekko"
+    },
+    {
+      "item_name": "Tipedo",
+      "url_name": "tipedo"
+    },
+    {
+      "item_name": "Tonbo",
+      "url_name": "tonbo"
+    },
+    {
+      "item_name": "Twin Basolk",
+      "url_name": "twin_basolk"
+    },
+    {
+      "item_name": "Amprex",
+      "url_name": "amprex"
+    },
+    {
+      "item_name": "Burston",
+      "url_name": "burston"
+    },
+    {
+      "item_name": "Buzlok",
+      "url_name": "buzlok"
+    },
+    {
+      "item_name": "Cernos",
+      "url_name": "cernos"
+    },
+    {
+      "item_name": "Convectrix",
+      "url_name": "convectrix"
+    },
+    {
+      "item_name": "Daikyu",
+      "url_name": "daikyu"
+    },
+    {
+      "item_name": "Dera",
+      "url_name": "dera"
+    },
+    {
+      "item_name": "Drakgoon",
+      "url_name": "drakgoon"
+    },
+    {
+      "item_name": "Dread",
+      "url_name": "dread"
+    },
+    {
+      "item_name": "Glaxion",
+      "url_name": "glaxion"
+    },
+    {
+      "item_name": "Gorgon",
+      "url_name": "gorgon"
+    },
+    {
+      "item_name": "Grakata",
+      "url_name": "grakata"
+    },
+    {
+      "item_name": "Grinlok",
+      "url_name": "grinlok"
+    },
+    {
+      "item_name": "Seer",
+      "url_name": "seer"
+    },
+    {
+      "item_name": "Zakti",
+      "url_name": "zakti"
+    },
+    {
+      "item_name": "Cyath",
+      "url_name": "cyath"
+    },
+    {
+      "item_name": "Dark Split-Sword",
+      "url_name": "dark_split_sword_(dual_swords)"
+    },
+    {
+      "item_name": "Krohkur",
+      "url_name": "krohkur"
+    },
+    {
+      "item_name": "Kronen",
+      "url_name": "kronen"
+    },
+    {
+      "item_name": "Lacera",
+      "url_name": "lacera"
+    },
+    {
+      "item_name": "Lesion",
+      "url_name": "lesion"
+    },
+    {
+      "item_name": "Venka",
+      "url_name": "venka"
+    },
+    {
+      "item_name": "Volnus",
+      "url_name": "volnus"
+    },
+    {
+      "item_name": "Zenistar",
+      "url_name": "zenistar"
+    },
+    {
+      "item_name": "Deconstructor",
+      "url_name": "deconstructor"
+    },
+    {
+      "item_name": "Sweeper",
+      "url_name": "sweeper"
+    },
+    {
+      "item_name": "Rattleguts",
+      "url_name": "rattleguts"
+    },
+    {
+      "item_name": "Wolf Sledge",
+      "url_name": "wolf_sledge"
+    },
+    {
+      "item_name": "Quellor",
+      "url_name": "quellor"
+    },
+    {
+      "item_name": "Basmu",
+      "url_name": "basmu"
+    },
+    {
+      "item_name": "Stahlta",
+      "url_name": "stahlta"
+    },
+    {
+      "item_name": "Velox",
+      "url_name": "velox"
+    },
+    {
+      "item_name": "Helstrum",
+      "url_name": "helstrum"
+    },
+    {
+      "item_name": "Xoris",
+      "url_name": "xoris"
+    },
+    {
+      "item_name": "Athodai",
+      "url_name": "athodai"
+    },
+    {
+      "item_name": "Sepulcrum",
+      "url_name": "sepulcrum"
+    },
+    {
+      "item_name": "Quassus",
+      "url_name": "quassus"
+    },
+    {
+      "item_name": "Trumna",
+      "url_name": "trumna"
+    },
+    {
+      "item_name": "Zymos",
+      "url_name": "zymos"
+    },
+    {
+      "item_name": "Keratinos",
+      "url_name": "keratinos"
+    },
+    {
+      "item_name": "Mausolon",
+      "url_name": "mausolon"
+    },
+    {
+      "item_name": "Cedo",
+      "url_name": "cedo"
+    },
+    {
+      "item_name": "Verglas",
+      "url_name": "verglas"
+    },
+    {
+      "item_name": "Epitaph",
+      "url_name": "epitaph"
+    },
+    {
+      "item_name": "Tenet Envoy",
+      "url_name": "tenet_envoy"
+    },
+    {
+      "item_name": "Tenet Spirex",
+      "url_name": "tenet_spirex"
+    },
+    {
+      "item_name": "Kompressa",
+      "url_name": "kompressa"
+    },
+    {
+      "item_name": "Tenet Exec",
+      "url_name": "tenet_exec"
+    },
+    {
+      "item_name": "Tenet Grigori",
+      "url_name": "tenet_grigori"
+    },
+    {
+      "item_name": "Ambassador",
+      "url_name": "ambassador"
+    },
+    {
+      "item_name": "Cadus",
+      "url_name": "cadus"
+    },
+    {
+      "item_name": "Tenet Livia",
+      "url_name": "tenet_livia"
+    },
+    {
+      "item_name": "Tenet Diplos",
+      "url_name": "tenet_diplos"
+    },
+    {
+      "item_name": "Tenet Agendus",
+      "url_name": "tenet_agendus"
+    },
+    {
+      "item_name": "Lacerten",
+      "url_name": "lacerten"
+    },
+    {
+      "item_name": "Akaten",
+      "url_name": "akaten"
+    },
+    {
+      "item_name": "Batoten",
+      "url_name": "batoten"
+    },
+    {
+      "item_name": "Vastilok",
+      "url_name": "vastilok"
+    },
+    {
+      "item_name": "Ghoulsaw",
+      "url_name": "ghoulsaw"
+    },
+    {
+      "item_name": "Verdilac",
+      "url_name": "verdilac"
+    },
+    {
+      "item_name": "Nepheri",
+      "url_name": "nepheri"
+    },
+    {
+      "item_name": "Rumblejack",
+      "url_name": "rumblejack"
+    },
+    {
+      "item_name": "Korumm",
+      "url_name": "korumm"
+    },
+    {
+      "item_name": "Venato",
+      "url_name": "venato"
+    },
+    {
+      "item_name": "Nataruk",
+      "url_name": "nataruk"
+    },
+    {
+      "item_name": "Hespar",
+      "url_name": "hespar"
+    },
+    {
+      "item_name": "Alternox",
+      "url_name": "alternox"
+    },
+    {
+      "item_name": "Aeolak",
+      "url_name": "aeolak"
+    },
+    {
+      "item_name": "Phenmor",
+      "url_name": "phenmor"
+    },
+    {
+      "item_name": "Laetum",
+      "url_name": "laetum"
+    },
+    {
+      "item_name": "Praedos",
+      "url_name": "praedos"
+    },
+    {
+      "item_name": "Innodem",
+      "url_name": "innodem"
+    },
+    {
+      "item_name": "Felarx",
+      "url_name": "felarx"
+    },
+    {
+      "item_name": "Vericres",
+      "url_name": "vericres"
+    },
+    {
+      "item_name": "Slaytra",
+      "url_name": "slaytra"
+    },
+    {
+      "item_name": "Aegrit",
+      "url_name": "aegrit"
+    },
+    {
+      "item_name": "Afentis",
+      "url_name": "afentis"
+    },
+    {
+      "item_name": "Sarofang",
+      "url_name": "sarofang"
+    },
+    {
+      "item_name": "Perigale",
+      "url_name": "perigale"
+    },
+    {
+      "item_name": "Corufell",
+      "url_name": "corufell"
+    },
+    {
+      "item_name": "Steflos",
+      "url_name": "steflos"
+    },
+    {
+      "item_name": "Sampotes",
+      "url_name": "sampotes"
+    },
+    {
+      "item_name": "Azothane",
+      "url_name": "azothane"
+    },
+    {
+      "item_name": "Syam",
+      "url_name": "syam"
+    },
+    {
+      "item_name": "Cinta",
+      "url_name": "cinta"
+    },
+    {
+      "item_name": "Sun & Moon",
+      "url_name": "sun_and_moon"
+    },
+    {
+      "item_name": "Edun",
+      "url_name": "edun"
+    },
+    {
+      "item_name": "Rauta",
+      "url_name": "rauta"
+    },
+    {
+      "item_name": "Argo & Vel",
+      "url_name": "argo_and_vel"
+    },
+    {
+      "item_name": "Gotva Prime",
+      "url_name": "gotva_prime"
+    },
+    {
+      "item_name": "Dorrclave",
+      "url_name": "dorrclave"
+    },
+    {
+      "item_name": "Ekhein",
+      "url_name": "ekhein"
+    },
+    {
+      "item_name": "Mandonel",
+      "url_name": "mandonel"
+    },
+    {
+      "item_name": "Grimoire",
+      "url_name": "grimoire"
+    },
+    {
+      "item_name": "Onos",
+      "url_name": "onos"
+    },
+    {
+      "item_name": "Ruvox",
+      "url_name": "ruvox"
+    },
+    {
+      "item_name": "Dex Nikana",
+      "url_name": "dex_nikana"
+    },
+    {
+      "item_name": "Cantare",
+      "url_name": "cantare"
+    },
+    {
+      "item_name": "Evensong",
+      "url_name": "evensong"
+    },
+    {
+      "item_name": "Harmony",
+      "url_name": "harmony"
+    },
+    {
+      "item_name": "AX-52",
+      "url_name": "ax_52"
+    },
+    {
+      "item_name": "Higasa",
+      "url_name": "higasa"
+    },
+    {
+      "item_name": "Amanata",
+      "url_name": "amanata"
+    },
+    {
+      "item_name": "Vesper 77",
+      "url_name": "vesper_77"
+    },
+    {
+      "item_name": "Reconifex",
+      "url_name": "reconifex"
+    },
+    {
+      "item_name": "Riot-848",
+      "url_name": "riot_848"
+    },
+    {
+      "item_name": "Purgator 1",
+      "url_name": "purgator_1"
+    },
+    {
+      "item_name": "Dual Viciss",
+      "url_name": "dual_viciss"
+    },
+    {
+      "item_name": "EFV-8 Mars",
+      "url_name": "efv_8_mars"
+    },
+    {
+      "item_name": "EFV-5 Jupiter",
+      "url_name": "efv_5_jupiter"
+    },
+    {
+      "item_name": "Dual Coda Torxica",
+      "url_name": "dual_coda_torxica"
+    },
+    {
+      "item_name": "Coda Motovore",
+      "url_name": "coda_motovore"
+    },
+    {
+      "item_name": "Coda Bassocyst",
+      "url_name": "coda_bassocyst"
+    },
+    {
+      "item_name": "Tak & Lug",
+      "url_name": "tak_and_lug"
+    },
+    {
+      "item_name": "Tonkkatt",
+      "url_name": "tonkkatt"
+    },
+    {
+      "item_name": "Thalys",
+      "url_name": "thalys"
+    },
+    {
+      "item_name": "Scyotid",
+      "url_name": "scyotid"
+    },
+    {
+      "item_name": "Spinnerex",
+      "url_name": "spinnerex"
+    },
+    {
+      "item_name": "Vadarya Prime",
+      "url_name": "vadarya_prime"
+    },
+    {
+      "item_name": "Arbucep",
+      "url_name": "arbucep"
+    },
+    {
+      "item_name": "Thornbak",
+      "url_name": "thornbak"
+    },
+    {
+      "item_name": "Vinquibus",
+      "url_name": "vinquibus"
+    },
+    {
+      "item_name": "Galariak Prime",
+      "url_name": "galariak_prime"
+    },
+    {
+      "item_name": "Sagek Prime",
+      "url_name": "sagek_prime"
+    },
+    {
+      "item_name": "Vinquibus (Melee)",
+      "url_name": "vinquibus_melee"
+    },
+    {
+      "item_name": "Enkaus",
+      "url_name": "enkaus"
+    },
+    {
+      "item_name": "Wrath",
+      "url_name": "wrath"
+    },
+    {
+      "item_name": "Pride",
+      "url_name": "pride"
+    },
+    {
+      "item_name": "Haalvu",
+      "url_name": "haalvu"
+    }
+  ]
+}

@@ -69,16 +69,14 @@ def save_settings(s):
 # remote data
 # ---------------------------------------------------------------------------
 def raw_url(repo, branch, filename):
-    bust = int(time.time())
-    return (f"https://raw.githubusercontent.com/{repo}/{branch}/"
-            f"{filename}?nocache={bust}")
+    return (f"https://api.github.com/repos/{repo}/contents/"
+            f"{filename}?ref={branch}")
 
 
 def http_get_json(url):
     req = urllib.request.Request(url, headers={
         "User-Agent": core.USER_AGENT,
-        "Accept": "application/json",
-        "Cache-Control": "no-cache",
+        "Accept": "application/vnd.github.raw+json",
     })
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))

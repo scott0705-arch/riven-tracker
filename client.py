@@ -10,8 +10,8 @@ cloud collector (GitHub Actions) does that every ~5 minutes. This client:
      "nothing changed" checks are nearly free and rate-limit friendly)
   3. Caches data locally so it still opens offline
   4. Lets each user set their OWN profit settings (desired profit, safety
-     margin, sell percentile, lookback) - stored locally, per user
-  5. Shows the Prices and Analysis views and can export the Excel workbook
+     margin, sell percentile, lookback days) - stored locally, per user
+  5. Tabs: Dashboard (analysis), Samples (raw price log), Settings
 
 Run from source:   python client.py
 Build an exe:      see build_client.bat (PyInstaller)
@@ -39,9 +39,20 @@ APP_TITLE = "Warframe Riven Tracker"
 
 # Auto-refresh cadence. 90s = 40 polls/hour, safely under GitHub's
 # 60-requests/hour unauthenticated API limit even before ETag savings.
-# (The collector only adds data every ~5 min, so faster polling gains nothing.)
 AUTO_REFRESH_SECONDS = 90
 CONFIG_EVERY_N_POLLS = 10          # weapon list rarely changes; check it less
+
+# The collector runs every ~5 minutes -> ~288 samples per day. Used to turn
+# the user's "lookback (days)" into a sample count for the analysis.
+SAMPLES_PER_DAY = 288
+MAX_LOOKBACK_DAYS = 30             # matches the server's data retention cap
+
+CLIENT_ANALYSIS_DEFAULTS = {
+    "lookback_days": 7,            # analysis window, in days
+    "sell_percentile": 0.5,        # 0-1, where in the recent range you sell
+    "desired_profit": 50,          # platinum profit wanted per flip
+    "safety_margin_pct": 10.0,     # % haircut on the projected sell price
+}
 
 
 def app_dir():
@@ -58,16 +69,38 @@ CACHE_CONFIG = os.path.join(app_dir(), "cached_config.json")
 DEFAULT_SETTINGS = {
     "repo": DEFAULT_REPO,
     "branch": DEFAULT_BRANCH,
-    "analysis": dict(core.ANALYSIS_DEFAULTS),
+    "analysis": dict(CLIENT_ANALYSIS_DEFAULTS),
     "excel_file": "riven_prices.xlsx",
 }
+
+
+def _migrate_analysis(a):
+    """Accept old-format analysis settings (lookback in samples, safety
+    margin as a 0-1 decimal) and convert to the new friendly units."""
+    out = dict(CLIENT_ANALYSIS_DEFAULTS)
+    if not a:
+        return out
+    if "lookback_days" in a:
+        out["lookback_days"] = a["lookback_days"]
+    elif "lookback" in a:                       # old: sample count
+        out["lookback_days"] = max(1, min(MAX_LOOKBACK_DAYS,
+                                          round(a["lookback"] / SAMPLES_PER_DAY)))
+    if "sell_percentile" in a:
+        out["sell_percentile"] = a["sell_percentile"]
+    if "desired_profit" in a:
+        out["desired_profit"] = a["desired_profit"]
+    if "safety_margin_pct" in a:
+        out["safety_margin_pct"] = a["safety_margin_pct"]
+    elif "safety_margin" in a:                  # old: 0-1 decimal
+        out["safety_margin_pct"] = float(a["safety_margin"]) * 100.0
+    return out
 
 
 def load_settings():
     s = core.load_json(SETTINGS_FILE, {}) or {}
     merged = dict(DEFAULT_SETTINGS)
     merged.update(s)
-    merged["analysis"] = {**core.ANALYSIS_DEFAULTS, **(s.get("analysis") or {})}
+    merged["analysis"] = _migrate_analysis(s.get("analysis"))
     if not merged.get("repo"):
         merged["repo"] = DEFAULT_REPO          # heal older empty settings files
     return merged
@@ -75,6 +108,17 @@ def load_settings():
 
 def save_settings(s):
     core.atomic_write_json(SETTINGS_FILE, s)
+
+
+def engine_analysis(a):
+    """Convert the client's friendly settings into what the analysis engine
+    (tracker_core.compute_analysis) expects: samples + 0-1 decimal margin."""
+    return {
+        "lookback": int(round(a["lookback_days"] * SAMPLES_PER_DAY)),
+        "sell_percentile": float(a["sell_percentile"]),
+        "desired_profit": float(a["desired_profit"]),
+        "safety_margin": float(a["safety_margin_pct"]) / 100.0,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -122,8 +166,7 @@ def http_get_json(url, etag=None):
 
 
 class RemoteData:
-    """Owns the downloaded config/history, their ETags, and the local caches.
-    Thread-safe enough for our single background worker at a time."""
+    """Owns the downloaded config/history, their ETags, and the local caches."""
 
     def __init__(self, settings):
         self.settings = settings
@@ -137,7 +180,7 @@ class RemoteData:
         branch = self.settings["branch"].strip() or "main"
         if not repo or "/" not in repo:
             raise RuntimeError("No data source set. Enter the GitHub repo as "
-                               "'username/reponame' in Setup and click Save.")
+                               "'username/reponame' in Settings and click Save.")
         return repo, branch
 
     def _get(self, filename, conditional=True):
@@ -149,8 +192,7 @@ class RemoteData:
         return data                        # None means "unchanged"
 
     def refresh(self, include_config=True, conditional=True):
-        """Fetch remote files. Returns True if anything changed.
-        Raises on network errors / RateLimited."""
+        """Fetch remote files. Returns True if anything changed."""
         changed = False
         if include_config:
             cfg = self._get("config.json", conditional)
@@ -181,18 +223,17 @@ def run_gui():
 
     root = tk.Tk()
     root.title(APP_TITLE)
-    root.geometry("880x640")
-    root.minsize(720, 540)
+    root.minsize(740, 540)
 
     nb = ttk.Notebook(root)
     nb.pack(fill="both", expand=True, padx=6, pady=6)
 
-    setup_tab = ttk.Frame(nb, padding=10)
-    prices_tab = ttk.Frame(nb, padding=10)
-    analysis_tab = ttk.Frame(nb, padding=10)
-    nb.add(setup_tab, text="  Setup  ")
-    nb.add(prices_tab, text="  Prices  ")
-    nb.add(analysis_tab, text="  Analysis  ")
+    dash_tab = ttk.Frame(nb, padding=10)
+    samples_tab = ttk.Frame(nb, padding=10)
+    settings_tab = ttk.Frame(nb, padding=10)
+    nb.add(dash_tab, text="  Dashboard  ")
+    nb.add(samples_tab, text="  Samples  ")
+    nb.add(settings_tab, text="  Settings  ")
 
     status_var = tk.StringVar()
     ttk.Label(root, textvariable=status_var, foreground="#555").pack(
@@ -201,8 +242,108 @@ def run_gui():
     def set_status(msg):
         status_var.set(msg)
 
-    # ======================= Setup tab =====================================
-    frm = setup_tab
+    # ======================= Dashboard tab =================================
+    # For now: the analysis table. More widgets (price graphs etc.) later.
+    dash_top = ttk.Frame(dash_tab)
+    dash_top.pack(fill="x", pady=(0, 6))
+    ttk.Label(dash_top,
+              text="Good buy price = projected sell x (1 - safety margin) - desired profit",
+              foreground="#777").pack(side="left")
+    ttk.Button(dash_top, text="Refresh now",
+               command=lambda: do_refresh(manual=True)).pack(side="right")
+
+    ana_wrap = ttk.Frame(dash_tab)
+    ana_wrap.pack(fill="both", expand=True)
+    ana_tv = ttk.Treeview(ana_wrap, show="headings")
+    avs = ttk.Scrollbar(ana_wrap, orient="vertical", command=ana_tv.yview)
+    ana_tv.configure(yscrollcommand=avs.set)
+    ana_tv.grid(row=0, column=0, sticky="nsew")
+    avs.grid(row=0, column=1, sticky="ns")
+    ana_wrap.rowconfigure(0, weight=1)
+    ana_wrap.columnconfigure(0, weight=1)
+
+    ana_cols = [h.lower().replace(" ", "_") for h in core.ANALYSIS_HEADERS]
+    # compact headers so they survive narrow columns (Excel export keeps
+    # the full names from core.ANALYSIS_HEADERS)
+    ANA_DISPLAY = ["Weapon", "Latest", "Samples", "Min", "Median", "Avg",
+                   "Proj. sell", "Good buy", "Profit"]
+    ana_tv["columns"] = ana_cols
+    for cid, h in zip(ana_cols, ANA_DISPLAY):
+        ana_tv.heading(cid, text=h)
+        # stretch=False: widths are managed entirely by _fit_ana_columns
+        ana_tv.column(cid, width=100, minwidth=60, stretch=False,
+                      anchor="w" if cid == "weapon" else "center")
+
+    def _fit_ana_columns(event=None):
+        """Distribute the available width across the columns so the table
+        always fits exactly - on first draw and on every resize."""
+        outer = event.width if event is not None else ana_tv.winfo_width()
+        usable = outer - 24            # theme borders/padding safety inset
+        n_other = len(ana_cols) - 1
+        if usable < 60 * len(ana_cols):
+            return                     # window too small to bother
+        other_w = max(60, int(usable * 0.84) // n_other)
+        weapon_w = usable - other_w * n_other      # sums to usable exactly
+        ana_tv.column("weapon", width=weapon_w)
+        for cid in ana_cols[1:]:
+            ana_tv.column(cid, width=other_w)
+
+    ana_tv.bind("<Configure>", _fit_ana_columns)
+
+    def refresh_analysis_view():
+        ana_tv.delete(*ana_tv.get_children())
+        for row in core.compute_analysis(remote.server_cfg.get("weapons", []),
+                                         remote.history,
+                                         engine_analysis(settings["analysis"])):
+            ana_tv.insert("", "end", values=row)
+
+    # ======================= Samples tab ===================================
+    MAX_ROWS_SHOWN = 500
+
+    samples_top = ttk.Frame(samples_tab)
+    samples_top.pack(fill="x", pady=(0, 6))
+    samples_info = ttk.Label(samples_top, text="", foreground="#777")
+    samples_info.pack(side="left")
+    ttk.Button(samples_top, text="Refresh now",
+               command=lambda: do_refresh(manual=True)).pack(side="right")
+
+    samples_wrap = ttk.Frame(samples_tab)
+    samples_wrap.pack(fill="both", expand=True)
+    samples_tv = ttk.Treeview(samples_wrap, show="headings")
+    svs = ttk.Scrollbar(samples_wrap, orient="vertical", command=samples_tv.yview)
+    shs = ttk.Scrollbar(samples_wrap, orient="horizontal", command=samples_tv.xview)
+    samples_tv.configure(yscrollcommand=svs.set, xscrollcommand=shs.set)
+    samples_tv.grid(row=0, column=0, sticky="nsew")
+    svs.grid(row=0, column=1, sticky="ns")
+    shs.grid(row=1, column=0, sticky="ew")
+    samples_wrap.rowconfigure(0, weight=1)
+    samples_wrap.columnconfigure(0, weight=1)
+
+    def refresh_samples_view():
+        history = remote.history
+        names = core.all_weapon_names(remote.server_cfg.get("weapons", []), history)
+        cols = ["time"] + names
+        samples_tv.delete(*samples_tv.get_children())
+        samples_tv["columns"] = cols
+        samples_tv.heading("time", text="Time")
+        samples_tv.column("time", width=130, anchor="w", stretch=False)
+        for n in names:
+            samples_tv.heading(n, text=n)
+            samples_tv.column(n, width=110, anchor="center", stretch=False)
+        shown = history[-MAX_ROWS_SHOWN:]
+        for snap in reversed(shown):                     # newest first
+            ts = core.ts_local_str(snap["timestamp"])
+            vals = [ts] + [snap["prices"].get(n, "") if
+                           isinstance(snap["prices"].get(n), (int, float)) else "-"
+                           for n in names]
+            samples_tv.insert("", "end", values=vals)
+        extra = f" (showing last {MAX_ROWS_SHOWN})" if len(history) > MAX_ROWS_SHOWN else ""
+        samples_info.config(
+            text=f"{len(history)} sample(s){extra} - '-' = no in-game listing "
+                 f"- times shown in your local timezone")
+
+    # ======================= Settings tab ==================================
+    frm = settings_tab
 
     # --- data source -------------------------------------------------------
     src = ttk.LabelFrame(frm, text="Data source (the shared tracker on GitHub)",
@@ -230,8 +371,8 @@ def run_gui():
     # --- tracked weapons (read-only; managed on GitHub) --------------------
     wf = ttk.LabelFrame(frm, text="Tracked weapons (managed on GitHub by the "
                                   "tracker owner)", padding=8)
-    wf.pack(fill="both", expand=False, pady=(0, 8))
-    lb = tk.Listbox(wf, height=6)
+    wf.pack(fill="x", pady=(0, 8))
+    lb = tk.Listbox(wf, height=4)
     lb.pack(side="left", fill="both", expand=True)
     wsb = ttk.Scrollbar(wf, command=lb.yview)
     wsb.pack(side="left", fill="y")
@@ -258,36 +399,54 @@ def run_gui():
                                          "on this PC)", padding=8)
     set_frame.pack(fill="x", pady=(0, 8))
 
+    PCTL_TIP = ("How optimistic your projected sell price is, from 0 to 1. "
+                "The analysis looks at all the prices seen over your lookback "
+                "window and picks a point in that range: 0.5 = the typical "
+                "(middle) price - a realistic sale. Lower (e.g. 0.25) = "
+                "price at the cheap end to sell quickly. Higher (e.g. 0.75) = "
+                "hold out for the expensive end, slower to sell.")
+
     fields = [
-        ("Lookback window (samples)", "lookback",
-         "int", 1, 100000, "Recent samples used by the analysis (288 = 1 day at 5-min data)"),
+        ("Lookback window (days)", "lookback_days",
+         "int", 1, MAX_LOOKBACK_DAYS,
+         f"How many days of price data the analysis uses (1 day = "
+         f"{SAMPLES_PER_DAY} samples, worked out automatically). "
+         f"Max {MAX_LOOKBACK_DAYS} days."),
         ("Projected sell percentile", "sell_percentile",
-         "float", 0.0, 1.0, "Where in the recent price range you expect to sell (0.5 = median)"),
+         "float", 0.0, 1.0, PCTL_TIP),
         ("Desired profit (plat)", "desired_profit",
-         "float", 0, 100000, "Platinum profit you want per flip"),
-        ("Safety margin", "safety_margin",
-         "float", 0.0, 1.0, "Haircut on the projected sell price (0.1 = 10% below)"),
+         "float", 0, 100000, "Platinum profit you want per flip."),
+        ("Safety margin (%)", "safety_margin_pct",
+         "float", 0.0, 100.0,
+         "Haircut on the projected sell price, as a percentage. 10% = assume "
+         "you actually sell 10% below the projection, to be safe."),
     ]
     entries = {}
+    tip_labels = []
     for i, (label, key, _t, _lo, _hi, tip) in enumerate(fields):
-        ttk.Label(set_frame, text=label).grid(row=i, column=0, sticky="w", pady=1)
+        ttk.Label(set_frame, text=label).grid(row=i, column=0, sticky="nw", pady=2)
         e = ttk.Entry(set_frame, width=10)
         e.insert(0, str(settings["analysis"][key]))
-        e.grid(row=i, column=1, sticky="w", padx=(8, 12), pady=1)
-        ttk.Label(set_frame, text=tip, foreground="#777").grid(row=i, column=2, sticky="w")
+        e.grid(row=i, column=1, sticky="nw", padx=(8, 12), pady=2)
+        tip_lbl = ttk.Label(set_frame, text=tip, foreground="#777",
+                            wraplength=520, justify="left")
+        tip_lbl.grid(row=i, column=2, sticky="w", pady=2)
+        tip_labels.append(tip_lbl)
         entries[key] = e
     ttk.Label(set_frame,
               text="Good buy price = projected sell x (1 - safety margin) - desired profit",
-              foreground="#555").grid(row=4, column=0, columnspan=3, sticky="w", pady=(6, 2))
+              foreground="#555").grid(row=len(fields), column=0, columnspan=3,
+                                      sticky="w", pady=(6, 2))
 
     def apply_settings():
         new = {}
         for label, key, typ, lo, hi, _tip in fields:
-            raw = entries[key].get().strip()
+            raw = entries[key].get().strip().rstrip("%")
             try:
                 v = int(raw) if typ == "int" else float(raw)
             except ValueError:
-                messagebox.showwarning("Invalid value", f"'{raw}' is not a number ({label}).")
+                messagebox.showwarning("Invalid value",
+                                       f"'{raw}' is not a number ({label}).")
                 return
             if not (lo <= v <= hi):
                 messagebox.showwarning("Invalid value",
@@ -297,17 +456,26 @@ def run_gui():
         settings["analysis"] = new
         save_settings(settings)
         refresh_analysis_view()
-        set_status("Profit settings saved - Analysis updated")
+        set_status("Profit settings saved - Dashboard updated")
 
     ttk.Button(set_frame, text="Apply", command=apply_settings).grid(
-        row=0, column=3, rowspan=2, padx=(16, 0))
+        row=0, column=3, rowspan=2, padx=(16, 0), sticky="n")
     set_frame.columnconfigure(2, weight=1)
+
+    def _rewrap_tips(event):
+        """Keep the grey explanation text wrapped to the space actually
+        available (labels + entry + Apply button take ~320px)."""
+        avail = max(220, event.width - 320)
+        for lab in tip_labels:
+            lab.configure(wraplength=avail)
+
+    set_frame.bind("<Configure>", _rewrap_tips)
 
     # --- actions + log -----------------------------------------------------
     btn_frame = ttk.Frame(frm)
     btn_frame.pack(fill="x", pady=(0, 8))
 
-    logbox = tk.Text(frm, height=6, state="disabled", font=("Consolas", 9))
+    logbox = tk.Text(frm, height=5, state="disabled", font=("Consolas", 9))
     logbox.pack(fill="both", expand=True, pady=(0, 6))
 
     def gui_log(msg):
@@ -326,8 +494,6 @@ def run_gui():
                 if remote.history else "never")
 
     def do_refresh(manual):
-        """Runs in a worker thread. Manual = full unconditional refresh;
-        auto = conditional, history-focused poll."""
         if busy["flag"]:
             return
         if not manual and time.time() < remote.rate_limited_until:
@@ -340,7 +506,7 @@ def run_gui():
                 if manual:
                     changed = remote.refresh(include_config=True,
                                              conditional=False)
-                    gui_log(f"refreshed - {len(remote.history)} snapshot(s), "
+                    gui_log(f"refreshed - {len(remote.history)} sample(s), "
                             f"latest {latest_str()}")
                 else:
                     poll_count["n"] += 1
@@ -352,7 +518,7 @@ def run_gui():
                 if changed or manual:
                     root.after(0, refresh_all_views)
                 root.after(0, lambda: set_status(
-                    f"Up to date - latest snapshot {latest_str()} - "
+                    f"Up to date - latest sample {latest_str()} - "
                     f"auto-checking every {AUTO_REFRESH_SECONDS}s"))
             except RateLimited as e:
                 remote.rate_limited_until = e.reset_epoch or (time.time() + 900)
@@ -381,7 +547,8 @@ def run_gui():
             return
         path = os.path.join(app_dir(), settings["excel_file"])
         ok = core.export_workbook(path, remote.server_cfg.get("weapons", []),
-                                  remote.history, settings["analysis"])
+                                  remote.history,
+                                  engine_analysis(settings["analysis"]))
         if ok:
             set_status(f"Workbook exported: {path}")
         else:
@@ -407,89 +574,20 @@ def run_gui():
         side="left", padx=(0, 4))
     ttk.Button(btn_frame, text="Open spreadsheet", command=open_sheet).pack(side="left")
 
-    # ======================= Prices tab ====================================
-    MAX_ROWS_SHOWN = 500
-
-    prices_top = ttk.Frame(prices_tab)
-    prices_top.pack(fill="x", pady=(0, 6))
-    prices_info = ttk.Label(prices_top, text="", foreground="#777")
-    prices_info.pack(side="left")
-    ttk.Button(prices_top, text="Refresh",
-               command=lambda: do_refresh(manual=True)).pack(side="right")
-
-    prices_wrap = ttk.Frame(prices_tab)
-    prices_wrap.pack(fill="both", expand=True)
-    prices_tv = ttk.Treeview(prices_wrap, show="headings")
-    pvs = ttk.Scrollbar(prices_wrap, orient="vertical", command=prices_tv.yview)
-    phs = ttk.Scrollbar(prices_wrap, orient="horizontal", command=prices_tv.xview)
-    prices_tv.configure(yscrollcommand=pvs.set, xscrollcommand=phs.set)
-    prices_tv.grid(row=0, column=0, sticky="nsew")
-    pvs.grid(row=0, column=1, sticky="ns")
-    phs.grid(row=1, column=0, sticky="ew")
-    prices_wrap.rowconfigure(0, weight=1)
-    prices_wrap.columnconfigure(0, weight=1)
-
-    def refresh_prices_view():
-        history = remote.history
-        names = core.all_weapon_names(remote.server_cfg.get("weapons", []), history)
-        cols = ["time"] + names
-        prices_tv.delete(*prices_tv.get_children())
-        prices_tv["columns"] = cols
-        prices_tv.heading("time", text="Time")
-        prices_tv.column("time", width=130, anchor="w", stretch=False)
-        for n in names:
-            prices_tv.heading(n, text=n)
-            prices_tv.column(n, width=110, anchor="center", stretch=False)
-        shown = history[-MAX_ROWS_SHOWN:]
-        for snap in reversed(shown):                     # newest first
-            ts = core.ts_local_str(snap["timestamp"])
-            vals = [ts] + [snap["prices"].get(n, "") if
-                           isinstance(snap["prices"].get(n), (int, float)) else "-"
-                           for n in names]
-            prices_tv.insert("", "end", values=vals)
-        extra = f" (showing last {MAX_ROWS_SHOWN})" if len(history) > MAX_ROWS_SHOWN else ""
-        prices_info.config(
-            text=f"{len(history)} snapshot(s){extra} - '-' = no in-game listing "
-                 f"- times shown in your local timezone")
-
-    # ======================= Analysis tab ==================================
-    ana_top = ttk.Frame(analysis_tab)
-    ana_top.pack(fill="x", pady=(0, 6))
-    ttk.Label(ana_top,
-              text="Good buy price = projected sell x (1 - safety margin) - desired profit",
-              foreground="#777").pack(side="left")
-    ttk.Button(ana_top, text="Refresh",
-               command=lambda: do_refresh(manual=True)).pack(side="right")
-
-    ana_wrap = ttk.Frame(analysis_tab)
-    ana_wrap.pack(fill="both", expand=True)
-    ana_tv = ttk.Treeview(ana_wrap, show="headings")
-    avs = ttk.Scrollbar(ana_wrap, orient="vertical", command=ana_tv.yview)
-    ana_tv.configure(yscrollcommand=avs.set)
-    ana_tv.grid(row=0, column=0, sticky="nsew")
-    avs.grid(row=0, column=1, sticky="ns")
-    ana_wrap.rowconfigure(0, weight=1)
-    ana_wrap.columnconfigure(0, weight=1)
-
-    ana_cols = [h.lower().replace(" ", "_") for h in core.ANALYSIS_HEADERS]
-    ana_tv["columns"] = ana_cols
-    for cid, h in zip(ana_cols, core.ANALYSIS_HEADERS):
-        ana_tv.heading(cid, text=h)
-        ana_tv.column(cid, width=120 if cid == "weapon" else 100,
-                      anchor="w" if cid == "weapon" else "center")
-
-    def refresh_analysis_view():
-        ana_tv.delete(*ana_tv.get_children())
-        for row in core.compute_analysis(remote.server_cfg.get("weapons", []),
-                                         remote.history, settings["analysis"]):
-            ana_tv.insert("", "end", values=row)
-
+    # ======================= shared refresh ================================
     def refresh_all_views():
         refresh_weapon_list()
-        refresh_prices_view()
+        refresh_samples_view()
         refresh_analysis_view()
 
     refresh_all_views()
+
+    # size the window so every tab fits on first launch (the notebook's
+    # requested size is that of its tallest/widest tab - the Settings tab)
+    root.update_idletasks()
+    w = max(900, root.winfo_reqwidth())
+    h = max(560, root.winfo_reqheight())
+    root.geometry(f"{w}x{h}")
 
     # kick off: one full refresh shortly after launch, then the poll loop
     root.after(300, lambda: do_refresh(manual=True))

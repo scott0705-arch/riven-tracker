@@ -101,6 +101,22 @@ def append_history_file(path, snapshot):
     atomic_write_json(path, {"snapshots": snaps})
     return snaps
 
+RETENTION_DAYS = 14
+
+def prune_history_file(path, days=RETENTION_DAYS):
+    """Drop snapshots older than `days`. Returns the kept list."""
+    from datetime import timedelta
+    snaps = load_history_file(path)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    def keep(s):
+        dt = parse_ts(s["timestamp"])
+        if dt.tzinfo is None:                     # old local-time entries
+            dt = dt.replace(tzinfo=timezone.utc)  # treat as UTC; close enough
+        return dt >= cutoff
+    kept = [s for s in snaps if keep(s)]
+    if len(kept) != len(snaps):
+        atomic_write_json(path, {"snapshots": kept})
+    return kept
 
 def all_weapon_names(weapons, history):
     """Config weapons first (in order), then any extra names found in history

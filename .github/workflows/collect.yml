@@ -1,8 +1,6 @@
 name: Collect riven prices
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"      # every 5 minutes (UTC; best-effort, may lag)
   workflow_dispatch: {}        # manual "Run workflow" button in the Actions tab
 
 concurrency:

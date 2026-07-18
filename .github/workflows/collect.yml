@@ -25,7 +25,7 @@ jobs:
 
       - name: Collect prices
         run: python collect.py
-
+# schedule re-registration nudge (hate you github)
       - name: Commit updated history
         run: |
           git config user.name  "riven-tracker-bot"

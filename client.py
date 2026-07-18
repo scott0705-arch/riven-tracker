@@ -2,13 +2,16 @@
 client.py - Riven Tracker desktop client
 ========================================
 The app you and your friends run. It does NOT collect prices itself - the
-cloud collector (GitHub Actions) does that hourly. This client:
+cloud collector (GitHub Actions) does that every ~5 minutes. This client:
 
-  1. Downloads config.json + price_history.json from the tracker's GitHub repo
-  2. Caches them locally so it still opens offline
-  3. Lets each user set their OWN profit settings (desired profit, safety
+  1. Downloads config.json + price_history.json from the tracker's GitHub
+     repo via the GitHub API (fresh, no CDN caching)
+  2. Auto-refreshes in the background (ETag conditional requests, so
+     "nothing changed" checks are nearly free and rate-limit friendly)
+  3. Caches data locally so it still opens offline
+  4. Lets each user set their OWN profit settings (desired profit, safety
      margin, sell percentile, lookback) - stored locally, per user
-  4. Shows the Prices and Analysis views and can export the Excel workbook
+  5. Shows the Prices and Analysis views and can export the Excel workbook
 
 Run from source:   python client.py
 Build an exe:      see build_client.bat (PyInstaller)
@@ -18,8 +21,9 @@ import json
 import os
 import sys
 import threading
-import urllib.request
 import time
+import urllib.error
+import urllib.request
 from datetime import datetime
 
 import tracker_core as core
@@ -28,10 +32,16 @@ import tracker_core as core
 # where the hosted data lives - set your repo here so friends never have to.
 # Format: "githubusername/reponame"
 # ---------------------------------------------------------------------------
-DEFAULT_REPO = ""          # e.g. "yourname/riven-tracker"
+DEFAULT_REPO = "scott0705-arch/riven-tracker"
 DEFAULT_BRANCH = "main"
 
 APP_TITLE = "Warframe Riven Tracker"
+
+# Auto-refresh cadence. 90s = 40 polls/hour, safely under GitHub's
+# 60-requests/hour unauthenticated API limit even before ETag savings.
+# (The collector only adds data every ~5 min, so faster polling gains nothing.)
+AUTO_REFRESH_SECONDS = 90
+CONFIG_EVERY_N_POLLS = 10          # weapon list rarely changes; check it less
 
 
 def app_dir():
@@ -58,6 +68,8 @@ def load_settings():
     merged = dict(DEFAULT_SETTINGS)
     merged.update(s)
     merged["analysis"] = {**core.ANALYSIS_DEFAULTS, **(s.get("analysis") or {})}
+    if not merged.get("repo"):
+        merged["repo"] = DEFAULT_REPO          # heal older empty settings files
     return merged
 
 
@@ -66,41 +78,94 @@ def save_settings(s):
 
 
 # ---------------------------------------------------------------------------
-# remote data
+# remote data (GitHub contents API - not raw.githubusercontent, which caches)
 # ---------------------------------------------------------------------------
-def raw_url(repo, branch, filename):
+class RateLimited(RuntimeError):
+    def __init__(self, reset_epoch):
+        self.reset_epoch = reset_epoch
+        when = datetime.fromtimestamp(reset_epoch).strftime("%H:%M") \
+            if reset_epoch else "later"
+        super().__init__(f"GitHub API rate limit reached; resets at {when}")
+
+
+def api_url(repo, branch, filename):
     return (f"https://api.github.com/repos/{repo}/contents/"
             f"{filename}?ref={branch}")
 
 
-def http_get_json(url):
-    req = urllib.request.Request(url, headers={
+def http_get_json(url, etag=None):
+    """GET a GitHub contents URL as raw JSON.
+    Returns (data, new_etag) on 200, (None, etag) on 304 Not Modified.
+    Raises RateLimited when the API quota is exhausted."""
+    headers = {
         "User-Agent": core.USER_AGENT,
         "Accept": "application/vnd.github.raw+json",
-    })
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    if etag:
+        headers["If-None-Match"] = etag
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return data, resp.headers.get("ETag")
+    except urllib.error.HTTPError as e:
+        if e.code == 304:
+            return None, etag
+        if e.code in (403, 429) and e.headers.get("X-RateLimit-Remaining") == "0":
+            try:
+                reset = int(e.headers.get("X-RateLimit-Reset", "0"))
+            except ValueError:
+                reset = 0
+            raise RateLimited(reset) from e
+        raise
 
 
-def fetch_remote(settings):
-    """Download config + history from the repo, update local caches.
-    Returns (server_cfg, history). Raises on network failure."""
-    repo, branch = settings["repo"].strip(), settings["branch"].strip() or "main"
-    if not repo or "/" not in repo:
-        raise RuntimeError("No data source set. Enter the GitHub repo as "
-                           "'username/reponame' in Setup and click Save.")
-    server_cfg = http_get_json(raw_url(repo, branch, "config.json"))
-    hist_data = http_get_json(raw_url(repo, branch, "price_history.json"))
-    snaps = sorted(hist_data.get("snapshots", []), key=lambda s: s["timestamp"])
-    core.atomic_write_json(CACHE_CONFIG, server_cfg)
-    core.atomic_write_json(CACHE_HISTORY, {"snapshots": snaps})
-    return server_cfg, snaps
+class RemoteData:
+    """Owns the downloaded config/history, their ETags, and the local caches.
+    Thread-safe enough for our single background worker at a time."""
 
+    def __init__(self, settings):
+        self.settings = settings
+        self.server_cfg = core.load_json(CACHE_CONFIG, {}) or {}
+        self.history = core.load_history_file(CACHE_HISTORY)
+        self.etags = {}                    # filename -> etag
+        self.rate_limited_until = 0        # epoch; skip polls before this
 
-def load_cached():
-    server_cfg = core.load_json(CACHE_CONFIG, {}) or {}
-    snaps = core.load_history_file(CACHE_HISTORY)
-    return server_cfg, snaps
+    def _repo_branch(self):
+        repo = self.settings["repo"].strip()
+        branch = self.settings["branch"].strip() or "main"
+        if not repo or "/" not in repo:
+            raise RuntimeError("No data source set. Enter the GitHub repo as "
+                               "'username/reponame' in Setup and click Save.")
+        return repo, branch
+
+    def _get(self, filename, conditional=True):
+        repo, branch = self._repo_branch()
+        etag = self.etags.get(filename) if conditional else None
+        data, new_etag = http_get_json(api_url(repo, branch, filename), etag)
+        if new_etag:
+            self.etags[filename] = new_etag
+        return data                        # None means "unchanged"
+
+    def refresh(self, include_config=True, conditional=True):
+        """Fetch remote files. Returns True if anything changed.
+        Raises on network errors / RateLimited."""
+        changed = False
+        if include_config:
+            cfg = self._get("config.json", conditional)
+            if cfg is not None:
+                self.server_cfg = cfg
+                core.atomic_write_json(CACHE_CONFIG, cfg)
+                changed = True
+        hist = self._get("price_history.json", conditional)
+        if hist is not None:
+            snaps = sorted(hist.get("snapshots", []),
+                           key=lambda s: s["timestamp"])
+            self.history = snaps
+            core.atomic_write_json(CACHE_HISTORY, {"snapshots": snaps})
+            changed = True
+        return changed
 
 
 # ---------------------------------------------------------------------------
@@ -112,8 +177,7 @@ def run_gui():
     import webbrowser
 
     settings = load_settings()
-    server_cfg, history = load_cached()
-    state = {"server_cfg": server_cfg, "history": history}
+    remote = RemoteData(settings)
 
     root = tk.Tk()
     root.title(APP_TITLE)
@@ -157,6 +221,7 @@ def run_gui():
         settings["repo"] = repo_e.get().strip()
         settings["branch"] = branch_e.get().strip() or "main"
         save_settings(settings)
+        remote.etags.clear()               # force full re-download of new source
         set_status("Data source saved")
 
     ttk.Button(src, text="Save", command=save_source).grid(row=0, column=4)
@@ -185,7 +250,7 @@ def run_gui():
 
     def refresh_weapon_list():
         lb.delete(0, "end")
-        for w in state["server_cfg"].get("weapons", []):
+        for w in remote.server_cfg.get("weapons", []):
             lb.insert("end", w["name"])
 
     # --- profit settings (LOCAL - each user has their own) -----------------
@@ -195,7 +260,7 @@ def run_gui():
 
     fields = [
         ("Lookback window (samples)", "lookback",
-         "int", 1, 10000, "How many recent hourly samples the analysis uses (168 = 1 week)"),
+         "int", 1, 100000, "Recent samples used by the analysis (288 = 1 day at 5-min data)"),
         ("Projected sell percentile", "sell_percentile",
          "float", 0.0, 1.0, "Where in the recent price range you expect to sell (0.5 = median)"),
         ("Desired profit (plat)", "desired_profit",
@@ -248,35 +313,57 @@ def run_gui():
     def gui_log(msg):
         def _do():
             logbox.config(state="normal")
-            logbox.insert("end", msg + "\n")
+            logbox.insert("end", f"{datetime.now():%H:%M:%S}  {msg}\n")
             logbox.see("end")
             logbox.config(state="disabled")
         root.after(0, _do)
 
     busy = {"flag": False}
+    poll_count = {"n": 0}
 
-    def refresh_data(silent=False):
+    def latest_str():
+        return (core.ts_local_str(remote.history[-1]["timestamp"])
+                if remote.history else "never")
+
+    def do_refresh(manual):
+        """Runs in a worker thread. Manual = full unconditional refresh;
+        auto = conditional, history-focused poll."""
         if busy["flag"]:
             return
+        if not manual and time.time() < remote.rate_limited_until:
+            return                                     # waiting out rate limit
         busy["flag"] = True
-        refresh_btn.config(state="disabled")
-        if not silent:
-            gui_log(f"--- refreshing data {datetime.now():%H:%M:%S} ---")
+        root.after(0, lambda: refresh_btn.config(state="disabled"))
 
         def worker():
             try:
-                cfg, hist = fetch_remote(settings)
-                state["server_cfg"], state["history"] = cfg, hist
-                last = core.ts_local_str(hist[-1]["timestamp"]) if hist else "never"
-                gui_log(f"downloaded {len(hist)} snapshot(s); latest: {last}")
-                root.after(0, refresh_all_views)
+                if manual:
+                    changed = remote.refresh(include_config=True,
+                                             conditional=False)
+                    gui_log(f"refreshed - {len(remote.history)} snapshot(s), "
+                            f"latest {latest_str()}")
+                else:
+                    poll_count["n"] += 1
+                    include_cfg = poll_count["n"] % CONFIG_EVERY_N_POLLS == 0
+                    changed = remote.refresh(include_config=include_cfg,
+                                             conditional=True)
+                    if changed:
+                        gui_log(f"new data - latest {latest_str()}")
+                if changed or manual:
+                    root.after(0, refresh_all_views)
                 root.after(0, lambda: set_status(
-                    f"Data updated - latest snapshot {last} "
-                    f"(collector runs hourly; new data can lag a few minutes)"))
+                    f"Up to date - latest snapshot {latest_str()} - "
+                    f"auto-checking every {AUTO_REFRESH_SECONDS}s"))
+            except RateLimited as e:
+                remote.rate_limited_until = e.reset_epoch or (time.time() + 900)
+                gui_log(str(e))
+                root.after(0, lambda: set_status(
+                    f"{e} - showing cached data, auto-refresh paused"))
             except Exception as e:
-                gui_log(f"could not refresh: {e}")
+                if manual:
+                    gui_log(f"could not refresh: {e}")
                 root.after(0, lambda: set_status(
-                    "Offline - showing cached data" if state["history"]
+                    "Offline - showing cached data" if remote.history
                     else "No data - set the data source and click Refresh"))
             finally:
                 busy["flag"] = False
@@ -284,13 +371,17 @@ def run_gui():
 
         threading.Thread(target=worker, daemon=True).start()
 
+    def auto_poll():
+        do_refresh(manual=False)
+        root.after(AUTO_REFRESH_SECONDS * 1000, auto_poll)
+
     def export_excel():
-        if not state["history"]:
+        if not remote.history:
             messagebox.showinfo("No data", "Refresh data first.")
             return
         path = os.path.join(app_dir(), settings["excel_file"])
-        ok = core.export_workbook(path, state["server_cfg"].get("weapons", []),
-                                  state["history"], settings["analysis"])
+        ok = core.export_workbook(path, remote.server_cfg.get("weapons", []),
+                                  remote.history, settings["analysis"])
         if ok:
             set_status(f"Workbook exported: {path}")
         else:
@@ -309,7 +400,8 @@ def run_gui():
             import subprocess
             subprocess.Popen(["xdg-open", path])
 
-    refresh_btn = ttk.Button(btn_frame, text="Refresh data", command=refresh_data)
+    refresh_btn = ttk.Button(btn_frame, text="Refresh now",
+                             command=lambda: do_refresh(manual=True))
     refresh_btn.pack(side="left", padx=(0, 4))
     ttk.Button(btn_frame, text="Export Excel", command=export_excel).pack(
         side="left", padx=(0, 4))
@@ -323,7 +415,7 @@ def run_gui():
     prices_info = ttk.Label(prices_top, text="", foreground="#777")
     prices_info.pack(side="left")
     ttk.Button(prices_top, text="Refresh",
-               command=lambda: refresh_data()).pack(side="right")
+               command=lambda: do_refresh(manual=True)).pack(side="right")
 
     prices_wrap = ttk.Frame(prices_tab)
     prices_wrap.pack(fill="both", expand=True)
@@ -338,8 +430,8 @@ def run_gui():
     prices_wrap.columnconfigure(0, weight=1)
 
     def refresh_prices_view():
-        history = state["history"]
-        names = core.all_weapon_names(state["server_cfg"].get("weapons", []), history)
+        history = remote.history
+        names = core.all_weapon_names(remote.server_cfg.get("weapons", []), history)
         cols = ["time"] + names
         prices_tv.delete(*prices_tv.get_children())
         prices_tv["columns"] = cols
@@ -367,7 +459,7 @@ def run_gui():
               text="Good buy price = projected sell x (1 - safety margin) - desired profit",
               foreground="#777").pack(side="left")
     ttk.Button(ana_top, text="Refresh",
-               command=lambda: refresh_data()).pack(side="right")
+               command=lambda: do_refresh(manual=True)).pack(side="right")
 
     ana_wrap = ttk.Frame(analysis_tab)
     ana_wrap.pack(fill="both", expand=True)
@@ -388,8 +480,8 @@ def run_gui():
 
     def refresh_analysis_view():
         ana_tv.delete(*ana_tv.get_children())
-        for row in core.compute_analysis(state["server_cfg"].get("weapons", []),
-                                         state["history"], settings["analysis"]):
+        for row in core.compute_analysis(remote.server_cfg.get("weapons", []),
+                                         remote.history, settings["analysis"]):
             ana_tv.insert("", "end", values=row)
 
     def refresh_all_views():
@@ -399,8 +491,9 @@ def run_gui():
 
     refresh_all_views()
 
-    # auto-refresh on launch (non-blocking; falls back to cache if offline)
-    root.after(300, lambda: refresh_data(silent=True))
+    # kick off: one full refresh shortly after launch, then the poll loop
+    root.after(300, lambda: do_refresh(manual=True))
+    root.after(1500 + AUTO_REFRESH_SECONDS * 1000, auto_poll)
     root.mainloop()
 
 

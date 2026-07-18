@@ -35,8 +35,10 @@ def main():
     print(f"collecting {len(weapons)} weapon(s), platform={platform}, "
           f"max_rerolls={max_rerolls}")
     snap = core.collect_snapshot(weapons, platform, max_rerolls, progress=print)
-    history = core.append_history_file(HISTORY_FILE, snap)
-    print(f"snapshot {snap['timestamp']} saved ({len(history)} total)")
+    core.append_history_file(HISTORY_FILE, snap)
+    history = core.prune_history_file(HISTORY_FILE)
+    print(f"snapshot {snap['timestamp']} saved "
+          f"({len(history)} total after 14-day prune)")
 
     # refresh the weapon-name cache occasionally so clients can pull it too
     core.get_riven_items(ITEMS_CACHE_FILE)

@@ -1,0 +1,12 @@
+# client-side / local files - never commit these
+client_settings.json
+cached_history.json
+cached_config.json
+riven_prices.xlsx
+*.log
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+.tmp*

@@ -1,0 +1,18 @@
+{
+  "weapons": [
+    {
+      "name": "Torid",
+      "url_name": "torid"
+    },
+    {
+      "name": "Magistar",
+      "url_name": "magistar"
+    },
+    {
+      "name": "Verglas",
+      "url_name": "verglas"
+    }
+  ],
+  "platform": "pc",
+  "max_rerolls": 0
+}

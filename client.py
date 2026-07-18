@@ -283,8 +283,46 @@ def run_gui():
     ttk.Button(dash_top, text="Refresh now",
                command=lambda: do_refresh(manual=True)).pack(side="right")
 
-    ana_wrap = ttk.Frame(dash_tab)
-    ana_wrap.pack(fill="both", expand=True)
+    dash_body = ttk.Frame(dash_tab)
+    dash_body.pack(fill="both", expand=True)
+
+    # --- left: at-a-glance buy recommender (sorted, highest first) ---------
+    buy_frame = ttk.LabelFrame(dash_body, text="Buy at", padding=(4, 4))
+    buy_frame.pack(side="left", fill="y", padx=(0, 8))
+    buy_tv = ttk.Treeview(buy_frame, show="headings",
+                          columns=("weapon", "buy"), height=8)
+    buy_tv.heading("weapon", text="Weapon")
+    buy_tv.heading("buy", text="Buy \u2264")
+    buy_tv.column("weapon", width=130, anchor="w", stretch=False)
+    buy_tv.column("buy", width=62, anchor="e", stretch=False)
+    buy_tv.pack(fill="y", expand=True)
+
+    def refresh_buy_panel(rows):
+        """rows = compute_analysis_series output. Sort by good-buy price
+        (index 7), highest first; rows without a price go to the bottom."""
+        priced = [r for r in rows if isinstance(r[7], (int, float))]
+        unpriced = [r for r in rows if not isinstance(r[7], (int, float))]
+        priced.sort(key=lambda r: -r[7])
+        buy_tv.delete(*buy_tv.get_children())
+        for r in priced:
+            buy_tv.insert("", "end", values=(r[0], r[7]))
+        for r in unpriced:
+            buy_tv.insert("", "end", values=(r[0], "-"))
+        buy_tv.configure(height=max(8, len(rows)))
+
+    def ensure_window_fits():
+        """Grow the window (never shrink it) so the buy panel's full height
+        is visible - capped to the screen."""
+        root.update_idletasks()
+        need_h = root.winfo_reqheight()
+        cur_h = root.winfo_height()
+        if cur_h >= need_h or cur_h <= 1:
+            return
+        cap = root.winfo_screenheight() - 90
+        root.geometry(f"{root.winfo_width()}x{min(need_h, cap)}")
+
+    ana_wrap = ttk.Frame(dash_body)
+    ana_wrap.pack(side="left", fill="both", expand=True)
     ana_tv = ttk.Treeview(ana_wrap, show="headings")
     avs = ttk.Scrollbar(ana_wrap, orient="vertical", command=ana_tv.yview)
     ana_tv.configure(yscrollcommand=avs.set)
@@ -322,11 +360,13 @@ def run_gui():
     ana_tv.bind("<Configure>", _fit_ana_columns)
 
     def refresh_analysis_view():
+        rows = core.compute_analysis_series(
+            filtered_series_map(), engine_analysis(settings["analysis"]))
         ana_tv.delete(*ana_tv.get_children())
-        for row in core.compute_analysis_series(
-                filtered_series_map(),
-                engine_analysis(settings["analysis"])):
+        for row in rows:
             ana_tv.insert("", "end", values=row)
+        refresh_buy_panel(rows)
+        ensure_window_fits()
 
     # ======================= Samples tab ===================================
     MAX_ROWS_SHOWN = 500
@@ -402,37 +442,34 @@ def run_gui():
     # --- my weapons: pick which tracked weapons YOU see --------------------
     wf = ttk.LabelFrame(frm, text="My weapons - tick what you want on your "
                                   "dashboard (data is collected for all of "
-                                  "them regardless)", padding=8)
+                                  "them regardless; changes apply instantly)",
+                        padding=8)
     wf.pack(fill="x", pady=(0, 8))
-    lb = tk.Listbox(wf, height=6, selectmode="multiple",
-                    exportselection=False, activestyle="none")
-    lb.pack(side="left", fill="both", expand=True)
-    wsb = ttk.Scrollbar(wf, command=lb.yview)
-    wsb.pack(side="left", fill="y")
-    lb.config(yscrollcommand=wsb.set)
+    checks_frame = ttk.Frame(wf)
+    checks_frame.pack(side="left", fill="both", expand=True)
+    check_vars = {}                                  # url_name -> BooleanVar
+    PICKER_COLS = 4
 
-    wbtns = ttk.Frame(wf)
-    wbtns.pack(side="left", padx=(8, 0), anchor="n")
-
-    def save_selection():
-        slugs = [w["url_name"] for w in remote.server_cfg.get("weapons", [])]
-        picked = [slugs[i] for i in lb.curselection()]
-        settings["selected_weapons"] = picked      # [] = all
+    def on_toggle():
+        picked = [slug for slug, v in check_vars.items() if v.get()]
+        all_slugs = [w["url_name"]
+                     for w in remote.server_cfg.get("weapons", [])]
+        if not picked:                               # none ticked = all
+            settings["selected_weapons"] = []
+            for v in check_vars.values():
+                v.set(True)
+            set_status("Nothing ticked - showing all weapons")
+        else:
+            settings["selected_weapons"] = \
+                [] if len(picked) == len(all_slugs) else picked
+            set_status(f"Watching {len(picked)} weapon(s)")
         save_settings(settings)
         refresh_all_views()
-        n = len(picked) or len(slugs)
-        set_status(f"Watching {n} weapon(s)")
 
-    def select_all():
-        lb.select_set(0, "end")
-        save_selection()
-
-    def select_none():
-        lb.select_clear(0, "end")
-        settings["selected_weapons"] = []
-        save_settings(settings)
-        refresh_all_views()
-        set_status("Watching all weapons (none ticked = all)")
+    def set_all(state):
+        for v in check_vars.values():
+            v.set(state)
+        on_toggle()
 
     def open_repo_config():
         repo = settings["repo"].strip()
@@ -442,22 +479,26 @@ def run_gui():
         else:
             messagebox.showinfo("No repo set", "Set the data source first.")
 
-    ttk.Button(wbtns, text="Apply selection",
-               command=save_selection).pack(fill="x", pady=(0, 3))
-    ttk.Button(wbtns, text="All", command=select_all).pack(fill="x", pady=(0, 3))
-    ttk.Button(wbtns, text="Clear (= all)",
-               command=select_none).pack(fill="x", pady=(0, 3))
+    wbtns = ttk.Frame(wf)
+    wbtns.pack(side="left", padx=(8, 0), anchor="n")
+    ttk.Button(wbtns, text="All",
+               command=lambda: set_all(True)).pack(fill="x", pady=(0, 3))
     ttk.Button(wbtns, text="Edit shared list on GitHub...",
                command=open_repo_config).pack(fill="x")
 
     def refresh_weapon_list():
         weapons = remote.server_cfg.get("weapons", [])
-        lb.delete(0, "end")
+        for child in checks_frame.winfo_children():
+            child.destroy()
+        check_vars.clear()
         sel = set(settings.get("selected_weapons") or [])
         for i, w in enumerate(weapons):
-            lb.insert("end", w["name"])
-            if not sel or w["url_name"] in sel:
-                lb.select_set(i)
+            var = tk.BooleanVar(value=(not sel or w["url_name"] in sel))
+            check_vars[w["url_name"]] = var
+            cb = ttk.Checkbutton(checks_frame, text=w["name"], variable=var,
+                                 command=on_toggle)
+            cb.grid(row=i // PICKER_COLS, column=i % PICKER_COLS,
+                    sticky="w", padx=(0, 12), pady=1)
 
     # --- profit settings (LOCAL - each user has their own) -----------------
     set_frame = ttk.LabelFrame(frm, text="Profit settings (yours only - saved "

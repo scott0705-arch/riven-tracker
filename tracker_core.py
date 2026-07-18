@@ -101,7 +101,7 @@ def append_history_file(path, snapshot):
     atomic_write_json(path, {"snapshots": snaps})
     return snaps
 
-RETENTION_DAYS = 14
+RETENTION_DAYS = 30
 
 def prune_history_file(path, days=RETENTION_DAYS):
     """Drop snapshots older than `days`. Returns the kept list."""

@@ -63,6 +63,22 @@
         "Magistar": 550,
         "Verglas": 435
       }
+    },
+    {
+      "timestamp": "2026-07-18T17:02:11+00:00",
+      "prices": {
+        "Torid": 400,
+        "Magistar": 550,
+        "Verglas": 435
+      }
+    },
+    {
+      "timestamp": "2026-07-18T17:02:42+00:00",
+      "prices": {
+        "Torid": 400,
+        "Magistar": 550,
+        "Verglas": 435
+      }
     }
   ]
 }

@@ -33,7 +33,8 @@ import tracker_core as core
 # Format: "githubusername/reponame"
 # ---------------------------------------------------------------------------
 DEFAULT_REPO = "scott0705-arch/riven-tracker"
-DEFAULT_BRANCH = "main"
+DEFAULT_BRANCH = "main"            # code + config
+DATA_BRANCH = "data"               # bot-maintained price data
 
 APP_TITLE = "Warframe Riven Tracker"
 
@@ -201,10 +202,11 @@ class RemoteData:
                                "'username/reponame' in Settings and click Save.")
         return repo, branch
 
-    def _get(self, filename, conditional=True):
-        repo, branch = self._repo_branch()
+    def _get(self, filename, conditional=True, branch=None):
+        repo, cfg_branch = self._repo_branch()
+        use = branch or cfg_branch
         etag = self.etags.get(filename) if conditional else None
-        data, new_etag = http_get_json(api_url(repo, branch, filename), etag)
+        data, new_etag = http_get_json(api_url(repo, use, filename), etag)
         if new_etag:
             self.etags[filename] = new_etag
         return data                        # None means "unchanged"
@@ -221,7 +223,7 @@ class RemoteData:
                 self.server_cfg = cfg
                 core.atomic_write_json(CACHE_CONFIG, cfg)
                 changed = True
-        rec = self._get("recent.json", conditional)
+        rec = self._get("recent.json", conditional, branch=DATA_BRANCH)
         if rec is not None:
             snaps = sorted(rec.get("snapshots", []),
                            key=lambda s: s["timestamp"])
@@ -229,7 +231,8 @@ class RemoteData:
             core.atomic_write_json(CACHE_RECENT, {"snapshots": snaps})
             changed = True
         if include_archive:
-            arch = self._get("archive.json", conditional)
+            arch = self._get("archive.json", conditional,
+                             branch=DATA_BRANCH)
             if arch is not None:
                 self.archive = arch.get("weapons", {})
                 core.atomic_write_json(CACHE_ARCHIVE, arch)

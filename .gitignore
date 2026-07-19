@@ -1,7 +1,6 @@
 # client-side / local files - never commit these
 client_settings.json
-cached_recent.json
-cached_archive.json
+cached_history.json
 cached_config.json
 riven_prices.xlsx
 *.log
@@ -11,3 +10,8 @@ dist/
 __pycache__/
 *.pyc
 .tmp*
+
+# data lives on the 'data' branch; local collector runs shouldn't dirty main
+recent.json
+archive.json
+riven_items_cache.json

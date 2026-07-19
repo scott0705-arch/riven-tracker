@@ -2,6 +2,8 @@
 client_settings.json
 cached_history.json
 cached_config.json
+cached_archive.json
+cached_recent.json
 riven_prices.xlsx
 *.log
 build/
@@ -15,3 +17,4 @@ __pycache__/
 recent.json
 archive.json
 riven_items_cache.json
+cached_archive.json

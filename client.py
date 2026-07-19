@@ -47,11 +47,17 @@ CONFIG_EVERY_N_POLLS = 10          # weapon list rarely changes; check it less
 SAMPLES_PER_DAY = 288
 MAX_LOOKBACK_DAYS = 30             # matches the server's data retention cap
 
+# Buy-panel range: the good-buy price is your ceiling; open negotiations
+# this % below it. 20 -> a 400p good buy shows as "320-400".
+BUY_RANGE_PCT = 20.0
+
 CLIENT_ANALYSIS_DEFAULTS = {
     "lookback_days": 7,            # analysis window, in days
     "sell_percentile": 0.5,        # 0-1, where in the recent range you sell
     "desired_profit": 50,          # platinum profit wanted per flip
     "safety_margin_pct": 10.0,     # % haircut on the projected sell price
+    "min_roi_pct": 15.0,           # minimum return-on-capital, in %
+    "buy_range_pct": 20.0,         # opening-offer discount below the good buy
 }
 
 
@@ -95,6 +101,10 @@ def _migrate_analysis(a):
         out["safety_margin_pct"] = a["safety_margin_pct"]
     elif "safety_margin" in a:                  # old: 0-1 decimal
         out["safety_margin_pct"] = float(a["safety_margin"]) * 100.0
+    if "min_roi_pct" in a:
+        out["min_roi_pct"] = a["min_roi_pct"]
+    if "buy_range_pct" in a:
+        out["buy_range_pct"] = a["buy_range_pct"]
     return out
 
 
@@ -120,6 +130,7 @@ def engine_analysis(a):
         "sell_percentile": float(a["sell_percentile"]),
         "desired_profit": float(a["desired_profit"]),
         "safety_margin": float(a["safety_margin_pct"]) / 100.0,
+        "min_roi": float(a.get("min_roi_pct", 0.0)) / 100.0,
     }
 
 
@@ -292,9 +303,9 @@ def run_gui():
     buy_tv = ttk.Treeview(buy_frame, show="headings",
                           columns=("weapon", "buy"), height=8)
     buy_tv.heading("weapon", text="Weapon")
-    buy_tv.heading("buy", text="Buy \u2264")
+    buy_tv.heading("buy", text="Buy range")
     buy_tv.column("weapon", width=130, anchor="w", stretch=False)
-    buy_tv.column("buy", width=62, anchor="e", stretch=False)
+    buy_tv.column("buy", width=88, anchor="e", stretch=False)
     buy_tv.pack(fill="y", expand=True)
 
     def refresh_buy_panel(rows):
@@ -305,7 +316,10 @@ def run_gui():
         priced.sort(key=lambda r: -r[7])
         buy_tv.delete(*buy_tv.get_children())
         for r in priced:
-            buy_tv.insert("", "end", values=(r[0], r[7]))
+            hi = r[7]
+            lo = round(hi * (1 - BUY_RANGE_PCT / 100.0))
+            buy_tv.insert("", "end",
+                          values=(r[0], f"{lo}-{hi}" if hi > 0 else "0"))
         for r in unpriced:
             buy_tv.insert("", "end", values=(r[0], "-"))
         buy_tv.configure(height=max(8, len(rows)))
@@ -416,29 +430,6 @@ def run_gui():
     # ======================= Settings tab ==================================
     frm = settings_tab
 
-    # --- data source -------------------------------------------------------
-    src = ttk.LabelFrame(frm, text="Data source (the shared tracker on GitHub)",
-                         padding=8)
-    src.pack(fill="x", pady=(0, 8))
-    ttk.Label(src, text="Repo (username/reponame)").grid(row=0, column=0, sticky="w")
-    repo_e = ttk.Entry(src, width=34)
-    repo_e.insert(0, settings["repo"])
-    repo_e.grid(row=0, column=1, sticky="w", padx=(8, 12))
-    ttk.Label(src, text="Branch").grid(row=0, column=2, sticky="w")
-    branch_e = ttk.Entry(src, width=10)
-    branch_e.insert(0, settings["branch"])
-    branch_e.grid(row=0, column=3, sticky="w", padx=(8, 12))
-
-    def save_source():
-        settings["repo"] = repo_e.get().strip()
-        settings["branch"] = branch_e.get().strip() or "main"
-        save_settings(settings)
-        remote.etags.clear()               # force full re-download of new source
-        set_status("Data source saved")
-
-    ttk.Button(src, text="Save", command=save_source).grid(row=0, column=4)
-    src.columnconfigure(4, weight=1)
-
     # --- my weapons: pick which tracked weapons YOU see --------------------
     wf = ttk.LabelFrame(frm, text="My weapons - tick what you want on your "
                                   "dashboard (data is collected for all of "
@@ -448,7 +439,7 @@ def run_gui():
     checks_frame = ttk.Frame(wf)
     checks_frame.pack(side="left", fill="both", expand=True)
     check_vars = {}                                  # url_name -> BooleanVar
-    PICKER_COLS = 4
+    PICKER_COLS = 3
 
     def on_toggle():
         picked = [slug for slug, v in check_vars.items() if v.get()]
@@ -481,8 +472,33 @@ def run_gui():
 
     wbtns = ttk.Frame(wf)
     wbtns.pack(side="left", padx=(8, 0), anchor="n")
+    UNPROFITABLE_BELOW = 10        # good-buy upper bound under this = untick
+
+    def untick_unprofitable():
+        """Untick every weapon whose suggested buy price (the upper end of
+        the buy range) is below UNPROFITABLE_BELOW - it can't meaningfully
+        meet your profit target at current prices. Weapons with no data yet
+        are left ticked (unknown, not unprofitable)."""
+        rows = core.compute_analysis_series(
+            remote.series_map(), engine_analysis(settings["analysis"]))
+        bad = {r[0] for r in rows
+               if isinstance(r[7], (int, float)) and r[7] < UNPROFITABLE_BELOW}
+        slug_by_name = {w["name"]: w["url_name"]
+                        for w in remote.server_cfg.get("weapons", [])}
+        n = 0
+        for name in bad:
+            var = check_vars.get(slug_by_name.get(name))
+            if var and var.get():
+                var.set(False)
+                n += 1
+        on_toggle()
+        set_status(f"Unticked {n} unprofitable weapon(s)" if n else
+                   "No ticked weapons are unprofitable right now")
+
     ttk.Button(wbtns, text="All",
                command=lambda: set_all(True)).pack(fill="x", pady=(0, 3))
+    ttk.Button(wbtns, text="Untick unprofitable",
+               command=untick_unprofitable).pack(fill="x", pady=(0, 3))
     ttk.Button(wbtns, text="Edit shared list on GitHub...",
                command=open_repo_config).pack(fill="x")
 
@@ -501,8 +517,7 @@ def run_gui():
                     sticky="w", padx=(0, 12), pady=1)
 
     # --- profit settings (LOCAL - each user has their own) -----------------
-    set_frame = ttk.LabelFrame(frm, text="Profit settings (yours only - saved "
-                                         "on this PC)", padding=8)
+    set_frame = ttk.LabelFrame(frm, text="Profit settings", padding=8)
     set_frame.pack(fill="x", pady=(0, 8))
 
     PCTL_TIP = ("How optimistic your projected sell price is, from 0 to 1. "
@@ -520,12 +535,23 @@ def run_gui():
          f"Max {MAX_LOOKBACK_DAYS} days."),
         ("Projected sell percentile", "sell_percentile",
          "float", 0.0, 1.0, PCTL_TIP),
-        ("Desired profit (plat)", "desired_profit",
-         "float", 0, 100000, "Platinum profit you want per flip."),
         ("Safety margin (%)", "safety_margin_pct",
          "float", 0.0, 100.0,
          "Haircut on the projected sell price, as a percentage. 10% = assume "
          "you actually sell 10% below the projection, to be safe."),
+        ("Desired profit (plat)", "desired_profit",
+         "float", 0, 100000, "Platinum profit you want per flip."),
+        ("Buy range (%)", "buy_range_pct",
+         "float", 0.0, 90.0,
+         "Negotiation room on the dashboard's Buy at panel. 20% turns a good "
+         "buy of 400 into a 320-400 range: open at the low end, never pay "
+         "past the top."),
+        ("Minimum ROI (%)", "min_roi_pct",
+         "float", 0.0, 500.0,
+         "Minimum return on the plat you tie up. Desired profit is the floor; "
+         "on expensive rivens the buy price drops further until profit is at "
+         "least this % of the buy. 0 = off. Whichever rule demands the lower "
+         "buy price wins."),
     ]
     entries = {}
     tip_labels = []
@@ -535,7 +561,7 @@ def run_gui():
         e.insert(0, str(settings["analysis"][key]))
         e.grid(row=i, column=1, sticky="nw", padx=(8, 12), pady=2)
         tip_lbl = ttk.Label(set_frame, text=tip, foreground="#777",
-                            wraplength=520, justify="left")
+                            wraplength=380, justify="left")
         tip_lbl.grid(row=i, column=2, sticky="w", pady=2)
         tip_labels.append(tip_lbl)
         entries[key] = e
@@ -692,8 +718,11 @@ def run_gui():
     # size the window so every tab fits on first launch (the notebook's
     # requested size is that of its tallest/widest tab - the Settings tab)
     root.update_idletasks()
-    w = max(900, root.winfo_reqwidth())
-    h = max(560, root.winfo_reqheight())
+    # width: sane cap - wide tabs (checkbox grid, tip text) must not blow the
+    # window up; the dynamic tip re-wrap and column fitting handle narrowness
+    w = min(max(900, root.winfo_reqwidth()), 1000,
+            root.winfo_screenwidth() - 80)
+    h = min(max(560, root.winfo_reqheight()), root.winfo_screenheight() - 90)
     root.geometry(f"{w}x{h}")
 
     # kick off: one full refresh shortly after launch, then the poll loop

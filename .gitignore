@@ -1,6 +1,7 @@
 # client-side / local files - never commit these
 client_settings.json
-cached_history.json
+cached_recent.json
+cached_archive.json
 cached_config.json
 riven_prices.xlsx
 *.log

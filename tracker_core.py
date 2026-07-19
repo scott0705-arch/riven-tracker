@@ -33,8 +33,10 @@ RETENTION_DAYS = 30                # archive.json window (full history depth)
 ANALYSIS_DEFAULTS = {
     "lookback": 168,               # recent samples used by the analysis (168 = 1 week)
     "sell_percentile": 0.5,        # where in the recent range you expect to sell
-    "desired_profit": 50,          # platinum profit wanted per flip
+    "desired_profit": 50,          # platinum profit wanted per flip (floor)
     "safety_margin": 0.1,          # haircut on the projected sell price
+    "min_roi": 0.0,                # min return-on-capital (0.2 = 20%); the
+                                   # stricter of profit-floor / ROI wins
 }
 
 ANALYSIS_HEADERS = ["Weapon", "Latest price", "Samples", "Recent min",
@@ -237,7 +239,11 @@ def compute_analysis_series(series_map, analysis):
             else ("no listing" if series else "")
         if window:
             sell = percentile_inc(window, pctl) * (1 - margin)
-            good_buy = max(0, round(sell - profit_target))
+            roi = float(a.get("min_roi", 0.0) or 0.0)
+            # profit floor and ROI both constrain; lower buy price wins
+            buy_floor = sell - profit_target
+            buy_roi = sell / (1 + roi) if roi > 0 else buy_floor
+            good_buy = max(0, round(min(buy_floor, buy_roi)))
             rows.append((name, latest_disp, len(numeric), min(window),
                          percentile_inc(window, 0.5),
                          round(sum(window) / len(window), 1),
@@ -448,6 +454,8 @@ SETTINGS_ROWS = [
      "Profit you want per flip. Subtracted from projected sell price."),
     ("Safety margin (0 - 1)", "safety_margin",
      "Extra haircut on the projected sell price. 0.1 = assume you sell 10% below it."),
+    ("Minimum ROI (0 - 1)", "min_roi",
+     "Minimum return on capital. Buy price = the stricter of (sell - profit) and sell/(1+ROI)."),
 ]
 
 

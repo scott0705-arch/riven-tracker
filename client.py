@@ -80,6 +80,8 @@ DEFAULT_SETTINGS = {
     "analysis": dict(CLIENT_ANALYSIS_DEFAULTS),
     "excel_file": "riven_prices.xlsx",
     "selected_weapons": [],            # url_names; empty = all weapons
+    "chat_fore": "WTB rivens ",        # text before the [weapon] list
+    "chat_after": " pm me!",           # text after it
 }
 
 
@@ -283,29 +285,85 @@ def run_gui():
     nb.add(settings_tab, text="  Settings  ")
 
     status_var = tk.StringVar()
-    ttk.Label(root, textvariable=status_var, foreground="#555").pack(
-        anchor="w", padx=10, pady=(0, 6))
+    status_bar = ttk.Frame(root)
+    status_bar.pack(fill="x", padx=10, pady=(0, 6))
+    ttk.Label(status_bar, textvariable=status_var,
+              foreground="#555").pack(side="left")
+    ttk.Button(status_bar, text="Refresh now",
+               command=lambda: do_refresh(manual=True)).pack(side="right")
 
     def set_status(msg):
         status_var.set(msg)
 
     # ======================= Dashboard tab =================================
-    dash_top = ttk.Frame(dash_tab)
-    dash_top.pack(fill="x", pady=(0, 6))
-    ttk.Label(dash_top, text="Profitable:").pack(side="left")
+    # --- trade chat composer (180-char in-game limit) ----------------------
+    CHAT_LIMIT = 180
+    chat_frame = ttk.LabelFrame(dash_tab, text="Trade chat message",
+                                padding=(6, 4))
+    chat_frame.pack(fill="x", pady=(0, 6))
+    chat_state = {"profitable": []}          # ordered names, buy price desc
+
+    crow1 = ttk.Frame(chat_frame)
+    crow1.pack(fill="x")
+    ttk.Label(crow1, text="Before:").pack(side="left")
+    fore_e = ttk.Entry(crow1, width=28)
+    fore_e.insert(0, settings.get("chat_fore", ""))
+    fore_e.pack(side="left", padx=(4, 12))
+    ttk.Label(crow1, text="After:").pack(side="left")
+    after_e = ttk.Entry(crow1, width=28)
+    after_e.insert(0, settings.get("chat_after", ""))
+    after_e.pack(side="left", padx=(4, 12))
+    chat_count = ttk.Label(crow1, text="", foreground="#777")
+    chat_count.pack(side="left")
+
+    crow2 = ttk.Frame(chat_frame)
+    crow2.pack(fill="x", pady=(4, 0))
     copy_var = tk.StringVar()
-    copy_entry = ttk.Entry(dash_top, textvariable=copy_var, state="readonly")
-    copy_entry.pack(side="left", fill="x", expand=True, padx=6)
+    copy_entry = ttk.Entry(crow2, textvariable=copy_var, state="readonly")
+    copy_entry.pack(side="left", fill="x", expand=True)
 
     def copy_profitable():
         root.clipboard_clear()
         root.clipboard_append(copy_var.get())
-        set_status("Profitable weapon list copied to clipboard")
+        set_status("Trade chat message copied to clipboard")
 
-    ttk.Button(dash_top, text="Copy", command=copy_profitable).pack(
-        side="left", padx=(0, 8))
-    ttk.Button(dash_top, text="Refresh now",
-               command=lambda: do_refresh(manual=True)).pack(side="right")
+    ttk.Button(crow1, text="Copy",
+               command=copy_profitable).pack(side="right")
+
+    def update_chat_message(_event=None):
+        """Compose fore + [weapons] + after within CHAT_LIMIT. First-fit
+        with skip: walk the profitable list in order; when one doesn't fit,
+        try the next, all the way to the end (short names can still slot in
+        after a long one fails)."""
+        fore = fore_e.get()
+        after = after_e.get()
+        if fore != settings.get("chat_fore") or \
+                after != settings.get("chat_after"):
+            settings["chat_fore"] = fore
+            settings["chat_after"] = after
+            save_settings(settings)
+        budget = CHAT_LIMIT - len(fore) - len(after)
+        parts, used = [], 0
+        skipped = 0
+        for name in chat_state["profitable"]:
+            b = f"[{name}]"
+            if len(b) <= budget - used:
+                parts.append(b)
+                used += len(b)
+            else:
+                skipped += 1
+        msg = fore + "".join(parts) + after
+        copy_var.set(msg)
+        total = len(chat_state["profitable"])
+        note = f"{len(msg)}/{CHAT_LIMIT} chars - " \
+               f"{len(parts)}/{total} weapon(s)"
+        if skipped:
+            note += f" ({skipped} skipped, no room)"
+        over = len(msg) > CHAT_LIMIT           # only possible via fore/after
+        chat_count.config(text=note, foreground="#b00" if over else "#777")
+
+    fore_e.bind("<KeyRelease>", update_chat_message)
+    after_e.bind("<KeyRelease>", update_chat_message)
 
     dash_body = ttk.Frame(dash_tab)
     dash_body.pack(fill="both", expand=True)
@@ -339,12 +397,14 @@ def run_gui():
         for r in unpriced:
             buy_tv.insert("", "end", values=(r[0], "-", "-"))
         buy_tv.configure(height=max(8, len(rows)))
-        copy_var.set("".join(f"[{r[0]}]" for r in priced
-                             if r[7] >= UNPROFITABLE_BELOW))
+        chat_state["profitable"] = [r[0] for r in priced
+                                    if r[7] >= UNPROFITABLE_BELOW]
+        update_chat_message()
 
     def ensure_window_fits():
-        """Grow the window (never shrink it) so the buy panel's full height
-        is visible - capped to the screen."""
+        """Grow the window height (never shrink) so the buy panel fits -
+        capped to the screen. Width is left to the user; the chat message
+        line scrolls horizontally when longer than the window."""
         root.update_idletasks()
         need_h = root.winfo_reqheight()
         cur_h = root.winfo_height()
@@ -785,9 +845,10 @@ def run_gui():
                     f"auto-checking every {AUTO_REFRESH_SECONDS}s"))
             except RateLimited as e:
                 remote.rate_limited_until = e.reset_epoch or (time.time() + 900)
-                gui_log(str(e))
-                root.after(0, lambda: set_status(
-                    f"{e} - showing cached data, auto-refresh paused"))
+                msg = str(e)
+                gui_log(msg)
+                root.after(0, lambda m=msg: set_status(
+                    f"{m} - showing cached data, auto-refresh paused"))
             except Exception as e:
                 if manual:
                     gui_log(f"could not refresh: {e}")

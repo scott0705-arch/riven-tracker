@@ -476,7 +476,9 @@ def run_gui():
         for i in range(4):                          # x labels
             e = x0 + (x1 - x0) * i / 3
             lbl = datetime.fromtimestamp(e).strftime("%d %b %H:%M")
-            canvas.create_text(X(e), h - B + 4, text=lbl, anchor="n",
+            # edge labels anchor inward so they never clip off the canvas
+            anchor = "nw" if i == 0 else ("ne" if i == 3 else "n")
+            canvas.create_text(X(e), h - B + 4, text=lbl, anchor=anchor,
                                fill="#666", font=("Segoe UI", 8))
         coords = []
         for e, p in num:

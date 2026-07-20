@@ -6770,6 +6770,33 @@
         "Nukor": 20,
         "Acceltra": 50
       }
+    },
+    {
+      "timestamp": "2026-07-20T03:58:43+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 450,
+        "Torid": 379,
+        "Ocucor": 175,
+        "Bo": 210,
+        "Dual Toxocyst": 170,
+        "Boar": 120,
+        "Destreza": 99,
+        "Sobek": 100,
+        "Obex": 80,
+        "Furis": 100,
+        "Nami Solo": 40,
+        "Stug": 39,
+        "Latron": 70,
+        "War": 50,
+        "Akarius": 60,
+        "Laetum": 59,
+        "Ogris": 40,
+        "Ballistica": 100,
+        "Dual Ichor": 80,
+        "Nukor": 20,
+        "Acceltra": 130
+      }
     }
   ]
 }

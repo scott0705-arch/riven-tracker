@@ -274,9 +274,11 @@ def run_gui():
     nb.pack(fill="both", expand=True, padx=6, pady=6)
 
     dash_tab = ttk.Frame(nb, padding=10)
+    weapon_tab = ttk.Frame(nb, padding=10)
     samples_tab = ttk.Frame(nb, padding=10)
     settings_tab = ttk.Frame(nb, padding=10)
     nb.add(dash_tab, text="  Dashboard  ")
+    nb.add(weapon_tab, text="  Weapon Data  ")
     nb.add(samples_tab, text="  Samples  ")
     nb.add(settings_tab, text="  Settings  ")
 
@@ -288,12 +290,20 @@ def run_gui():
         status_var.set(msg)
 
     # ======================= Dashboard tab =================================
-    # For now: the analysis table. More widgets (price graphs etc.) later.
     dash_top = ttk.Frame(dash_tab)
     dash_top.pack(fill="x", pady=(0, 6))
-    ttk.Label(dash_top,
-              text="Good buy price = projected sell x (1 - safety margin) - desired profit",
-              foreground="#777").pack(side="left")
+    ttk.Label(dash_top, text="Profitable:").pack(side="left")
+    copy_var = tk.StringVar()
+    copy_entry = ttk.Entry(dash_top, textvariable=copy_var, state="readonly")
+    copy_entry.pack(side="left", fill="x", expand=True, padx=6)
+
+    def copy_profitable():
+        root.clipboard_clear()
+        root.clipboard_append(copy_var.get())
+        set_status("Profitable weapon list copied to clipboard")
+
+    ttk.Button(dash_top, text="Copy", command=copy_profitable).pack(
+        side="left", padx=(0, 8))
     ttk.Button(dash_top, text="Refresh now",
                command=lambda: do_refresh(manual=True)).pack(side="right")
 
@@ -304,28 +314,33 @@ def run_gui():
     buy_frame = ttk.LabelFrame(dash_body, text="Buy at", padding=(4, 4))
     buy_frame.pack(side="left", fill="y", padx=(0, 8))
     buy_tv = ttk.Treeview(buy_frame, show="headings",
-                          columns=("weapon", "buy"), height=8)
+                          columns=("weapon", "buy", "sell"), height=8)
     buy_tv.heading("weapon", text="Weapon")
     buy_tv.heading("buy", text="Buy range")
+    buy_tv.heading("sell", text="Proj. sell")
     buy_tv.column("weapon", width=130, anchor="w", stretch=False)
-    buy_tv.column("buy", width=88, anchor="e", stretch=False)
+    buy_tv.column("buy", width=92, anchor="e", stretch=False)
+    buy_tv.column("sell", width=70, anchor="e", stretch=False)
     buy_tv.pack(fill="y", expand=True)
 
     def refresh_buy_panel(rows):
-        """rows = compute_analysis_series output. Sort by good-buy price
-        (index 7), highest first; rows without a price go to the bottom."""
+        """rows = compute_analysis_series output, sorted by good-buy price
+        (index 7) desc; also rebuilds the copyable profitable string."""
         priced = [r for r in rows if isinstance(r[7], (int, float))]
         unpriced = [r for r in rows if not isinstance(r[7], (int, float))]
         priced.sort(key=lambda r: -r[7])
         buy_tv.delete(*buy_tv.get_children())
+        rng = float(settings["analysis"].get("buy_range_pct", 20.0)) / 100.0
         for r in priced:
-            hi = r[7]
-            lo = round(hi * (1 - BUY_RANGE_PCT / 100.0))
-            buy_tv.insert("", "end",
-                          values=(r[0], f"{lo}-{hi}" if hi > 0 else "0"))
+            upper = r[7]
+            lower = round(upper * (1 - rng))
+            label = f"{lower}-{upper}" if rng > 0 and lower < upper else upper
+            buy_tv.insert("", "end", values=(r[0], label, r[6]))
         for r in unpriced:
-            buy_tv.insert("", "end", values=(r[0], "-"))
+            buy_tv.insert("", "end", values=(r[0], "-", "-"))
         buy_tv.configure(height=max(8, len(rows)))
+        copy_var.set("".join(f"[{r[0]}]" for r in priced
+                             if r[7] >= UNPROFITABLE_BELOW))
 
     def ensure_window_fits():
         """Grow the window (never shrink it) so the buy panel's full height
@@ -338,8 +353,119 @@ def run_gui():
         cap = root.winfo_screenheight() - 90
         root.geometry(f"{root.winfo_width()}x{min(need_h, cap)}")
 
-    ana_wrap = ttk.Frame(dash_body)
-    ana_wrap.pack(side="left", fill="both", expand=True)
+    # --- right: price graph (window = analysis lookback) -------------------
+    graph_frame = ttk.LabelFrame(dash_body, text="Price graph", padding=(6, 4))
+    graph_frame.pack(side="left", fill="both", expand=True)
+    gtop = ttk.Frame(graph_frame)
+    gtop.pack(fill="x")
+    ttk.Label(gtop, text="Weapon:").pack(side="left")
+    graph_sel = ttk.Combobox(gtop, state="readonly", width=18)
+    graph_sel.pack(side="left", padx=(6, 10))
+    graph_info = ttk.Label(gtop, text="", foreground="#777")
+    graph_info.pack(side="left")
+    canvas = tk.Canvas(graph_frame, background="white", highlightthickness=0)
+    canvas.pack(fill="both", expand=True, pady=(6, 0))
+    graph_pts = []                     # [(cx, cy, epoch, price)] for hover
+    GM = {"L": 52, "R": 12, "T": 12, "B": 30}      # plot margins
+
+    def redraw_graph(_event=None):
+        canvas.delete("all")
+        graph_pts.clear()
+        name = graph_sel.get()
+        pts = remote.series_map().get(name, [])
+        lookback = int(round(settings["analysis"]["lookback_days"]
+                             * SAMPLES_PER_DAY))
+        pts = pts[-lookback:]
+        num = [(e, p) for e, p in pts if isinstance(p, (int, float))]
+        graph_info.config(
+            text=f"last {settings['analysis']['lookback_days']} day(s) - "
+                 f"{len(num)} sample(s)")
+        w, h = canvas.winfo_width(), canvas.winfo_height()
+        if w < 100 or h < 70:
+            return
+        if len(num) < 2:
+            canvas.create_text(w // 2, h // 2, text="Not enough data yet",
+                               fill="#999")
+            return
+        L, R, T, B = GM["L"], GM["R"], GM["T"], GM["B"]
+        xs = [e for e, _ in num]
+        ys = [p for _, p in num]
+        x0, x1 = min(xs), max(xs)
+        y0, y1 = min(ys), max(ys)
+        if y1 == y0:
+            y0, y1 = y0 - 1, y1 + 1
+        pad = (y1 - y0) * 0.08
+        y0, y1 = y0 - pad, y1 + pad
+        if x1 == x0:
+            x1 = x0 + 1
+
+        def X(e):
+            return L + (w - L - R) * (e - x0) / (x1 - x0)
+
+        def Y(p):
+            return T + (h - T - B) * (1 - (p - y0) / (y1 - y0))
+
+        canvas.create_line(L, T, L, h - B, fill="#bbb")
+        canvas.create_line(L, h - B, w - R, h - B, fill="#bbb")
+        for i in range(5):                          # y grid + labels
+            v = y0 + (y1 - y0) * i / 4
+            yy = Y(v)
+            canvas.create_line(L, yy, w - R, yy, fill="#eee")
+            canvas.create_text(L - 6, yy, text=f"{v:.0f}", anchor="e",
+                               fill="#666", font=("Segoe UI", 8))
+        for i in range(4):                          # x labels
+            e = x0 + (x1 - x0) * i / 3
+            lbl = datetime.fromtimestamp(e).strftime("%d %b %H:%M")
+            canvas.create_text(X(e), h - B + 4, text=lbl, anchor="n",
+                               fill="#666", font=("Segoe UI", 8))
+        coords = []
+        for e, p in num:
+            cx, cy = X(e), Y(p)
+            coords += [cx, cy]
+            graph_pts.append((cx, cy, e, p))
+        canvas.create_line(*coords, fill="#534AB7", width=2)
+
+    def on_graph_hover(ev):
+        canvas.delete("hover")
+        if not graph_pts:
+            return
+        cx, cy, e, p = min(graph_pts, key=lambda t: abs(t[0] - ev.x))
+        w, h = canvas.winfo_width(), canvas.winfo_height()
+        canvas.create_line(cx, GM["T"], cx, h - GM["B"], fill="#ddd",
+                           tags="hover")
+        canvas.create_oval(cx - 3, cy - 3, cx + 3, cy + 3, fill="#534AB7",
+                           outline="", tags="hover")
+        txt = f"{p:.0f}p - {datetime.fromtimestamp(e).strftime('%d %b %H:%M')}"
+        tx = min(max(cx + 10, GM["L"] + 8), w - 150)
+        canvas.create_rectangle(tx - 4, 14, tx + 140, 32, fill="#ffffe0",
+                                outline="#ccc", tags="hover")
+        canvas.create_text(tx, 23, text=txt, anchor="w", fill="#333",
+                           font=("Segoe UI", 8), tags="hover")
+
+    canvas.bind("<Configure>", redraw_graph)
+    canvas.bind("<Motion>", on_graph_hover)
+    canvas.bind("<Leave>", lambda e: canvas.delete("hover"))
+    graph_sel.bind("<<ComboboxSelected>>", redraw_graph)
+
+    def refresh_graph_choices():
+        names = selected_names()
+        cur = graph_sel.get()
+        graph_sel["values"] = names
+        if cur not in names:
+            graph_sel.set(names[0] if names else "")
+        redraw_graph()
+
+    # ======================= Weapon Data tab ===============================
+    wd_top = ttk.Frame(weapon_tab)
+    wd_top.pack(fill="x", pady=(0, 6))
+    ttk.Label(wd_top,
+              text="Good buy price = projected sell x (1 - safety margin) - desired profit",
+              foreground="#777").pack(side="left")
+    ttk.Button(wd_top, text="Refresh now",
+               command=lambda: do_refresh(manual=True)).pack(side="right")
+
+    ana_wrap = ttk.Frame(weapon_tab)
+    ana_wrap.pack(fill="both", expand=True)
     ana_tv = ttk.Treeview(ana_wrap, show="headings")
     avs = ttk.Scrollbar(ana_wrap, orient="vertical", command=ana_tv.yview)
     ana_tv.configure(yscrollcommand=avs.set)
@@ -383,6 +509,7 @@ def run_gui():
         for row in rows:
             ana_tv.insert("", "end", values=row)
         refresh_buy_panel(rows)
+        refresh_graph_choices()
         ensure_window_fits()
 
     # ======================= Samples tab ===================================

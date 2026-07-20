@@ -1,60 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-18T22:54:21+00:00",
-      "prices": {
-        "Magistar": 500,
-        "Verglas": 450,
-        "Torid": 340,
-        "Ocucor": 220,
-        "Bo": 210,
-        "Dual Toxocyst": 199,
-        "Boar": 100,
-        "Destreza": 74,
-        "Sobek": 120,
-        "Obex": 109,
-        "Furis": 149,
-        "Nami Solo": 65,
-        "Stug": 70,
-        "Latron": 100,
-        "War": 55,
-        "Akarius": 50,
-        "Laetum": 60,
-        "Ogris": 30,
-        "Ballistica": 150,
-        "Dual Ichor": 80,
-        "Nukor": 75,
-        "Acceltra": 40
-      }
-    },
-    {
-      "timestamp": "2026-07-18T22:57:27+00:00",
-      "prices": {
-        "Magistar": 500,
-        "Verglas": 450,
-        "Torid": 340,
-        "Ocucor": 220,
-        "Bo": 210,
-        "Dual Toxocyst": 199,
-        "Boar": 100,
-        "Destreza": 74,
-        "Sobek": 120,
-        "Obex": 109,
-        "Furis": 149,
-        "Nami Solo": 65,
-        "Stug": 70,
-        "Latron": 100,
-        "War": 55,
-        "Akarius": 50,
-        "Laetum": 50,
-        "Ogris": 30,
-        "Ballistica": 150,
-        "Dual Ichor": 80,
-        "Nukor": 75,
-        "Acceltra": 40
-      }
-    },
-    {
       "timestamp": "2026-07-18T23:04:59+00:00",
       "prices": {
         "Magistar": 500,
@@ -11993,6 +11939,32 @@
     },
     {
       "timestamp": "2026-07-20T22:52:41+00:00",
+      "prices": {
+        "Magistar": 520,
+        "Verglas": 440,
+        "Torid": 365,
+        "Burston": 280,
+        "Ocucor": 239,
+        "Ballistica": 150,
+        "Bo": 250,
+        "Dual Toxocyst": 197,
+        "Okina": 150,
+        "Boar": 127,
+        "Destreza": 60,
+        "Sobek": 108,
+        "Obex": 110,
+        "Furis": 140,
+        "Nami Solo": 100,
+        "Stug": 60,
+        "Dual Ichor": 80,
+        "Latron": 150,
+        "Akarius": 65,
+        "Laetum": 69,
+        "Ogris": 40
+      }
+    },
+    {
+      "timestamp": "2026-07-20T22:58:44+00:00",
       "prices": {
         "Magistar": 520,
         "Verglas": 440,

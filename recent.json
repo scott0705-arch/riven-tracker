@@ -1,33 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-19T14:18:53+00:00",
-      "prices": {
-        "Magistar": 599,
-        "Verglas": 440,
-        "Torid": 400,
-        "Ocucor": 240,
-        "Bo": 250,
-        "Dual Toxocyst": 170,
-        "Boar": 89,
-        "Destreza": 60,
-        "Sobek": 120,
-        "Obex": 94,
-        "Furis": 115,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Latron": 85,
-        "War": 50,
-        "Akarius": 40,
-        "Laetum": 65,
-        "Ogris": 55,
-        "Ballistica": 100,
-        "Dual Ichor": 60,
-        "Nukor": 20,
-        "Acceltra": 35
-      }
-    },
-    {
       "timestamp": "2026-07-19T14:23:14+00:00",
       "prices": {
         "Magistar": 599,
@@ -14504,6 +14477,32 @@
         "Boar": 110,
         "Destreza": 75,
         "Sobek": 105,
+        "Obex": 60,
+        "Furis": 110,
+        "Nami Solo": 70,
+        "Stug": 35,
+        "Dual Ichor": 55,
+        "Latron": 80,
+        "Akarius": 46,
+        "Laetum": 70,
+        "Ogris": 40
+      }
+    },
+    {
+      "timestamp": "2026-07-21T14:22:47+00:00",
+      "prices": {
+        "Magistar": 590,
+        "Verglas": 450,
+        "Torid": 375,
+        "Burston": 300,
+        "Ocucor": 218,
+        "Ballistica": 129,
+        "Bo": 190,
+        "Dual Toxocyst": 190,
+        "Okina": 75,
+        "Boar": 120,
+        "Destreza": 80,
+        "Sobek": 100,
         "Obex": 60,
         "Furis": 110,
         "Nami Solo": 70,

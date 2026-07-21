@@ -1,60 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-19T09:19:07+00:00",
-      "prices": {
-        "Magistar": 630,
-        "Verglas": 450,
-        "Torid": 380,
-        "Ocucor": 220,
-        "Bo": 210,
-        "Dual Toxocyst": 180,
-        "Boar": 98,
-        "Destreza": 80,
-        "Sobek": 100,
-        "Obex": 100,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 45,
-        "Latron": 100,
-        "War": 60,
-        "Akarius": 50,
-        "Laetum": 65,
-        "Ogris": 44,
-        "Ballistica": 100,
-        "Dual Ichor": 60,
-        "Nukor": 30,
-        "Acceltra": 35
-      }
-    },
-    {
-      "timestamp": "2026-07-19T09:23:20+00:00",
-      "prices": {
-        "Magistar": 630,
-        "Verglas": 450,
-        "Torid": 380,
-        "Ocucor": 220,
-        "Bo": 210,
-        "Dual Toxocyst": 180,
-        "Boar": 98,
-        "Destreza": 80,
-        "Sobek": 100,
-        "Obex": 100,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 45,
-        "Latron": 100,
-        "War": 45,
-        "Akarius": 50,
-        "Laetum": 65,
-        "Ogris": 40,
-        "Ballistica": 100,
-        "Dual Ichor": 60,
-        "Nukor": 30,
-        "Acceltra": 35
-      }
-    },
-    {
       "timestamp": "2026-07-19T09:29:46+00:00",
       "prices": {
         "Magistar": 630,
@@ -14567,6 +14513,32 @@
         "Obex": 95,
         "Furis": 125,
         "Nami Solo": 80,
+        "Stug": 35,
+        "Dual Ichor": 70,
+        "Latron": 95,
+        "Akarius": 63,
+        "Laetum": 80,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-21T09:23:46+00:00",
+      "prices": {
+        "Magistar": 599,
+        "Verglas": 419,
+        "Torid": 499,
+        "Burston": 298,
+        "Ocucor": 248,
+        "Ballistica": 115,
+        "Bo": 250,
+        "Dual Toxocyst": 190,
+        "Okina": 99,
+        "Boar": 110,
+        "Destreza": 85,
+        "Sobek": 100,
+        "Obex": 95,
+        "Furis": 125,
+        "Nami Solo": 70,
         "Stug": 35,
         "Dual Ichor": 70,
         "Latron": 95,

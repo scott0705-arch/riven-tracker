@@ -1,60 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-19T11:28:44+00:00",
-      "prices": {
-        "Magistar": 540,
-        "Verglas": 449,
-        "Torid": 380,
-        "Ocucor": 250,
-        "Bo": 210,
-        "Dual Toxocyst": 190,
-        "Boar": 110,
-        "Destreza": 73,
-        "Sobek": 120,
-        "Obex": 90,
-        "Furis": 110,
-        "Nami Solo": 50,
-        "Stug": 40,
-        "Latron": 50,
-        "War": 50,
-        "Akarius": 70,
-        "Laetum": 49,
-        "Ogris": 55,
-        "Ballistica": 100,
-        "Dual Ichor": 65,
-        "Nukor": 19,
-        "Acceltra": 35
-      }
-    },
-    {
-      "timestamp": "2026-07-19T11:32:56+00:00",
-      "prices": {
-        "Magistar": 540,
-        "Verglas": 449,
-        "Torid": 380,
-        "Ocucor": 250,
-        "Bo": 210,
-        "Dual Toxocyst": 190,
-        "Boar": 110,
-        "Destreza": 73,
-        "Sobek": 60,
-        "Obex": 90,
-        "Furis": 110,
-        "Nami Solo": 50,
-        "Stug": 40,
-        "Latron": 85,
-        "War": 50,
-        "Akarius": 40,
-        "Laetum": 49,
-        "Ogris": 55,
-        "Ballistica": 100,
-        "Dual Ichor": 65,
-        "Nukor": 19,
-        "Acceltra": 35
-      }
-    },
-    {
       "timestamp": "2026-07-19T11:38:48+00:00",
       "prices": {
         "Magistar": 540,
@@ -14547,6 +14493,32 @@
         "Akarius": 55,
         "Laetum": 80,
         "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-21T11:33:06+00:00",
+      "prices": {
+        "Magistar": 540,
+        "Verglas": 460,
+        "Torid": 375,
+        "Burston": 298,
+        "Ocucor": 210,
+        "Ballistica": 115,
+        "Bo": 250,
+        "Dual Toxocyst": 190,
+        "Okina": 111,
+        "Boar": 130,
+        "Destreza": 75,
+        "Sobek": 100,
+        "Obex": 90,
+        "Furis": 140,
+        "Nami Solo": 70,
+        "Stug": 55,
+        "Dual Ichor": 65,
+        "Latron": 90,
+        "Akarius": 55,
+        "Laetum": 70,
+        "Ogris": 40
       }
     }
   ]

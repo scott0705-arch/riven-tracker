@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-20T14:13:00+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 470,
-        "Torid": 360,
-        "Burston": 240,
-        "Ocucor": 230,
-        "Ballistica": 120,
-        "Bo": 199,
-        "Dual Toxocyst": 170,
-        "Okina": 150,
-        "Boar": 110,
-        "Destreza": 67,
-        "Sobek": 120,
-        "Obex": 96,
-        "Furis": 110,
-        "Nami Solo": 65,
-        "Stug": 30,
-        "Dual Ichor": 70,
-        "Latron": 70,
-        "Akarius": 60,
-        "Laetum": 49,
-        "Ogris": 45
-      }
-    },
-    {
-      "timestamp": "2026-07-20T14:17:48+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 450,
-        "Torid": 350,
-        "Burston": 240,
-        "Ocucor": 230,
-        "Ballistica": 120,
-        "Bo": 199,
-        "Dual Toxocyst": 170,
-        "Okina": 150,
-        "Boar": 110,
-        "Destreza": 67,
-        "Sobek": 120,
-        "Obex": 100,
-        "Furis": 110,
-        "Nami Solo": 65,
-        "Stug": 30,
-        "Dual Ichor": 65,
-        "Latron": 70,
-        "Akarius": 60,
-        "Laetum": 49,
-        "Ogris": 45
-      }
-    },
-    {
       "timestamp": "2026-07-20T14:22:58+00:00",
       "prices": {
         "Magistar": 600,
@@ -14724,6 +14672,32 @@
         "Torid": 399,
         "Burston": 270,
         "Ocucor": 219,
+        "Ballistica": 98,
+        "Bo": 205,
+        "Dual Toxocyst": 199,
+        "Okina": 100,
+        "Boar": 98,
+        "Destreza": 99,
+        "Sobek": 100,
+        "Obex": 70,
+        "Furis": 100,
+        "Nami Solo": 70,
+        "Stug": 45,
+        "Dual Ichor": 60,
+        "Latron": 90,
+        "Akarius": 52,
+        "Laetum": 50,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-22T14:18:49+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 470,
+        "Torid": 399,
+        "Burston": 270,
+        "Ocucor": 240,
         "Ballistica": 98,
         "Bo": 205,
         "Dual Toxocyst": 199,

@@ -1,60 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-20T07:13:51+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 440,
-        "Torid": 399,
-        "Ocucor": 219,
-        "Bo": 210,
-        "Dual Toxocyst": 200,
-        "Boar": 127,
-        "Destreza": 75,
-        "Sobek": 120,
-        "Obex": 80,
-        "Furis": 110,
-        "Nami Solo": 100,
-        "Stug": 59,
-        "Latron": 65,
-        "War": 50,
-        "Akarius": 65,
-        "Laetum": 35,
-        "Ogris": 60,
-        "Ballistica": 15,
-        "Dual Ichor": 58,
-        "Nukor": 30,
-        "Acceltra": 45
-      }
-    },
-    {
-      "timestamp": "2026-07-20T07:17:55+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 440,
-        "Torid": 399,
-        "Ocucor": 219,
-        "Bo": 210,
-        "Dual Toxocyst": 200,
-        "Boar": 127,
-        "Destreza": 75,
-        "Sobek": 120,
-        "Obex": 80,
-        "Furis": 110,
-        "Nami Solo": 100,
-        "Stug": 59,
-        "Latron": 65,
-        "War": 50,
-        "Akarius": 65,
-        "Laetum": 35,
-        "Ogris": 60,
-        "Ballistica": 110,
-        "Dual Ichor": 58,
-        "Nukor": 30,
-        "Acceltra": 45
-      }
-    },
-    {
       "timestamp": "2026-07-20T07:22:51+00:00",
       "prices": {
         "Magistar": 600,
@@ -14572,6 +14518,32 @@
         "Destreza": 100,
         "Sobek": 100,
         "Obex": 90,
+        "Furis": 147,
+        "Nami Solo": 60,
+        "Stug": 80,
+        "Dual Ichor": 50,
+        "Latron": 90,
+        "Akarius": 60,
+        "Laetum": 50,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-22T07:18:49+00:00",
+      "prices": {
+        "Magistar": 580,
+        "Verglas": 480,
+        "Torid": 369,
+        "Burston": 300,
+        "Ocucor": 215,
+        "Ballistica": 100,
+        "Bo": 200,
+        "Dual Toxocyst": 190,
+        "Okina": 139,
+        "Boar": 175,
+        "Destreza": 100,
+        "Sobek": 100,
+        "Obex": 80,
         "Furis": 147,
         "Nami Solo": 60,
         "Stug": 80,

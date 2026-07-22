@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-20T18:37:37+00:00",
-      "prices": {
-        "Magistar": 589,
-        "Verglas": 400,
-        "Torid": 350,
-        "Burston": 299,
-        "Ocucor": 230,
-        "Ballistica": 108,
-        "Bo": 250,
-        "Dual Toxocyst": 177,
-        "Okina": 150,
-        "Boar": 100,
-        "Destreza": 100,
-        "Sobek": 140,
-        "Obex": 90,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 65,
-        "Ogris": 30
-      }
-    },
-    {
-      "timestamp": "2026-07-20T18:42:43+00:00",
-      "prices": {
-        "Magistar": 589,
-        "Verglas": 400,
-        "Torid": 350,
-        "Burston": 299,
-        "Ocucor": 230,
-        "Ballistica": 108,
-        "Bo": 250,
-        "Dual Toxocyst": 177,
-        "Okina": 150,
-        "Boar": 100,
-        "Destreza": 100,
-        "Sobek": 140,
-        "Obex": 90,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 65,
-        "Ogris": 30
-      }
-    },
-    {
       "timestamp": "2026-07-20T18:47:45+00:00",
       "prices": {
         "Magistar": 589,
@@ -14718,6 +14666,32 @@
     },
     {
       "timestamp": "2026-07-22T18:37:34+00:00",
+      "prices": {
+        "Magistar": 575,
+        "Verglas": 490,
+        "Torid": 377,
+        "Burston": 280,
+        "Ocucor": 239,
+        "Ballistica": 90,
+        "Bo": 200,
+        "Dual Toxocyst": 200,
+        "Okina": 250,
+        "Boar": 110,
+        "Destreza": 70,
+        "Sobek": 120,
+        "Obex": 69,
+        "Furis": 110,
+        "Nami Solo": 65,
+        "Stug": 30,
+        "Dual Ichor": 78,
+        "Latron": 100,
+        "Akarius": 50,
+        "Laetum": 61,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-07-22T18:43:43+00:00",
       "prices": {
         "Magistar": 575,
         "Verglas": 490,

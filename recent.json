@@ -1,60 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-20T09:38:59+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 440,
-        "Torid": 350,
-        "Ocucor": 230,
-        "Bo": 190,
-        "Dual Toxocyst": 200,
-        "Boar": 118,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 95,
-        "Furis": 110,
-        "Nami Solo": 75,
-        "Stug": 40,
-        "Latron": 90,
-        "War": 40,
-        "Akarius": 50,
-        "Laetum": 60,
-        "Ogris": 60,
-        "Ballistica": 100,
-        "Dual Ichor": 60,
-        "Nukor": 19,
-        "Acceltra": 30
-      }
-    },
-    {
-      "timestamp": "2026-07-20T09:43:11+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 440,
-        "Torid": 390,
-        "Ocucor": 230,
-        "Bo": 190,
-        "Dual Toxocyst": 190,
-        "Boar": 118,
-        "Destreza": 74,
-        "Sobek": 120,
-        "Obex": 95,
-        "Furis": 110,
-        "Nami Solo": 75,
-        "Stug": 40,
-        "Latron": 90,
-        "War": 45,
-        "Akarius": 50,
-        "Laetum": 60,
-        "Ogris": 60,
-        "Ballistica": 100,
-        "Dual Ichor": 60,
-        "Nukor": 19,
-        "Acceltra": 30
-      }
-    },
-    {
       "timestamp": "2026-07-20T09:47:59+00:00",
       "prices": {
         "Magistar": 600,
@@ -14567,6 +14513,32 @@
         "Dual Toxocyst": 200,
         "Okina": 110,
         "Boar": 120,
+        "Destreza": 70,
+        "Sobek": 100,
+        "Obex": 80,
+        "Furis": 99,
+        "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 70,
+        "Latron": 95,
+        "Akarius": 52,
+        "Laetum": 60,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-22T09:43:42+00:00",
+      "prices": {
+        "Magistar": 580,
+        "Verglas": 450,
+        "Torid": 390,
+        "Burston": 270,
+        "Ocucor": 215,
+        "Ballistica": 130,
+        "Bo": 190,
+        "Dual Toxocyst": 200,
+        "Okina": 110,
+        "Boar": 150,
         "Destreza": 70,
         "Sobek": 100,
         "Obex": 80,

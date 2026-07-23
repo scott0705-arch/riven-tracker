@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-21T17:43:41+00:00",
-      "prices": {
-        "Magistar": 590,
-        "Verglas": 470,
-        "Torid": 370,
-        "Burston": 280,
-        "Ocucor": 240,
-        "Ballistica": 100,
-        "Bo": 200,
-        "Dual Toxocyst": 200,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 99,
-        "Sobek": 100,
-        "Obex": 100,
-        "Furis": 140,
-        "Nami Solo": 70,
-        "Stug": 50,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 55,
-        "Laetum": 55,
-        "Ogris": 40
-      }
-    },
-    {
-      "timestamp": "2026-07-21T17:48:41+00:00",
-      "prices": {
-        "Magistar": 590,
-        "Verglas": 470,
-        "Torid": 370,
-        "Burston": 280,
-        "Ocucor": 240,
-        "Ballistica": 100,
-        "Bo": 200,
-        "Dual Toxocyst": 200,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 99,
-        "Sobek": 100,
-        "Obex": 100,
-        "Furis": 140,
-        "Nami Solo": 70,
-        "Stug": 50,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 55,
-        "Laetum": 55,
-        "Ogris": 40
-      }
-    },
-    {
       "timestamp": "2026-07-21T17:53:45+00:00",
       "prices": {
         "Magistar": 590,
@@ -14935,6 +14883,32 @@
         "Ballistica": 145,
         "Bo": 205,
         "Dual Toxocyst": 200,
+        "Okina": 110,
+        "Boar": 120,
+        "Destreza": 70,
+        "Sobek": 110,
+        "Obex": 70,
+        "Furis": 119,
+        "Nami Solo": 70,
+        "Stug": 45,
+        "Dual Ichor": 80,
+        "Latron": 90,
+        "Akarius": 49,
+        "Laetum": 80,
+        "Ogris": 25
+      }
+    },
+    {
+      "timestamp": "2026-07-23T17:48:44+00:00",
+      "prices": {
+        "Magistar": 580,
+        "Verglas": 450,
+        "Torid": 375,
+        "Burston": 300,
+        "Ocucor": 238,
+        "Ballistica": 150,
+        "Bo": 199,
+        "Dual Toxocyst": 195,
         "Okina": 110,
         "Boar": 120,
         "Destreza": 70,

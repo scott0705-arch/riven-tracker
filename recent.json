@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-22T05:53:43+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 460,
-        "Torid": 350,
-        "Burston": 280,
-        "Ocucor": 220,
-        "Ballistica": 100,
-        "Bo": 229,
-        "Dual Toxocyst": 190,
-        "Okina": 110,
-        "Boar": 120,
-        "Destreza": 90,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 130,
-        "Nami Solo": 70,
-        "Stug": 55,
-        "Dual Ichor": 50,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-07-22T05:57:27+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 460,
-        "Torid": 350,
-        "Burston": 280,
-        "Ocucor": 220,
-        "Ballistica": 100,
-        "Bo": 210,
-        "Dual Toxocyst": 190,
-        "Okina": 110,
-        "Boar": 120,
-        "Destreza": 90,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 130,
-        "Nami Solo": 70,
-        "Stug": 55,
-        "Dual Ichor": 50,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-22T06:02:56+00:00",
       "prices": {
         "Magistar": 580,
@@ -14942,6 +14890,32 @@
         "Obex": 70,
         "Furis": 119,
         "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 40,
+        "Latron": 100,
+        "Akarius": 45,
+        "Laetum": 50,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-24T05:57:28+00:00",
+      "prices": {
+        "Magistar": 560,
+        "Verglas": 480,
+        "Torid": 400,
+        "Burston": 290,
+        "Ocucor": 230,
+        "Ballistica": 120,
+        "Bo": 200,
+        "Dual Toxocyst": 199,
+        "Okina": 110,
+        "Boar": 150,
+        "Destreza": 73,
+        "Sobek": 140,
+        "Obex": 70,
+        "Furis": 119,
+        "Nami Solo": 75,
         "Stug": 50,
         "Dual Ichor": 40,
         "Latron": 100,

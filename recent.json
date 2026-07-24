@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-22T01:57:30+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 449,
-        "Torid": 350,
-        "Burston": 259,
-        "Ocucor": 225,
-        "Ballistica": 95,
-        "Bo": 197,
-        "Dual Toxocyst": 190,
-        "Okina": 130,
-        "Boar": 129,
-        "Destreza": 98,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 95,
-        "Nami Solo": 70,
-        "Stug": 60,
-        "Dual Ichor": 75,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 80,
-        "Ogris": 60
-      }
-    },
-    {
-      "timestamp": "2026-07-22T02:02:51+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 449,
-        "Torid": 350,
-        "Burston": 259,
-        "Ocucor": 225,
-        "Ballistica": 95,
-        "Bo": 197,
-        "Dual Toxocyst": 190,
-        "Okina": 135,
-        "Boar": 100,
-        "Destreza": 50,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 95,
-        "Nami Solo": 70,
-        "Stug": 60,
-        "Dual Ichor": 70,
-        "Latron": 90,
-        "Akarius": 65,
-        "Laetum": 70,
-        "Ogris": 60
-      }
-    },
-    {
       "timestamp": "2026-07-22T02:07:30+00:00",
       "prices": {
         "Magistar": 580,
@@ -14931,6 +14879,32 @@
         "Verglas": 600,
         "Torid": 400,
         "Burston": 340,
+        "Ocucor": 240,
+        "Ballistica": 145,
+        "Bo": 150,
+        "Dual Toxocyst": 200,
+        "Okina": 149,
+        "Boar": 110,
+        "Destreza": 80,
+        "Sobek": 119,
+        "Obex": 75,
+        "Furis": 135,
+        "Nami Solo": 69,
+        "Stug": 55,
+        "Dual Ichor": 69,
+        "Latron": 100,
+        "Akarius": 52,
+        "Laetum": 100,
+        "Ogris": 70
+      }
+    },
+    {
+      "timestamp": "2026-07-24T02:02:52+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 600,
+        "Torid": 400,
+        "Burston": 290,
         "Ocucor": 240,
         "Ballistica": 145,
         "Bo": 150,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-23T15:38:42+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 450,
-        "Torid": 380,
-        "Burston": 270,
-        "Ocucor": 220,
-        "Ballistica": 100,
-        "Bo": 205,
-        "Dual Toxocyst": 200,
-        "Okina": 95,
-        "Boar": 124,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 75,
-        "Furis": 147,
-        "Nami Solo": 80,
-        "Stug": 45,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 49,
-        "Laetum": 60,
-        "Ogris": 25
-      }
-    },
-    {
-      "timestamp": "2026-07-23T15:43:44+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 450,
-        "Torid": 380,
-        "Burston": 270,
-        "Ocucor": 220,
-        "Ballistica": 100,
-        "Bo": 205,
-        "Dual Toxocyst": 200,
-        "Okina": 95,
-        "Boar": 90,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 75,
-        "Furis": 147,
-        "Nami Solo": 80,
-        "Stug": 45,
-        "Dual Ichor": 25,
-        "Latron": 75,
-        "Akarius": 49,
-        "Laetum": 60,
-        "Ogris": 25
-      }
-    },
-    {
       "timestamp": "2026-07-23T15:48:45+00:00",
       "prices": {
         "Magistar": 600,
@@ -14731,6 +14679,32 @@
         "Boar": 110,
         "Destreza": 60,
         "Sobek": 119,
+        "Obex": 65,
+        "Furis": 100,
+        "Nami Solo": 40,
+        "Stug": 50,
+        "Dual Ichor": 60,
+        "Latron": 100,
+        "Akarius": 50,
+        "Laetum": 50,
+        "Ogris": 25
+      }
+    },
+    {
+      "timestamp": "2026-07-25T15:43:47+00:00",
+      "prices": {
+        "Magistar": 590,
+        "Verglas": 400,
+        "Torid": 379,
+        "Burston": 290,
+        "Ocucor": 230,
+        "Ballistica": 140,
+        "Bo": 200,
+        "Dual Toxocyst": 199,
+        "Okina": 130,
+        "Boar": 110,
+        "Destreza": 60,
+        "Sobek": 130,
         "Obex": 65,
         "Furis": 100,
         "Nami Solo": 40,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-24T23:27:29+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 480,
-        "Torid": 390,
-        "Burston": 249,
-        "Ocucor": 200,
-        "Ballistica": 149,
-        "Bo": 205,
-        "Dual Toxocyst": 190,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 73,
-        "Sobek": 120,
-        "Obex": 100,
-        "Furis": 90,
-        "Nami Solo": 88,
-        "Stug": 65,
-        "Dual Ichor": 230,
-        "Latron": 100,
-        "Akarius": 45,
-        "Laetum": 100,
-        "Ogris": 70
-      }
-    },
-    {
-      "timestamp": "2026-07-24T23:32:42+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 480,
-        "Torid": 390,
-        "Burston": 245,
-        "Ocucor": 200,
-        "Ballistica": 149,
-        "Bo": 205,
-        "Dual Toxocyst": 170,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 73,
-        "Sobek": 120,
-        "Obex": 100,
-        "Furis": 90,
-        "Nami Solo": 100,
-        "Stug": 65,
-        "Dual Ichor": 230,
-        "Latron": 100,
-        "Akarius": 100,
-        "Laetum": 100,
-        "Ogris": 70
-      }
-    },
-    {
       "timestamp": "2026-07-24T23:37:31+00:00",
       "prices": {
         "Magistar": 570,
@@ -14895,6 +14843,32 @@
         "Latron": 90,
         "Akarius": 50,
         "Laetum": 80,
+        "Ogris": 70
+      }
+    },
+    {
+      "timestamp": "2026-07-26T23:32:45+00:00",
+      "prices": {
+        "Magistar": 569,
+        "Verglas": 540,
+        "Torid": 440,
+        "Burston": 350,
+        "Ocucor": 225,
+        "Ballistica": 150,
+        "Bo": 170,
+        "Dual Toxocyst": 210,
+        "Okina": 115,
+        "Boar": 120,
+        "Destreza": 80,
+        "Sobek": 100,
+        "Obex": 70,
+        "Furis": 120,
+        "Nami Solo": 70,
+        "Stug": 60,
+        "Dual Ichor": 100,
+        "Latron": 90,
+        "Akarius": 50,
+        "Laetum": 1000,
         "Ogris": 70
       }
     }

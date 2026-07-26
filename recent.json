@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-24T04:12:32+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 480,
-        "Torid": 380,
-        "Burston": 290,
-        "Ocucor": 240,
-        "Ballistica": 120,
-        "Bo": 220,
-        "Dual Toxocyst": 200,
-        "Okina": 140,
-        "Boar": 100,
-        "Destreza": 63,
-        "Sobek": 115,
-        "Obex": 40,
-        "Furis": 141,
-        "Nami Solo": 67,
-        "Stug": 40,
-        "Dual Ichor": 69,
-        "Latron": 90,
-        "Akarius": 50,
-        "Laetum": 45,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-07-24T04:18:41+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 480,
-        "Torid": 390,
-        "Burston": 290,
-        "Ocucor": 240,
-        "Ballistica": 120,
-        "Bo": 220,
-        "Dual Toxocyst": 200,
-        "Okina": 125,
-        "Boar": 100,
-        "Destreza": 63,
-        "Sobek": 130,
-        "Obex": 70,
-        "Furis": 160,
-        "Nami Solo": 67,
-        "Stug": 40,
-        "Dual Ichor": 69,
-        "Latron": 90,
-        "Akarius": 50,
-        "Laetum": 45,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-24T04:23:51+00:00",
       "prices": {
         "Magistar": 580,
@@ -14737,6 +14685,32 @@
         "Stug": 50,
         "Dual Ichor": 79,
         "Latron": 95,
+        "Akarius": 60,
+        "Laetum": 45,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-26T04:19:02+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 480,
+        "Torid": 330,
+        "Burston": 380,
+        "Ocucor": 250,
+        "Ballistica": 149,
+        "Bo": 230,
+        "Dual Toxocyst": 199,
+        "Okina": 150,
+        "Boar": 130,
+        "Destreza": 72,
+        "Sobek": 119,
+        "Obex": 80,
+        "Furis": 120,
+        "Nami Solo": 75,
+        "Stug": 50,
+        "Dual Ichor": 79,
+        "Latron": 100,
         "Akarius": 60,
         "Laetum": 45,
         "Ogris": 50

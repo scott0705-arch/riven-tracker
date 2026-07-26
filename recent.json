@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-24T00:57:34+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 480,
-        "Torid": 370,
-        "Burston": 300,
-        "Ocucor": 224,
-        "Ballistica": 145,
-        "Bo": 198,
-        "Dual Toxocyst": 200,
-        "Okina": 140,
-        "Boar": 100,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 75,
-        "Furis": 135,
-        "Nami Solo": 69,
-        "Stug": 45,
-        "Dual Ichor": 80,
-        "Latron": 100,
-        "Akarius": 52,
-        "Laetum": 100,
-        "Ogris": 70
-      }
-    },
-    {
-      "timestamp": "2026-07-24T01:02:52+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 480,
-        "Torid": 370,
-        "Burston": 300,
-        "Ocucor": 224,
-        "Ballistica": 145,
-        "Bo": 198,
-        "Dual Toxocyst": 200,
-        "Okina": 140,
-        "Boar": 100,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 75,
-        "Furis": 135,
-        "Nami Solo": 69,
-        "Stug": 45,
-        "Dual Ichor": 100,
-        "Latron": 95,
-        "Akarius": 52,
-        "Laetum": 100,
-        "Ogris": 70
-      }
-    },
-    {
       "timestamp": "2026-07-24T01:07:28+00:00",
       "prices": {
         "Magistar": 600,
@@ -14718,6 +14666,32 @@
     },
     {
       "timestamp": "2026-07-26T00:57:29+00:00",
+      "prices": {
+        "Magistar": 580,
+        "Verglas": 500,
+        "Torid": 399,
+        "Burston": 279,
+        "Ocucor": 300,
+        "Ballistica": 119,
+        "Bo": 195,
+        "Dual Toxocyst": 180,
+        "Okina": 140,
+        "Boar": 119,
+        "Destreza": 85,
+        "Sobek": 119,
+        "Obex": 100,
+        "Furis": 105,
+        "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 70,
+        "Latron": 100,
+        "Akarius": 50,
+        "Laetum": 60,
+        "Ogris": 40
+      }
+    },
+    {
+      "timestamp": "2026-07-26T01:04:06+00:00",
       "prices": {
         "Magistar": 580,
         "Verglas": 500,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-25T13:53:43+00:00",
-      "prices": {
-        "Magistar": 569,
-        "Verglas": 435,
-        "Torid": 379,
-        "Burston": 299,
-        "Ocucor": 238,
-        "Ballistica": 150,
-        "Bo": 200,
-        "Dual Toxocyst": 195,
-        "Okina": 120,
-        "Boar": 119,
-        "Destreza": 66,
-        "Sobek": 50,
-        "Obex": 80,
-        "Furis": 110,
-        "Nami Solo": 50,
-        "Stug": 49,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 70,
-        "Laetum": 70,
-        "Ogris": 59
-      }
-    },
-    {
-      "timestamp": "2026-07-25T13:57:29+00:00",
-      "prices": {
-        "Magistar": 569,
-        "Verglas": 435,
-        "Torid": 350,
-        "Burston": 299,
-        "Ocucor": 238,
-        "Ballistica": 150,
-        "Bo": 200,
-        "Dual Toxocyst": 195,
-        "Okina": 120,
-        "Boar": 119,
-        "Destreza": 66,
-        "Sobek": 50,
-        "Obex": 80,
-        "Furis": 110,
-        "Nami Solo": 50,
-        "Stug": 49,
-        "Dual Ichor": 60,
-        "Latron": 90,
-        "Akarius": 70,
-        "Laetum": 70,
-        "Ogris": 59
-      }
-    },
-    {
       "timestamp": "2026-07-25T14:02:58+00:00",
       "prices": {
         "Magistar": 569,
@@ -14989,6 +14937,32 @@
         "Dual Toxocyst": 200,
         "Okina": 95,
         "Boar": 120,
+        "Destreza": 49,
+        "Sobek": 150,
+        "Obex": 10,
+        "Furis": 140,
+        "Nami Solo": 65,
+        "Stug": 50,
+        "Dual Ichor": 95,
+        "Latron": 50,
+        "Akarius": 50,
+        "Laetum": 50,
+        "Ogris": 45
+      }
+    },
+    {
+      "timestamp": "2026-07-27T13:58:01+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 450,
+        "Torid": 445,
+        "Burston": 300,
+        "Ocucor": 240,
+        "Ballistica": 100,
+        "Bo": 199,
+        "Dual Toxocyst": 200,
+        "Okina": 95,
+        "Boar": 70,
         "Destreza": 49,
         "Sobek": 150,
         "Obex": 10,

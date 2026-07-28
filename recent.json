@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-26T06:23:32+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 445,
-        "Torid": 400,
-        "Burston": 275,
-        "Ocucor": 230,
-        "Ballistica": 150,
-        "Bo": 199,
-        "Dual Toxocyst": 200,
-        "Okina": 140,
-        "Boar": 129,
-        "Destreza": 80,
-        "Sobek": 119,
-        "Obex": 79,
-        "Furis": 118,
-        "Nami Solo": 80,
-        "Stug": 70,
-        "Dual Ichor": 80,
-        "Latron": 95,
-        "Akarius": 60,
-        "Laetum": 45,
-        "Ogris": 65
-      }
-    },
-    {
-      "timestamp": "2026-07-26T06:27:33+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 445,
-        "Torid": 400,
-        "Burston": 350,
-        "Ocucor": 230,
-        "Ballistica": 150,
-        "Bo": 199,
-        "Dual Toxocyst": 200,
-        "Okina": 140,
-        "Boar": 129,
-        "Destreza": 80,
-        "Sobek": 115,
-        "Obex": 79,
-        "Furis": 118,
-        "Nami Solo": 50,
-        "Stug": 70,
-        "Dual Ichor": 80,
-        "Latron": 95,
-        "Akarius": 60,
-        "Laetum": 45,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-26T06:33:45+00:00",
       "prices": {
         "Magistar": 600,
@@ -14956,6 +14904,32 @@
         "Magistar": 570,
         "Verglas": 450,
         "Torid": 420,
+        "Burston": 275,
+        "Ocucor": 200,
+        "Ballistica": 99,
+        "Bo": 350,
+        "Dual Toxocyst": 220,
+        "Okina": 135,
+        "Boar": 100,
+        "Destreza": 60,
+        "Sobek": 120,
+        "Obex": 59,
+        "Furis": 140,
+        "Nami Solo": 80,
+        "Stug": 40,
+        "Dual Ichor": 30,
+        "Latron": 75,
+        "Akarius": 50,
+        "Laetum": 150,
+        "Ogris": 49
+      }
+    },
+    {
+      "timestamp": "2026-07-28T06:28:40+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 450,
+        "Torid": 450,
         "Burston": 275,
         "Ocucor": 200,
         "Ballistica": 99,

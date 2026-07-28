@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-26T15:24:41+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 435,
-        "Torid": 399,
-        "Burston": 250,
-        "Ocucor": 249,
-        "Ballistica": 120,
-        "Bo": 199,
-        "Dual Toxocyst": 200,
-        "Okina": 119,
-        "Boar": 120,
-        "Destreza": 80,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 35,
-        "Dual Ichor": 80,
-        "Latron": 88,
-        "Akarius": 55,
-        "Laetum": 80,
-        "Ogris": 25
-      }
-    },
-    {
-      "timestamp": "2026-07-26T15:27:32+00:00",
-      "prices": {
-        "Magistar": 580,
-        "Verglas": 435,
-        "Torid": 380,
-        "Burston": 250,
-        "Ocucor": 249,
-        "Ballistica": 120,
-        "Bo": 199,
-        "Dual Toxocyst": 220,
-        "Okina": 119,
-        "Boar": 109,
-        "Destreza": 80,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 35,
-        "Dual Ichor": 80,
-        "Latron": 88,
-        "Akarius": 55,
-        "Laetum": 80,
-        "Ogris": 25
-      }
-    },
-    {
       "timestamp": "2026-07-26T15:35:46+00:00",
       "prices": {
         "Magistar": 580,
@@ -14952,6 +14900,32 @@
     },
     {
       "timestamp": "2026-07-28T15:22:49+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 500,
+        "Torid": 420,
+        "Burston": 290,
+        "Ocucor": 229,
+        "Ballistica": 95,
+        "Bo": 198,
+        "Dual Toxocyst": 240,
+        "Okina": 120,
+        "Boar": 110,
+        "Destreza": 60,
+        "Sobek": 120,
+        "Obex": 90,
+        "Furis": 120,
+        "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 95,
+        "Latron": 30,
+        "Akarius": 60,
+        "Laetum": 60,
+        "Ogris": 40
+      }
+    },
+    {
+      "timestamp": "2026-07-28T15:28:42+00:00",
       "prices": {
         "Magistar": 570,
         "Verglas": 500,

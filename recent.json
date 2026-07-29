@@ -1,32 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-27T14:23:06+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 450,
-        "Torid": 410,
-        "Burston": 300,
-        "Ocucor": 240,
-        "Ballistica": 105,
-        "Bo": 200,
-        "Dual Toxocyst": 210,
-        "Okina": 100,
-        "Boar": 120,
-        "Destreza": 49,
-        "Sobek": 100,
-        "Obex": 70,
-        "Furis": 140,
-        "Nami Solo": 70,
-        "Stug": 50,
-        "Dual Ichor": 95,
-        "Latron": 50,
-        "Akarius": 50,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-27T14:28:40+00:00",
       "prices": {
         "Magistar": 600,
@@ -14970,6 +14944,32 @@
         "Nami Solo": 65,
         "Stug": 30,
         "Dual Ichor": 89,
+        "Latron": 70,
+        "Akarius": 70,
+        "Laetum": 50,
+        "Ogris": 40
+      }
+    },
+    {
+      "timestamp": "2026-07-29T14:26:32+00:00",
+      "prices": {
+        "Magistar": 595,
+        "Verglas": 490,
+        "Torid": 420,
+        "Burston": 335,
+        "Ocucor": 233,
+        "Ballistica": 85,
+        "Bo": 189,
+        "Dual Toxocyst": 225,
+        "Okina": 120,
+        "Boar": 105,
+        "Destreza": 70,
+        "Sobek": 158,
+        "Obex": 35,
+        "Furis": 100,
+        "Nami Solo": 65,
+        "Stug": 30,
+        "Dual Ichor": 111,
         "Latron": 70,
         "Akarius": 70,
         "Laetum": 50,

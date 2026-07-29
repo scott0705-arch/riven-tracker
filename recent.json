@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-27T22:08:42+00:00",
-      "prices": {
-        "Magistar": 550,
-        "Verglas": 450,
-        "Torid": 400,
-        "Burston": 450,
-        "Ocucor": 250,
-        "Ballistica": 139,
-        "Bo": 190,
-        "Dual Toxocyst": 300,
-        "Okina": 124,
-        "Boar": 109,
-        "Destreza": 99,
-        "Sobek": 125,
-        "Obex": 75,
-        "Furis": 100,
-        "Nami Solo": 70,
-        "Stug": 50,
-        "Dual Ichor": 120,
-        "Latron": 80,
-        "Akarius": 50,
-        "Laetum": 200,
-        "Ogris": 45
-      }
-    },
-    {
-      "timestamp": "2026-07-27T22:12:32+00:00",
-      "prices": {
-        "Magistar": 550,
-        "Verglas": 450,
-        "Torid": 400,
-        "Burston": 450,
-        "Ocucor": 250,
-        "Ballistica": 139,
-        "Bo": 190,
-        "Dual Toxocyst": 300,
-        "Okina": 124,
-        "Boar": 110,
-        "Destreza": 99,
-        "Sobek": 145,
-        "Obex": 75,
-        "Furis": 110,
-        "Nami Solo": 70,
-        "Stug": 50,
-        "Dual Ichor": 120,
-        "Latron": 80,
-        "Akarius": 50,
-        "Laetum": 200,
-        "Ogris": 45
-      }
-    },
-    {
       "timestamp": "2026-07-27T22:17:41+00:00",
       "prices": {
         "Magistar": 550,
@@ -14999,6 +14947,32 @@
         "Latron": 200,
         "Akarius": 100,
         "Laetum": null,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-29T22:12:33+00:00",
+      "prices": {
+        "Magistar": 578,
+        "Verglas": 470,
+        "Torid": 420,
+        "Burston": 295,
+        "Ocucor": 200,
+        "Ballistica": 99,
+        "Bo": 190,
+        "Dual Toxocyst": 250,
+        "Okina": 130,
+        "Boar": 100,
+        "Destreza": 75,
+        "Sobek": 125,
+        "Obex": 75,
+        "Furis": 100,
+        "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 111,
+        "Latron": 200,
+        "Akarius": 100,
+        "Laetum": 12000,
         "Ogris": 50
       }
     }

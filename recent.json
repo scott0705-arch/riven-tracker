@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-27T00:22:33+00:00",
-      "prices": {
-        "Magistar": 569,
-        "Verglas": 540,
-        "Torid": 440,
-        "Burston": 295,
-        "Ocucor": 240,
-        "Ballistica": 150,
-        "Bo": 187,
-        "Dual Toxocyst": 200,
-        "Okina": 115,
-        "Boar": 120,
-        "Destreza": 80,
-        "Sobek": 115,
-        "Obex": 70,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 55,
-        "Dual Ichor": 100,
-        "Latron": 90,
-        "Akarius": 50,
-        "Laetum": 70,
-        "Ogris": 70
-      }
-    },
-    {
-      "timestamp": "2026-07-27T00:27:30+00:00",
-      "prices": {
-        "Magistar": 569,
-        "Verglas": 700,
-        "Torid": 440,
-        "Burston": 295,
-        "Ocucor": 240,
-        "Ballistica": 150,
-        "Bo": 187,
-        "Dual Toxocyst": 200,
-        "Okina": 115,
-        "Boar": 120,
-        "Destreza": 80,
-        "Sobek": 115,
-        "Obex": 70,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 55,
-        "Dual Ichor": 100,
-        "Latron": 90,
-        "Akarius": 50,
-        "Laetum": 70,
-        "Ogris": 70
-      }
-    },
-    {
       "timestamp": "2026-07-27T00:35:43+00:00",
       "prices": {
         "Magistar": 569,
@@ -14970,6 +14918,32 @@
         "Nami Solo": 70,
         "Stug": 80,
         "Dual Ichor": 111,
+        "Latron": 100,
+        "Akarius": 70,
+        "Laetum": 50,
+        "Ogris": 49
+      }
+    },
+    {
+      "timestamp": "2026-07-29T00:28:40+00:00",
+      "prices": {
+        "Magistar": 540,
+        "Verglas": 500,
+        "Torid": 400,
+        "Burston": 289,
+        "Ocucor": 239,
+        "Ballistica": 85,
+        "Bo": 198,
+        "Dual Toxocyst": 230,
+        "Okina": 120,
+        "Boar": 110,
+        "Destreza": 80,
+        "Sobek": 120,
+        "Obex": 65,
+        "Furis": 100,
+        "Nami Solo": 70,
+        "Stug": 70,
+        "Dual Ichor": 100,
         "Latron": 100,
         "Akarius": 70,
         "Laetum": 50,

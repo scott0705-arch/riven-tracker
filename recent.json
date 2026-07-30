@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-28T08:23:46+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 540,
-        "Torid": 450,
-        "Burston": 275,
-        "Ocucor": 229,
-        "Ballistica": 100,
-        "Bo": 279,
-        "Dual Toxocyst": 249,
-        "Okina": 135,
-        "Boar": 100,
-        "Destreza": 60,
-        "Sobek": 109,
-        "Obex": 80,
-        "Furis": 140,
-        "Nami Solo": 80,
-        "Stug": 80,
-        "Dual Ichor": 120,
-        "Latron": 78,
-        "Akarius": 60,
-        "Laetum": 150,
-        "Ogris": 49
-      }
-    },
-    {
-      "timestamp": "2026-07-28T08:27:36+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 540,
-        "Torid": 450,
-        "Burston": 275,
-        "Ocucor": 229,
-        "Ballistica": 100,
-        "Bo": 279,
-        "Dual Toxocyst": 249,
-        "Okina": 135,
-        "Boar": 100,
-        "Destreza": 60,
-        "Sobek": 110,
-        "Obex": 80,
-        "Furis": 140,
-        "Nami Solo": 80,
-        "Stug": 60,
-        "Dual Ichor": 120,
-        "Latron": 78,
-        "Akarius": 60,
-        "Laetum": 150,
-        "Ogris": 49
-      }
-    },
-    {
       "timestamp": "2026-07-28T08:32:58+00:00",
       "prices": {
         "Magistar": 650,
@@ -14980,6 +14928,32 @@
       "timestamp": "2026-07-30T08:23:41+00:00",
       "prices": {
         "Magistar": 600,
+        "Verglas": 460,
+        "Torid": 430,
+        "Burston": 330,
+        "Ocucor": 220,
+        "Ballistica": 100,
+        "Bo": 210,
+        "Dual Toxocyst": 250,
+        "Okina": 120,
+        "Boar": 110,
+        "Destreza": 75,
+        "Sobek": 120,
+        "Obex": 45,
+        "Furis": 120,
+        "Nami Solo": 80,
+        "Stug": 25,
+        "Dual Ichor": 100,
+        "Latron": 80,
+        "Akarius": 100,
+        "Laetum": 70,
+        "Ogris": 47
+      }
+    },
+    {
+      "timestamp": "2026-07-30T08:28:41+00:00",
+      "prices": {
+        "Magistar": 590,
         "Verglas": 460,
         "Torid": 430,
         "Burston": 330,

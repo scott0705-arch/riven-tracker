@@ -14975,6 +14975,32 @@
         "Laetum": 50,
         "Ogris": 50
       }
+    },
+    {
+      "timestamp": "2026-07-31T04:22:33+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 500,
+        "Torid": 799,
+        "Burston": 380,
+        "Ocucor": 230,
+        "Ballistica": 149,
+        "Bo": 250,
+        "Dual Toxocyst": 240,
+        "Okina": 100,
+        "Boar": 109,
+        "Destreza": 30,
+        "Sobek": 114,
+        "Obex": 80,
+        "Furis": 139,
+        "Nami Solo": 60,
+        "Stug": 25,
+        "Dual Ichor": 100,
+        "Latron": 95,
+        "Akarius": 119,
+        "Laetum": 50,
+        "Ogris": 50
+      }
     }
   ]
 }

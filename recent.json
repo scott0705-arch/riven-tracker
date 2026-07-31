@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-29T18:52:41+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 470,
-        "Torid": 450,
-        "Burston": 300,
-        "Ocucor": 250,
-        "Ballistica": 140,
-        "Bo": 199,
-        "Dual Toxocyst": 250,
-        "Okina": 130,
-        "Boar": 100,
-        "Destreza": 50,
-        "Sobek": 150,
-        "Obex": 50,
-        "Furis": 115,
-        "Nami Solo": 60,
-        "Stug": 80,
-        "Dual Ichor": 111,
-        "Latron": 80,
-        "Akarius": 69,
-        "Laetum": 75,
-        "Ogris": 65
-      }
-    },
-    {
-      "timestamp": "2026-07-29T18:57:34+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 470,
-        "Torid": 450,
-        "Burston": 300,
-        "Ocucor": 250,
-        "Ballistica": 140,
-        "Bo": 199,
-        "Dual Toxocyst": 300,
-        "Okina": 130,
-        "Boar": 100,
-        "Destreza": 50,
-        "Sobek": 150,
-        "Obex": 50,
-        "Furis": 50,
-        "Nami Solo": 60,
-        "Stug": 80,
-        "Dual Ichor": 50,
-        "Latron": 80,
-        "Akarius": 69,
-        "Laetum": 75,
-        "Ogris": 65
-      }
-    },
-    {
       "timestamp": "2026-07-29T19:03:13+00:00",
       "prices": {
         "Magistar": 650,
@@ -13265,6 +13213,32 @@
       "prices": {
         "Magistar": 550,
         "Verglas": 420,
+        "Torid": 400,
+        "Burston": 300,
+        "Ocucor": 240,
+        "Ballistica": 100,
+        "Bo": 200,
+        "Dual Toxocyst": 250,
+        "Okina": 120,
+        "Boar": 110,
+        "Destreza": 70,
+        "Sobek": 100,
+        "Obex": 75,
+        "Furis": 95,
+        "Nami Solo": 70,
+        "Stug": 50,
+        "Dual Ichor": 120,
+        "Latron": 90,
+        "Akarius": 80,
+        "Laetum": 60,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-07-31T18:58:54+00:00",
+      "prices": {
+        "Magistar": null,
+        "Verglas": null,
         "Torid": 400,
         "Burston": 300,
         "Ocucor": 240,

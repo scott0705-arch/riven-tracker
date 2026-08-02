@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-31T06:02:54+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 489,
-        "Torid": 520,
-        "Burston": 275,
-        "Ocucor": 230,
-        "Ballistica": 100,
-        "Bo": 205,
-        "Dual Toxocyst": 240,
-        "Okina": 120,
-        "Boar": 110,
-        "Destreza": 30,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 50,
-        "Dual Ichor": 120,
-        "Latron": 80,
-        "Akarius": 100,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-07-31T06:07:34+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 489,
-        "Torid": 550,
-        "Burston": 275,
-        "Ocucor": 240,
-        "Ballistica": 100,
-        "Bo": 205,
-        "Dual Toxocyst": 240,
-        "Okina": 120,
-        "Boar": 110,
-        "Destreza": 30,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 80,
-        "Stug": 30,
-        "Dual Ichor": 120,
-        "Latron": 80,
-        "Akarius": 100,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-31T06:13:39+00:00",
       "prices": {
         "Magistar": 600,
@@ -12863,6 +12811,32 @@
         "Furis": 110,
         "Nami Solo": 80,
         "Stug": 35,
+        "Dual Ichor": 100,
+        "Latron": 80,
+        "Akarius": 40,
+        "Laetum": 70,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-08-02T06:10:24+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 450,
+        "Torid": 420,
+        "Burston": 299,
+        "Ocucor": 250,
+        "Ballistica": 99,
+        "Bo": 260,
+        "Dual Toxocyst": 275,
+        "Okina": 400,
+        "Boar": 120,
+        "Destreza": 40,
+        "Sobek": 138,
+        "Obex": 70,
+        "Furis": 110,
+        "Nami Solo": 80,
+        "Stug": 40,
         "Dual Ichor": 100,
         "Latron": 80,
         "Akarius": 40,

@@ -1,32 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-07-31T01:37:28+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 500,
-        "Torid": 430,
-        "Burston": 340,
-        "Ocucor": 229,
-        "Ballistica": 100,
-        "Bo": 185,
-        "Dual Toxocyst": 235,
-        "Okina": 140,
-        "Boar": 110,
-        "Destreza": 80,
-        "Sobek": 120,
-        "Obex": 65,
-        "Furis": 142,
-        "Nami Solo": 69,
-        "Stug": 20,
-        "Dual Ichor": 100,
-        "Latron": 80,
-        "Akarius": 80,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-07-31T01:41:36+00:00",
       "prices": {
         "Magistar": 570,
@@ -13113,6 +13087,32 @@
         "Burston": 299,
         "Ocucor": 230,
         "Ballistica": 120,
+        "Bo": 200,
+        "Dual Toxocyst": 250,
+        "Okina": 150,
+        "Boar": 110,
+        "Destreza": 75,
+        "Sobek": 148,
+        "Obex": 65,
+        "Furis": 105,
+        "Nami Solo": 60,
+        "Stug": 100,
+        "Dual Ichor": 120,
+        "Latron": 80,
+        "Akarius": 40,
+        "Laetum": 40,
+        "Ogris": 69
+      }
+    },
+    {
+      "timestamp": "2026-08-02T01:37:30+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 495,
+        "Torid": 420,
+        "Burston": 299,
+        "Ocucor": 230,
+        "Ballistica": 100,
         "Bo": 200,
         "Dual Toxocyst": 250,
         "Okina": 150,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-01T15:48:48+00:00",
-      "prices": {
-        "Magistar": 599,
-        "Verglas": 440,
-        "Torid": 448,
-        "Burston": 320,
-        "Ocucor": 250,
-        "Ballistica": 100,
-        "Bo": 220,
-        "Dual Toxocyst": 230,
-        "Okina": 110,
-        "Boar": 115,
-        "Destreza": 50,
-        "Sobek": 120,
-        "Obex": 60,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 30,
-        "Dual Ichor": 70,
-        "Latron": 78,
-        "Akarius": 80,
-        "Laetum": 50,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-08-01T15:52:47+00:00",
-      "prices": {
-        "Magistar": 599,
-        "Verglas": 440,
-        "Torid": 448,
-        "Burston": 320,
-        "Ocucor": 250,
-        "Ballistica": 100,
-        "Bo": 220,
-        "Dual Toxocyst": 230,
-        "Okina": 100,
-        "Boar": 115,
-        "Destreza": 70,
-        "Sobek": 120,
-        "Obex": 60,
-        "Furis": 120,
-        "Nami Solo": 80,
-        "Stug": 30,
-        "Dual Ichor": 70,
-        "Latron": 100,
-        "Akarius": 80,
-        "Laetum": 50,
-        "Ogris": 70
-      }
-    },
-    {
       "timestamp": "2026-08-01T15:57:30+00:00",
       "prices": {
         "Magistar": 600,
@@ -14608,6 +14556,32 @@
         "Dual Ichor": 110,
         "Latron": 80,
         "Akarius": 80,
+        "Laetum": 50,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-03T15:52:56+00:00",
+      "prices": {
+        "Magistar": 575,
+        "Verglas": 420,
+        "Torid": 450,
+        "Burston": 350,
+        "Ocucor": 250,
+        "Ballistica": 80,
+        "Bo": 200,
+        "Dual Toxocyst": 285,
+        "Okina": 125,
+        "Boar": 90,
+        "Destreza": 50,
+        "Sobek": 100,
+        "Obex": 70,
+        "Furis": 145,
+        "Nami Solo": 100,
+        "Stug": 35,
+        "Dual Ichor": 110,
+        "Latron": 80,
+        "Akarius": 100,
         "Laetum": 50,
         "Ogris": 60
       }

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-01T03:19:51+00:00",
-      "prices": {
-        "Magistar": 550,
-        "Verglas": 465,
-        "Torid": 430,
-        "Burston": 315,
-        "Ocucor": 230,
-        "Ballistica": 100,
-        "Bo": 210,
-        "Dual Toxocyst": 250,
-        "Okina": 120,
-        "Boar": 95,
-        "Destreza": 60,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 139,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 100,
-        "Latron": 80,
-        "Akarius": 80,
-        "Laetum": 70,
-        "Ogris": 70
-      }
-    },
-    {
-      "timestamp": "2026-08-01T03:23:40+00:00",
-      "prices": {
-        "Magistar": 550,
-        "Verglas": 465,
-        "Torid": 430,
-        "Burston": 315,
-        "Ocucor": 230,
-        "Ballistica": 100,
-        "Bo": 210,
-        "Dual Toxocyst": 250,
-        "Okina": 120,
-        "Boar": 95,
-        "Destreza": 60,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 139,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 100,
-        "Latron": 80,
-        "Akarius": 80,
-        "Laetum": 70,
-        "Ogris": 70
-      }
-    },
-    {
       "timestamp": "2026-08-01T03:27:33+00:00",
       "prices": {
         "Magistar": 550,
@@ -14635,6 +14583,32 @@
         "Latron": 80,
         "Akarius": 70,
         "Laetum": 55,
+        "Ogris": 65
+      }
+    },
+    {
+      "timestamp": "2026-08-03T03:23:44+00:00",
+      "prices": {
+        "Magistar": 599,
+        "Verglas": 469,
+        "Torid": 550,
+        "Burston": 320,
+        "Ocucor": 500,
+        "Ballistica": 120,
+        "Bo": 215,
+        "Dual Toxocyst": 240,
+        "Okina": 230,
+        "Boar": 98,
+        "Destreza": 80,
+        "Sobek": 130,
+        "Obex": 75,
+        "Furis": 149,
+        "Nami Solo": 80,
+        "Stug": 40,
+        "Dual Ichor": 200,
+        "Latron": 80,
+        "Akarius": 70,
+        "Laetum": 70,
         "Ogris": 65
       }
     }

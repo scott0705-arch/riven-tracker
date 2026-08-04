@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-02T18:52:50+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 459,
-        "Torid": 450,
-        "Burston": 330,
-        "Ocucor": 245,
-        "Ballistica": 135,
-        "Bo": 150,
-        "Dual Toxocyst": 265,
-        "Okina": 230,
-        "Boar": 150,
-        "Destreza": 70,
-        "Sobek": 125,
-        "Obex": 70,
-        "Furis": 149,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 250,
-        "Latron": 90,
-        "Akarius": 100,
-        "Laetum": 35,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-08-02T18:57:35+00:00",
-      "prices": {
-        "Magistar": 650,
-        "Verglas": 459,
-        "Torid": 450,
-        "Burston": 330,
-        "Ocucor": 245,
-        "Ballistica": 135,
-        "Bo": 150,
-        "Dual Toxocyst": 265,
-        "Okina": 230,
-        "Boar": 100,
-        "Destreza": 70,
-        "Sobek": 158,
-        "Obex": 70,
-        "Furis": 149,
-        "Nami Solo": 80,
-        "Stug": 40,
-        "Dual Ichor": 250,
-        "Latron": 85,
-        "Akarius": 100,
-        "Laetum": 35,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-08-02T19:03:07+00:00",
       "prices": {
         "Magistar": 650,
@@ -14940,6 +14888,32 @@
         "Destreza": 63,
         "Sobek": 100,
         "Obex": 100,
+        "Furis": 135,
+        "Nami Solo": 250,
+        "Stug": 40,
+        "Dual Ichor": 150,
+        "Latron": 80,
+        "Akarius": 95,
+        "Laetum": 60,
+        "Ogris": 30
+      }
+    },
+    {
+      "timestamp": "2026-08-04T18:57:45+00:00",
+      "prices": {
+        "Magistar": 699,
+        "Verglas": 450,
+        "Torid": 700,
+        "Burston": 370,
+        "Ocucor": 250,
+        "Ballistica": 100,
+        "Bo": 185,
+        "Dual Toxocyst": 259,
+        "Okina": 120,
+        "Boar": 107,
+        "Destreza": 63,
+        "Sobek": 100,
+        "Obex": 80,
         "Furis": 135,
         "Nami Solo": 250,
         "Stug": 40,

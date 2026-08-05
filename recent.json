@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-03T22:27:33+00:00",
-      "prices": {
-        "Magistar": 558,
-        "Verglas": 750,
-        "Torid": 470,
-        "Burston": 350,
-        "Ocucor": 250,
-        "Ballistica": 100,
-        "Bo": 180,
-        "Dual Toxocyst": 280,
-        "Okina": 140,
-        "Boar": 90,
-        "Destreza": 65,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 129,
-        "Nami Solo": 120,
-        "Stug": 50,
-        "Dual Ichor": 100,
-        "Latron": 75,
-        "Akarius": 70,
-        "Laetum": 70,
-        "Ogris": 20
-      }
-    },
-    {
-      "timestamp": "2026-08-03T22:32:43+00:00",
-      "prices": {
-        "Magistar": 558,
-        "Verglas": 750,
-        "Torid": 470,
-        "Burston": 350,
-        "Ocucor": 245,
-        "Ballistica": 100,
-        "Bo": 180,
-        "Dual Toxocyst": 280,
-        "Okina": 140,
-        "Boar": 98,
-        "Destreza": 65,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 129,
-        "Nami Solo": 120,
-        "Stug": 35,
-        "Dual Ichor": 100,
-        "Latron": 75,
-        "Akarius": 75,
-        "Laetum": 70,
-        "Ogris": 20
-      }
-    },
-    {
       "timestamp": "2026-08-03T22:38:46+00:00",
       "prices": {
         "Magistar": 539,
@@ -14988,6 +14936,32 @@
         "Bo": 200,
         "Dual Toxocyst": 260,
         "Okina": 100,
+        "Boar": 100,
+        "Destreza": 60,
+        "Sobek": 250,
+        "Obex": 50,
+        "Furis": 110,
+        "Nami Solo": 120,
+        "Stug": 30,
+        "Dual Ichor": 120,
+        "Latron": 70,
+        "Akarius": 35,
+        "Laetum": 50,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-05T22:32:46+00:00",
+      "prices": {
+        "Magistar": 1000,
+        "Verglas": 444,
+        "Torid": 850,
+        "Burston": 350,
+        "Ocucor": 245,
+        "Ballistica": 95,
+        "Bo": 200,
+        "Dual Toxocyst": 260,
+        "Okina": 150,
         "Boar": 100,
         "Destreza": 60,
         "Sobek": 250,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-03T14:53:07+00:00",
-      "prices": {
-        "Magistar": 570,
-        "Verglas": 480,
-        "Torid": 430,
-        "Burston": 330,
-        "Ocucor": 250,
-        "Ballistica": 80,
-        "Bo": 200,
-        "Dual Toxocyst": 250,
-        "Okina": 125,
-        "Boar": 100,
-        "Destreza": 70,
-        "Sobek": 100,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 90,
-        "Stug": 35,
-        "Dual Ichor": 100,
-        "Latron": 80,
-        "Akarius": 60,
-        "Laetum": 50,
-        "Ogris": 60
-      }
-    },
-    {
-      "timestamp": "2026-08-03T14:57:52+00:00",
-      "prices": {
-        "Magistar": 560,
-        "Verglas": 480,
-        "Torid": 430,
-        "Burston": 330,
-        "Ocucor": 250,
-        "Ballistica": 80,
-        "Bo": 200,
-        "Dual Toxocyst": 280,
-        "Okina": 125,
-        "Boar": 100,
-        "Destreza": 70,
-        "Sobek": 100,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 90,
-        "Stug": 35,
-        "Dual Ichor": 95,
-        "Latron": 80,
-        "Akarius": 50,
-        "Laetum": 50,
-        "Ogris": 65
-      }
-    },
-    {
       "timestamp": "2026-08-03T15:03:15+00:00",
       "prices": {
         "Magistar": 525,
@@ -14978,6 +14926,32 @@
     },
     {
       "timestamp": "2026-08-05T14:52:55+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 430,
+        "Torid": 420,
+        "Burston": 345,
+        "Ocucor": 222,
+        "Ballistica": 80,
+        "Bo": 198,
+        "Dual Toxocyst": 250,
+        "Okina": 110,
+        "Boar": 110,
+        "Destreza": 60,
+        "Sobek": 130,
+        "Obex": 66,
+        "Furis": 125,
+        "Nami Solo": 120,
+        "Stug": 40,
+        "Dual Ichor": 115,
+        "Latron": 75,
+        "Akarius": 60,
+        "Laetum": 50,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-05T14:58:48+00:00",
       "prices": {
         "Magistar": 600,
         "Verglas": 430,

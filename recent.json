@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-03T17:34:02+00:00",
-      "prices": {
-        "Magistar": 540,
-        "Verglas": 444,
-        "Torid": 425,
-        "Burston": 350,
-        "Ocucor": 210,
-        "Ballistica": 80,
-        "Bo": 200,
-        "Dual Toxocyst": 300,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 60,
-        "Sobek": 138,
-        "Obex": 100,
-        "Furis": 110,
-        "Nami Solo": 100,
-        "Stug": 35,
-        "Dual Ichor": 110,
-        "Latron": 80,
-        "Akarius": 150,
-        "Laetum": 60,
-        "Ogris": 60
-      }
-    },
-    {
-      "timestamp": "2026-08-03T17:37:45+00:00",
-      "prices": {
-        "Magistar": 540,
-        "Verglas": 444,
-        "Torid": 425,
-        "Burston": 350,
-        "Ocucor": 210,
-        "Ballistica": 80,
-        "Bo": 200,
-        "Dual Toxocyst": 300,
-        "Okina": 100,
-        "Boar": 100,
-        "Destreza": 60,
-        "Sobek": 138,
-        "Obex": 100,
-        "Furis": 110,
-        "Nami Solo": 100,
-        "Stug": 35,
-        "Dual Ichor": 150,
-        "Latron": 80,
-        "Akarius": 89,
-        "Laetum": 60,
-        "Ogris": 60
-      }
-    },
-    {
       "timestamp": "2026-08-03T17:42:47+00:00",
       "prices": {
         "Magistar": 540,
@@ -14989,6 +14937,32 @@
         "Dual Toxocyst": 230,
         "Okina": 1000,
         "Boar": 110,
+        "Destreza": 40,
+        "Sobek": 130,
+        "Obex": 60,
+        "Furis": 120,
+        "Nami Solo": 148,
+        "Stug": 40,
+        "Dual Ichor": 150,
+        "Latron": 77,
+        "Akarius": 60,
+        "Laetum": 60,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-05T17:37:52+00:00",
+      "prices": {
+        "Magistar": 950,
+        "Verglas": 450,
+        "Torid": 400,
+        "Burston": 344,
+        "Ocucor": 250,
+        "Ballistica": 99,
+        "Bo": 198,
+        "Dual Toxocyst": 350,
+        "Okina": 1000,
+        "Boar": 100,
         "Destreza": 40,
         "Sobek": 130,
         "Obex": 60,

@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-03T12:32:53+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 500,
-        "Torid": 420,
-        "Burston": 330,
-        "Ocucor": 200,
-        "Ballistica": 100,
-        "Bo": 200,
-        "Dual Toxocyst": 250,
-        "Okina": 140,
-        "Boar": 109,
-        "Destreza": 80,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 105,
-        "Nami Solo": 100,
-        "Stug": 30,
-        "Dual Ichor": 110,
-        "Latron": 50,
-        "Akarius": 50,
-        "Laetum": 65,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-08-03T12:38:45+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 500,
-        "Torid": 420,
-        "Burston": 320,
-        "Ocucor": 200,
-        "Ballistica": 100,
-        "Bo": 200,
-        "Dual Toxocyst": 250,
-        "Okina": 140,
-        "Boar": 109,
-        "Destreza": 80,
-        "Sobek": 110,
-        "Obex": 70,
-        "Furis": 105,
-        "Nami Solo": 100,
-        "Stug": 30,
-        "Dual Ichor": 110,
-        "Latron": 50,
-        "Akarius": 50,
-        "Laetum": 65,
-        "Ogris": 50
-      }
-    },
-    {
       "timestamp": "2026-08-03T12:43:49+00:00",
       "prices": {
         "Magistar": 600,
@@ -14993,6 +14941,32 @@
         "Sobek": 130,
         "Obex": 80,
         "Furis": 222,
+        "Nami Solo": 120,
+        "Stug": 40,
+        "Dual Ichor": 115,
+        "Latron": 70,
+        "Akarius": 100,
+        "Laetum": 50,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-05T12:38:47+00:00",
+      "prices": {
+        "Magistar": 600,
+        "Verglas": 450,
+        "Torid": 410,
+        "Burston": 340,
+        "Ocucor": 240,
+        "Ballistica": 100,
+        "Bo": 215,
+        "Dual Toxocyst": 299,
+        "Okina": 129,
+        "Boar": 107,
+        "Destreza": 80,
+        "Sobek": 120,
+        "Obex": 80,
+        "Furis": 149,
         "Nami Solo": 120,
         "Stug": 40,
         "Dual Ichor": 115,

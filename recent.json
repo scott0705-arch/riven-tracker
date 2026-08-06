@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-04T13:32:55+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 450,
-        "Torid": 415,
-        "Burston": 300,
-        "Ocucor": 230,
-        "Ballistica": 70,
-        "Bo": 190,
-        "Dual Toxocyst": 230,
-        "Okina": 120,
-        "Boar": 109,
-        "Destreza": 65,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 138,
-        "Stug": 45,
-        "Dual Ichor": 120,
-        "Latron": 60,
-        "Akarius": 90,
-        "Laetum": 65,
-        "Ogris": 50
-      }
-    },
-    {
-      "timestamp": "2026-08-04T13:38:41+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 450,
-        "Torid": 415,
-        "Burston": 300,
-        "Ocucor": 240,
-        "Ballistica": 70,
-        "Bo": 190,
-        "Dual Toxocyst": 230,
-        "Okina": 120,
-        "Boar": 109,
-        "Destreza": 65,
-        "Sobek": 120,
-        "Obex": 70,
-        "Furis": 110,
-        "Nami Solo": 138,
-        "Stug": 45,
-        "Dual Ichor": 120,
-        "Latron": 60,
-        "Akarius": 70,
-        "Laetum": 60,
-        "Ogris": 25
-      }
-    },
-    {
       "timestamp": "2026-08-04T13:43:02+00:00",
       "prices": {
         "Magistar": 600,
@@ -14990,6 +14938,32 @@
         "Okina": 125,
         "Boar": 105,
         "Destreza": 60,
+        "Sobek": 90,
+        "Obex": 65,
+        "Furis": 120,
+        "Nami Solo": 100,
+        "Stug": 60,
+        "Dual Ichor": 120,
+        "Latron": 40,
+        "Akarius": 90,
+        "Laetum": 67,
+        "Ogris": 60
+      }
+    },
+    {
+      "timestamp": "2026-08-06T13:38:49+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 445,
+        "Torid": 440,
+        "Burston": 350,
+        "Ocucor": 250,
+        "Ballistica": 95,
+        "Bo": 197,
+        "Dual Toxocyst": 269,
+        "Okina": 125,
+        "Boar": 105,
+        "Destreza": 75,
         "Sobek": 90,
         "Obex": 65,
         "Furis": 120,

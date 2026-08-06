@@ -1,58 +1,6 @@
 {
   "snapshots": [
     {
-      "timestamp": "2026-08-04T07:38:42+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 450,
-        "Torid": 400,
-        "Burston": 380,
-        "Ocucor": 250,
-        "Ballistica": 85,
-        "Bo": 175,
-        "Dual Toxocyst": 280,
-        "Okina": 135,
-        "Boar": 110,
-        "Destreza": 65,
-        "Sobek": 120,
-        "Obex": 80,
-        "Furis": 130,
-        "Nami Solo": 100,
-        "Stug": 40,
-        "Dual Ichor": 100,
-        "Latron": 70,
-        "Akarius": 90,
-        "Laetum": 50,
-        "Ogris": 55
-      }
-    },
-    {
-      "timestamp": "2026-08-04T07:42:50+00:00",
-      "prices": {
-        "Magistar": 600,
-        "Verglas": 450,
-        "Torid": 400,
-        "Burston": 380,
-        "Ocucor": 250,
-        "Ballistica": 85,
-        "Bo": 175,
-        "Dual Toxocyst": 280,
-        "Okina": 135,
-        "Boar": 110,
-        "Destreza": 65,
-        "Sobek": 120,
-        "Obex": 80,
-        "Furis": 100,
-        "Nami Solo": 100,
-        "Stug": 40,
-        "Dual Ichor": 100,
-        "Latron": 70,
-        "Akarius": 90,
-        "Laetum": 50,
-        "Ogris": 55
-      }
-    },
-    {
       "timestamp": "2026-08-04T07:47:42+00:00",
       "prices": {
         "Magistar": 600,
@@ -14986,6 +14934,32 @@
         "Ocucor": 240,
         "Ballistica": 88,
         "Bo": 270,
+        "Dual Toxocyst": 249,
+        "Okina": 100,
+        "Boar": 110,
+        "Destreza": 50,
+        "Sobek": 120,
+        "Obex": 50,
+        "Furis": 120,
+        "Nami Solo": 148,
+        "Stug": 40,
+        "Dual Ichor": 100,
+        "Latron": 74,
+        "Akarius": 80,
+        "Laetum": 60,
+        "Ogris": 50
+      }
+    },
+    {
+      "timestamp": "2026-08-06T07:43:43+00:00",
+      "prices": {
+        "Magistar": 570,
+        "Verglas": 430,
+        "Torid": 430,
+        "Burston": 340,
+        "Ocucor": 240,
+        "Ballistica": 88,
+        "Bo": 289,
         "Dual Toxocyst": 249,
         "Okina": 100,
         "Boar": 110,
